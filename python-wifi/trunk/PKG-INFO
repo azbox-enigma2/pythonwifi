@@ -1,0 +1,23 @@
+Metadata-Version: 1.0
+Name: python-wifi
+Version: 0.3
+Summary: Pywifi is a Python wireless library.
+Home-page: http://www.romanofski.de/downloads/pywifi/
+Author: Róman Joost 
+Author-email: roman@bromeco.de 
+License: LGPL
+Description: Pywifi is a Python library that provides access to
+    information about a W-Lan card's capabilities, like the wireless
+    extensions written in C.
+
+        
+        
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta 
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: GNU Lesser General Public License (LGPL)
+Classifier: Programming Language :: Python
+Classifier: Operating System :: Posix :: Linux
+Classifier: Topic :: System :: Networking 

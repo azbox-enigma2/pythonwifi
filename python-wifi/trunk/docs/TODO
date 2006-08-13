@@ -1,0 +1,13 @@
+TODO
+----
+
+- exception handling?
+
+    Curently only strings (like "Operation not permitted") are returned,
+    which is a bit awkward. But I'm not sure if I need something
+    different.
+
+- the whole wireless extensions of course
+- the ability to change settings like: iwconfig eth1 essid "foobar"
+- better error control if something goes wrong
+- maybe some tests
