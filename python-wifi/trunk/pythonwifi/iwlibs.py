@@ -1,6 +1,6 @@
 # -*- coding: latin1 -*-
 # python-wifi -- a wireless library to access wireless cards via python
-# Copyright (C) 2004, 2005, 2006 Róman Joost
+# Copyright (C) 2004 - 2008 Róman Joost
 # 
 # Contributions from:
 #   Mike Auty <m.auty@softhome.net> (Iwscanresult, Iwscan)
@@ -39,7 +39,7 @@ def getNICnames():
         >>> getNICnames()
         ['eth1', 'wifi0']
     """
-    device = re.compile('[a-z]{3,4}[0-9]') 
+    device = re.compile('[a-z]{2,4}[0-9]') 
     ifnames = []
     
     f = open('/proc/net/wireless', 'r')

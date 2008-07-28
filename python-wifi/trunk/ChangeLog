@@ -1,3 +1,9 @@
+2008-07-28  Roman Joost  <roman@bromeco.de>
+
+	* pythonwifi/iwlibs.py: fixes a small bug in the regular
+	expression for detecting the interface name, spotted by Paulo
+	Ferreira
+
 2006-07-05  Roman Joost  <roman@bromeco.de>
 
 	* docs/BUGS
