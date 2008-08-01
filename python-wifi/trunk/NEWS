@@ -1,0 +1,24 @@
+=======
+Changes
+=======
+
+pythonwifi 0.3.1 release
+------------------------
+
+    - bugfixes
+    - mostly code cleanups
+
+
+pythonwifi 0.3 release
+----------------------
+
+    - renamed to python-wifi and package cleanup
+    - included patch submitted by Mike Auty <m.auty@softhome.net>, which
+      adds scanning functionality
+
+PyWifi 0.2 release
+-------------------
+
+    - big refactoring, most low level code moved to Iw* classes
+    - little documentation
+    - able to set the wireless mode
