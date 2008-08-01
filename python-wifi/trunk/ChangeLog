@@ -1,3 +1,10 @@
+2008-08-01  Roman Joost  <romanofski@gimp.org>
+
+	* docs/NEWS
+	* NEWS
+	* INSTALL
+	* README: restructured and moved devel instructions out to docs
+
 2008-08-01  Roman Joost  <roman@bromeco.de>
 
 	* setup.py: bumped to version 0.3.1

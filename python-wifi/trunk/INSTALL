@@ -1,0 +1,8 @@
+Installing:
+-----------
+If you want an easy install, use the .egg file and install it via
+easy_install. See:
+
+    http://peak.telecommunity.com/DevCenter/EasyInstall
+
+
