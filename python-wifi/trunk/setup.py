@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 setup(
     name = "python-wireless",
-    version = "0.3",
+    version = "0.3.1",
     packages = find_packages(exclude='tests'),
 
     # metadata for upload to PyPI
@@ -14,6 +14,6 @@ about a W-Lan card's capabilities, like the wireless extensions
 written in C.""",
     license = "LGPL",
     keywords = "wireless wlan iwconfig iwtools",
-    url = "http://www.romanofski.de/downloads/pywifi", 
-    download_url = "http://www.romanofski.de/downloads/pywifi", 
+    url = "https://developer.berlios.de/projects/pythonwifi/"
+    download_url = "https://developer.berlios.de/projects/pythonwifi/", 
 )

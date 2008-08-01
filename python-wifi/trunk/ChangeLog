@@ -1,3 +1,10 @@
+2008-08-01  Roman Joost  <roman@bromeco.de>
+
+	* setup.py: bumped to version 0.3.1
+
+	* version.txt
+	* PKG-INFO: removed, because they're not needed
+
 2008-07-28  Roman Joost  <roman@bromeco.de>
 
 	* pythonwifi/iwlibs.py: fixes a small bug in the regular
