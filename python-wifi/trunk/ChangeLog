@@ -1,5 +1,15 @@
 2008-08-01  Roman Joost  <romanofski@gimp.org>
 
+	* docs/DEVEL.txt: moved devel instructions
+	
+	* examples/pyiwlist.py
+	* pythonwifi/iwlibs.py
+	* pythonwifi/flags.py: mostly code cleanup
+
+	* setup.py: cleanup
+
+2008-08-01  Roman Joost  <romanofski@gimp.org>
+
 	* docs/NEWS
 	* NEWS
 	* INSTALL

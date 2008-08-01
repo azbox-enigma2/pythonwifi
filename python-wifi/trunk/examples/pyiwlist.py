@@ -27,9 +27,11 @@ def print_scanning_results(wifi):
 
 def print_bitrate_information(wifi):
     num_bitrates, bitrates = wifi.getBitrates()
-    
+    if num_bitrates == 0:
+        print "\t 0 Bit Rates found."
+        sys.exit(0)
+
     bitrate_type =  type(bitrates[-1]) is types.StringType
-        
     print "\t%s available bit-rates:" % num_bitrates
     for rate in bitrates:
         # rate is Iwfreq
@@ -41,15 +43,19 @@ def print_bitrate_information(wifi):
     print "\tCurrent Bit Rate: %s" %wifi.getBitrate()
 
 def print_channel_information(wifi):
+    # XXX The channel information is bogus here, because it just
+    # numerates how many channels the card provides, but doesn't give
+    # any information about *which* channel *which* frequencies has
     num_frequencies, channels = wifi.getChannelInfo()
     current_freq = wifi.getFrequency()
     print "%s channels in total; available frequencies: \n"\
         %num_frequencies
     for channel in channels:
         print "\tChannel %.2d: %s" %(channels.index(channel)+1, 
-                                     channel.getFrequency())
+                                     channel)
     print "\tCurrent Frequency:%s (Channel %s)" %(current_freq,
                                                   sys.exit(1))
+
 def main():
     if len(sys.argv) < 1:
         usage()

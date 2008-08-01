@@ -28,10 +28,6 @@ modes = ['Auto',
 IFNAMSIZE = 16
 IW_ESSID_MAX_SIZE = 16
 
-KILO = 10**3
-MEGA = 10**6
-GIGA = 10**9
-
 # ioctl calls for the Linux/i386 kernel
 SIOCIWFIRST   = 0x8B00    # FIRST ioctl identifier
 SIOCGIFCONF   = 0x8912    # ifconf struct

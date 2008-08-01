@@ -1,3 +1,32 @@
+What is implemented?
+--------------------
+
+    - pyiwconfig: 
+
+            read                                write
+            --------------------------------||--------
+            Accesspoint MAC                     Mode
+            Bitrate
+            available Bitrates
+            available Channels/Frequency
+            ESSID
+            Encryption
+            Frequency
+            Mode
+            WirelessName
+            Powermanagement
+            Retrylimit
+            RTS
+            Sensitivity
+            TXPower
+            Statistics
+
+    - pyiwlist: prints detailed information about:
+
+            o Bitrates
+            o Channels/Frequency
+            o Scanning support!
+
 Python Wireless developers:
 ---------------------------
 So, you want to know what the other classes doing? Well, lets talk about
