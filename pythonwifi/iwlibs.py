@@ -353,6 +353,20 @@ class Wireless(object):
             return (iwrange.errorflag, iwrange.error)
         return iwrange.max_qual
 
+    def getQualityAvg(self):
+        """returns Iwquality struct with average quality information
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> aq = wifi.getQualityAvg()
+            >>> print "quality:", aq.quality, "signal:", aq.siglevel, "noise:", aq.nlevel
+            quality: 38 signal: 13 noise: 0
+        """
+        iwrange = Iwrange(self.ifname)
+        if iwrange.errorflag:
+            return (iwrange.errorflag, iwrange.error)
+        return iwrange.avg_qual
+
     def getRetrylimit(self):
         """returns limit retry/lifetime
 
