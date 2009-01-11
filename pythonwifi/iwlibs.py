@@ -763,7 +763,7 @@ class Iwquality(object):
     
     def getSignallevel(self):
         """ returns signal level """
-        return self.siglevel-0x100
+        return self.siglevel
 
     def setSignallevel(self, siglevel):
         """ sets signal level """
@@ -772,7 +772,7 @@ class Iwquality(object):
     
     def getNoiselevel(self):
         """ returns noise level """
-        return self.nlevel - 0x100
+        return self.nlevel
 
     def setNoiselevel(self, val):
         # currently not implemented
