@@ -32,6 +32,7 @@ IW_ESSID_MAX_SIZE = 32
 SIOCIWFIRST   = 0x8B00    # FIRST ioctl identifier
 SIOCGIFCONF   = 0x8912    # ifconf struct
 SIOCGIWNAME   = 0x8B01    # get name == wireless protocol
+SIOCSIWFREQ   = 0x8B04    # set channel/frequency
 SIOCGIWFREQ   = 0x8B05    # get channel/frequency
 SIOCSIWMODE   = 0x8B06    # set the operation mode
 SIOCGIWMODE   = 0x8B07    # get operation mode
