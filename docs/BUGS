@@ -1,7 +1,7 @@
 Known Bugs:
 ===========
 
-- iwlist channels returns two few frequences
+- iwlist channels returns two few frequencies
 - egg install leads to weird result when scanning. If you discover this
   problem, drop me an email.
     
