@@ -645,7 +645,7 @@ class Iwfreq(object):
             return float(m)*10**e
     
     def getFrequency(self):
-        """returns Frequency (str) 
+        """returns Frequency (str) or channel (int) depending on driver
             
            data - binary data returned by systemcall (iw_get_ext())
         """
@@ -659,6 +659,8 @@ class Iwfreq(object):
 
         if freq >= KILO:
             return "%0.3fKHz" % (freq/KILO)
+        
+        return freq
 
     def getBitrate(self):
         """ returns Bitrate in Mbit 
