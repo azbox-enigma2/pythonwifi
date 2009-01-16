@@ -264,7 +264,12 @@ class Wireless(object):
         if status > 0:
             return (status, result)
         iwfreq = Iwfreq(result)
-        return iwfreq.getFrequency()
+        freq = iwfreq.getFrequency()
+        if freq < KILO:
+            # This is probably a channel number
+            return self.getChannelInfo()[1][freq-1]
+        else:
+            return freq
 
 
     def getMode(self):
