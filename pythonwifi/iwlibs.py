@@ -857,11 +857,12 @@ class Iwpoint(object):
 
 class Iwrange(object):
     """holds iwrange struct """
-    IW_MAX_FREQUENCIES = 32
-
     def __init__(self, ifname):
-        self.fmt = "iiihb6ii4B4Bi32i2i2i2i2i3h8h2b2bhi8i2b3h2i2ihB17x"\
-            + self.IW_MAX_FREQUENCIES*"ihbb"
+        self.fmt = "IIIHB6Ii4B4BB" + pythonwifi.flags.IW_MAX_BITRATES*"i" + \
+                   "2i2i2i2i3H" + pythonwifi.flags.IW_MAX_ENCODING_SIZES*"H" + \
+                   "2BBHB" + pythonwifi.flags.IW_MAX_TXPOWER*"i" + \
+                   "2B3H2i2iHB" + pythonwifi.flags.IW_MAX_FREQUENCIES*"ihBB" + \
+                   "IiiHiI"
         
         self.ifname = ifname
         self.errorflag = 0
@@ -917,6 +918,13 @@ class Iwrange(object):
         # frequency
         self.num_channels = self.num_frequency = 0
         self.frequencies = []
+
+        # capabilities and power management
+        self.enc_capa = 0
+        self.min_pms = self.max_pms = self.pms_flags = 0
+        self.modul_capa = 0
+        self.bitrate_capa = 0
+
         self.update()
     
     def update(self):
@@ -946,7 +954,7 @@ class Iwrange(object):
         self.max_qual.setValues(result[12:16])
         self.avg_qual.setValues(result[16:20])
         self.num_bitrates = result[20] # <- XXX
-        raw_bitrates = result[21:53]
+        raw_bitrates = result[21:21+self.num_bitrates]
         for rate in raw_bitrates:
             iwfreq = Iwfreq()
             iwfreq.frequency = rate
@@ -961,17 +969,17 @@ class Iwrange(object):
         self.pmp_flags, self.pmt_flags, self.pm_capa = result[61:64]
         self.encoding_size = result[64:72]
         self.num_encoding_sizes, self.max_encoding_tokens = result[72:74]
-        self.encoding_login_index = result[74:76]
-        self.txpower_capa, self.num_txpower = result[76:78]
-        self.txpower = result[78:86]
-        self.we_vers_compiled, self.we_vers_src = result[86:88]
-        self.retry_capa, self.retry_flags, self.r_time_flags = result[88:91]
-        self.min_retry, self.max_retry = result[91:93]
-        self.min_r_time, self.max_r_time = result[93:95]
-        self.num_channels = result[95]
-        self.num_frequency = result[96]
-        freq = result[97:]
+        self.encoding_login_index = result[74]
+        self.txpower_capa, self.num_txpower = result[75:77]
+        self.txpower = result[77:85]
+        self.we_vers_compiled, self.we_vers_src = result[85:87]
+        self.retry_capa, self.retry_flags, self.r_time_flags = result[87:90]
+        self.min_retry, self.max_retry = result[90:92]
+        self.min_r_time, self.max_r_time = result[92:94]
+        self.num_channels = result[94]
+        self.num_frequency = result[95]
         
+        freq = result[96:224]
         i = self.num_frequency
         for x in range(0, len(freq), 4):
             iwfreq = Iwfreq()
@@ -982,6 +990,12 @@ class Iwrange(object):
             i -= 1
             if i <= 0:
                 break
+        self.enc_capa = result[224]
+        self.min_pms = result[225]
+        self.max_pms = result[226]
+        self.pms_flags = result[227]
+        self.modul_capa = result[228]
+        self.bitrate_capa = result[229]
 
 
 class Iwscan(object):
