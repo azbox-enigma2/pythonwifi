@@ -104,7 +104,7 @@ class TestWireless(unittest.TestCase):
         for m in methods:
             result = getattr(self.wifi, m)()
             self.assert_(type(result) is types.TupleType)
-            self.assertEquals(result[0], 95)
+            self.assertEquals(result[0], errno.EINVAL)
         
     
     def test_wirelessWithNonExistantCard(self):
@@ -132,7 +132,7 @@ class TestWireless(unittest.TestCase):
             result = getattr(self.wifi, m)()
             self.assert_(type(result) is types.TupleType, 
                          "%s returns not a TupleType: %s" %(m, result))
-            self.assertEquals(result[0], 19)
+            self.assertEquals(result[0], errno.ENODEV)
         
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(TestWireless))
