@@ -296,9 +296,11 @@ class Wireless(object):
                 m = int(math.floor(freq_num))
                 e = 0
             iwreq = iwstruct.pack("ihBB", m, e, 0, pythonwifi.flags.IW_FREQ_FIXED)
-        iwstruct.iw_get_ext(self.ifname, 
-                                pythonwifi.flags.SIOCSIWFREQ, 
-                                iwreq)
+        status, result = iwstruct.iw_get_ext(self.ifname, 
+                                               pythonwifi.flags.SIOCSIWFREQ, 
+                                               iwreq)
+        if status > 0:
+            return (status, result)
 
     def getMode(self):
         """returns currently set operation mode 
