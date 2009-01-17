@@ -54,6 +54,15 @@ class TestWireless(unittest.TestCase):
             self.assert_(type(result) is not types.TupleType,
                          '%s is a TupleType: %s' % (m, result))
         
+        # tuple-returning methods
+        methods = ['getBitrates',
+                   'getChannelInfo',
+                   'getNwids']
+
+        for m in methods:
+            result = getattr(self.wifi, m)()
+            self.failIf(len(result) == 2 and result[0] == errno.EINVAL, 
+                            "%s: %s" % (m, result[1]))
         # the user is not allowed to run this method
         result = self.wifi.getEncryption()
         
@@ -75,10 +84,13 @@ class TestWireless(unittest.TestCase):
         self.wifi.ifname = 'eth0'
         methods = ['getAPaddr',
                    'getBitrate',
+                   'getBitrates',
+                   'getChannelInfo',
                    'getEssid',
                    'getFragmentation',
                    'getFrequency',
                    'getMode',
+                   'getNwids',
                    'getWirelessName',
                    'getPowermanagement',
                    'getQualityMax',
@@ -99,10 +111,13 @@ class TestWireless(unittest.TestCase):
         self.wifi.ifname = 'eth5'
         methods = ['getAPaddr',
                    'getBitrate',
+                   'getBitrates',
+                   'getChannelInfo',
                    'getEssid',
                    'getFragmentation',
                    'getFrequency',
                    'getMode',
+                   'getNwids',
                    'getWirelessName',
                    'getPowermanagement',
                    'getQualityMax',
