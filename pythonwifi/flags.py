@@ -32,6 +32,10 @@ IW_MAX_BITRATES = 32
 IW_MAX_TXPOWER = 8
 IW_MAX_ENCODING_SIZES = 8
 
+# Frequency flags
+IW_FREQ_AUTO = 0x00       # Let the driver decide
+IW_FREQ_FIXED = 0x01      # Force a specific value
+
 # ioctl calls for the Linux/i386 kernel
 SIOCIWFIRST   = 0x8B00    # FIRST ioctl identifier
 SIOCGIFCONF   = 0x8912    # ifconf struct

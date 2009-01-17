@@ -271,6 +271,34 @@ class Wireless(object):
         else:
             return freq
 
+    def setFrequency(self, freq):
+        """sets the frequency on the card
+        
+           translated from iwconfig.c
+        """
+        iwstruct = Iwstruct()
+        if freq == "auto":
+            iwreq = iwstruct.pack("ihBB", -1, 0, 0, pythonwifi.flags.IW_FREQ_AUTO)
+        else:
+            if freq == "fixed":
+                freq = self.getFrequency()
+            freq_pattern = re.compile("([\d\.]+)(\w)", re.I|re.M|re.S)
+            freq_match = freq_pattern.search(freq)
+            freq_num, unit = freq_match.groups()
+            if unit == "G": freq_num = float(freq_num) * GIGA
+            if unit == "M": freq_num = float(freq_num) * MEGA
+            if unit == "k": freq_num = float(freq_num) * KILO
+            e = math.floor(math.log10(freq_num))
+            if e > 8:
+                m = int(math.floor(freq_num / math.pow(10, e - 6))) * 100
+                e = e - 8
+            else:
+                m = int(math.floor(freq_num))
+                e = 0
+            iwreq = iwstruct.pack("ihBB", m, e, 0, pythonwifi.flags.IW_FREQ_FIXED)
+        iwstruct.iw_get_ext(self.ifname, 
+                                pythonwifi.flags.SIOCSIWFREQ, 
+                                iwreq)
 
     def getMode(self):
         """returns currently set operation mode 
