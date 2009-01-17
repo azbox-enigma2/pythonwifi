@@ -220,7 +220,7 @@ class Wireless(object):
 
     def getEncryption(self):
         """get encryption information which is probably a string of '*',
-        'open', 'private'
+        'open', 'private', 'off'
             
             as a normal user, you will get a 'Operation not permitted'
             error:
