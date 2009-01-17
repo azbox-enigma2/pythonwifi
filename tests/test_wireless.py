@@ -68,10 +68,10 @@ class TestWireless(unittest.TestCase):
         
         self.assert_(result[0] == 1)
         # test setMode
-        old_mode = self.wifi.getMode()                   # save current mode for later restoration
+        old_mode = self.wifi.getMode()                    # save current mode for later restoration
         self.wifi.setMode('Monitor')
         self.assert_(self.wifi.getMode() == 'Monitor')
-        self.wifi.setMode(old_mode)                      # restore mode
+        self.wifi.setMode(old_mode)                       # restore mode
         
         # test setEssid
         old_mode = self.wifi.getEssid()                  # save current ESSID for later restoration
@@ -106,6 +106,9 @@ class TestWireless(unittest.TestCase):
             self.assert_(type(result) is types.TupleType)
             self.assertEquals(result[0], errno.EINVAL)
         
+        # test setMode
+        result = self.wifi.setMode('Monitor')
+        self.assertEquals(result[0], errno.EINVAL)
     
     def test_wirelessWithNonExistantCard(self):
         self.wifi.ifname = 'eth5'
@@ -134,6 +137,9 @@ class TestWireless(unittest.TestCase):
                          "%s returns not a TupleType: %s" %(m, result))
             self.assertEquals(result[0], errno.ENODEV)
         
+        # test setMode
+        result = self.wifi.setMode('Monitor')
+        self.assertEquals(result[0], errno.ENODEV)
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(TestWireless))
 unittest.TextTestRunner(verbosity=2).run(suite)
