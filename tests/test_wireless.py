@@ -78,6 +78,12 @@ class TestWireless(unittest.TestCase):
         self.wifi.setEssid('Joost')
         self.assert_(self.wifi.getEssid() == 'Joost')
         self.wifi.setEssid(old_essid)                     # restore ESSID
+        
+        # test setFrequency
+        old_freq = self.wifi.getFrequency()               # save current frequency for later restoration
+        self.wifi.setFrequency('2.462GHz')
+        self.assert_(self.wifi.getFrequency() == '2.462GHz')
+        self.wifi.setFrequency(old_freq)                  # restore frequency
 
 
     def test_wirelessWithNonWifiCard(self):
@@ -112,6 +118,11 @@ class TestWireless(unittest.TestCase):
         # test setEssid
         result = self.wifi.setEssid('Joost')
         self.assertEquals(result[0], errno.EINVAL)
+        
+        # test setFrequency
+        result = self.wifi.setFrequency('2.462GHz')
+        self.assertEquals(result[0], errno.EINVAL)
+
     
     def test_wirelessWithNonExistantCard(self):
         self.wifi.ifname = 'eth5'
@@ -146,6 +157,12 @@ class TestWireless(unittest.TestCase):
         # test setEssid
         result = self.wifi.setEssid('Joost')
         self.assertEquals(result[0], errno.ENODEV)
+        
+        # test setFrequency
+        result = self.wifi.setFrequency('2.462GHz')
+        self.assertEquals(result[0], errno.ENODEV)
+
+
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(TestWireless))
 unittest.TextTestRunner(verbosity=2).run(suite)
