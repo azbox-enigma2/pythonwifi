@@ -74,10 +74,10 @@ class TestWireless(unittest.TestCase):
         self.wifi.setMode(old_mode)                       # restore mode
         
         # test setEssid
-        old_mode = self.wifi.getEssid()                  # save current ESSID for later restoration
+        old_essid = self.wifi.getEssid()                  # save current ESSID for later restoration
         self.wifi.setEssid('Joost')
         self.assert_(self.wifi.getEssid() == 'Joost')
-        self.wifi.setEssid(old_mode)                     # restore ESSID
+        self.wifi.setEssid(old_essid)                     # restore ESSID
 
 
     def test_wirelessWithNonWifiCard(self):
@@ -109,6 +109,9 @@ class TestWireless(unittest.TestCase):
         # test setMode
         result = self.wifi.setMode('Monitor')
         self.assertEquals(result[0], errno.EINVAL)
+        # test setEssid
+        result = self.wifi.setEssid('Joost')
+        self.assertEquals(result[0], errno.EINVAL)
     
     def test_wirelessWithNonExistantCard(self):
         self.wifi.ifname = 'eth5'
@@ -139,6 +142,9 @@ class TestWireless(unittest.TestCase):
         
         # test setMode
         result = self.wifi.setMode('Monitor')
+        self.assertEquals(result[0], errno.ENODEV)
+        # test setEssid
+        result = self.wifi.setEssid('Joost')
         self.assertEquals(result[0], errno.ENODEV)
 suite = unittest.TestSuite()
 suite.addTest(unittest.makeSuite(TestWireless))
