@@ -23,7 +23,9 @@
 import struct
 import array
 import math
+import errno
 import fcntl
+import os
 import socket
 import time
 import re
@@ -134,7 +136,32 @@ class Wireless(object):
             return (status, result)
 
         return self.iwstruct.getMAC(result)
-   
+
+    def setAPaddr(self, addr):
+        """ sets accesspoint mac address
+
+            translated from iwconfig.c
+        """
+        def hex2int(hexstring):
+            """convert hex string to integer"""
+            return int(hexstring, 16)
+
+        addr = addr.upper()
+        if (addr == "AUTO" or addr == "ANY"):
+            mac_addr = "\xFF"*pythonwifi.flags.ETH_ALEN
+        elif addr == "OFF":
+            mac_addr = '\x00'*pythonwifi.flags.ETH_ALEN
+        else:
+            if ":" not in addr: return (errno.ENOSYS, os.strerror(errno.ENOSYS))
+            mac_addr = "%c%c%c%c%c%c" % tuple(map(hex2int, addr.split(':')))
+
+        iwreq = self.iwstruct.pack("H14s", 1, mac_addr)
+        status, result = self.iwstruct.iw_set_ext(self.ifname, 
+                                               pythonwifi.flags.SIOCSIWAP, 
+                                               iwreq)
+        return (status, result)
+
+
     def getBitrate(self):
         """returns device currently set bit rate 
         

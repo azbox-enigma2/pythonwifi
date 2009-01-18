@@ -86,6 +86,13 @@ class TestWireless(unittest.TestCase):
         self.assert_(self.wifi.getFrequency() == '2.462GHz')
         self.wifi.setFrequency(old_freq)                  # restore frequency
 
+        # test setAPaddr - does not work unless AP is real and available
+        #old_mac = self.wifi.getAPaddr()                   # save current mac for later restoration
+        #self.wifi.setAPaddr('61:62:63:64:65:66')
+        #time.sleep(3)                                     # 3 second delay between set and get required
+        #self.assert_(self.wifi.getAPaddr() == '61:62:63:64:65:66')
+        #self.wifi.setAPaddr(old_mac)                      # restore mac
+
 
     def test_wirelessWithNonWifiCard(self):
         self.wifi.ifname = 'eth0'

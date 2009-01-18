@@ -46,6 +46,7 @@ SIOCGIWFREQ   = 0x8B05    # get channel/frequency
 SIOCSIWMODE   = 0x8B06    # set the operation mode
 SIOCGIWMODE   = 0x8B07    # get operation mode
 SIOCGIWSENS   = 0x8B09    # get sensitivity
+SIOCSIWAP     = 0x8B14    # set AP MAC address
 SIOCGIWAP     = 0x8B15    # get AP MAC address
 SIOCSIWSCAN   = 0x8B18    # set scanning off
 SIOCGIWSCAN   = 0x8B19    # get scanning results
@@ -78,6 +79,9 @@ IW_RETRY_TYPE = 0xF000      # Type of parameter
 # encoding stuff
 IW_ENCODE_DISABLED = 0x8000     # encoding is disabled
 IW_ENCODE_NOKEY = 0x0800      # key is write only, not present
+
+# MAC address length
+ETH_ALEN = 6
 
 # constants responsible for scanning
 IW_SCAN_MAX_DATA = 4096
