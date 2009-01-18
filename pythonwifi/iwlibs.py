@@ -215,8 +215,7 @@ class Wireless(object):
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWESSID, 
                                              data=datastr)
-        if status > 0:
-            return (status, result)
+        return (status, result)
 
     def getEncryption(self):
         """get encryption information which is probably a string of '*',
@@ -299,8 +298,7 @@ class Wireless(object):
         status, result = iwstruct.iw_set_ext(self.ifname, 
                                                pythonwifi.flags.SIOCSIWFREQ, 
                                                iwreq)
-        if status > 0:
-            return (status, result)
+        return (status, result)
 
     def getMode(self):
         """returns currently set operation mode 
@@ -330,8 +328,7 @@ class Wireless(object):
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWMODE, 
                                              data=datastr)
-        if status > 0:
-            return (status, result)
+        return (status, result)
 
     def getNwids(self):
         """returns the mnimum and maximum nwid (network id) for the device
@@ -499,8 +496,7 @@ class Wireless(object):
         """commit pending changes"""
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                                   pythonwifi.flags.SIOCSIWCOMMIT)
-        if status > 0:
-            return (status, result)
+        return (status, result)
 
 
 class Iwstruct(object):
