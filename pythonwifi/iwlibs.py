@@ -212,7 +212,7 @@ class Wireless(object):
             return "essid too big"
         buff, datastr = self.iwstruct.pack_test(essid, 
                                              pythonwifi.flags.IW_ESSID_MAX_SIZE)
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+        status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWESSID, 
                                              data=datastr)
         if status > 0:
@@ -296,7 +296,7 @@ class Wireless(object):
                 m = int(math.floor(freq_num))
                 e = 0
             iwreq = iwstruct.pack("ihBB", m, e, 0, pythonwifi.flags.IW_FREQ_FIXED)
-        status, result = iwstruct.iw_get_ext(self.ifname, 
+        status, result = iwstruct.iw_set_ext(self.ifname, 
                                                pythonwifi.flags.SIOCSIWFREQ, 
                                                iwreq)
         if status > 0:
@@ -327,7 +327,7 @@ class Wireless(object):
             return "Invalid operation mode!"
 
         datastr = self.iwstruct.pack('I', wifimode)
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+        status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWMODE, 
                                              data=datastr)
         if status > 0:
@@ -1092,7 +1092,7 @@ class Iwscan(object):
         """
         iwstruct = Iwstruct()
         datastr = iwstruct.pack('Pii', 0, 0, 0)
-        status, result = iwstruct.iw_get_ext(self.ifname, 
+        status, result = iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWSCAN, datastr)
         if status > 0:
             self.errorflag = status
