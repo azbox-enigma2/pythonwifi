@@ -266,7 +266,11 @@ class Wireless(object):
         freq = iwfreq.getFrequency()
         if freq < KILO:
             # This is probably a channel number
-            return self.getChannelInfo()[1][freq-1]
+            try:
+                return self.getChannelInfo()[1][freq-1]
+            except IndexError:
+                # probably auto (i.e. -1 (a.k.a. 255))
+                return freq
         else:
             return freq
 
