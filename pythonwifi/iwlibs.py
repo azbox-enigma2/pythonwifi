@@ -566,6 +566,10 @@ class Iwstruct(object):
 
         return (0, result[16:])
 
+    def iw_set_ext(self, ifname, operation, data=None):
+        """ set options on ifname """
+        return self.iw_get_ext(ifname, operation, data)
+
     def getMAC(self, packed_data):
         """ extracts mac addr from packed data and returns it as str """
         mac_addr = struct.unpack('xxBBBBBB', packed_data[:8])
