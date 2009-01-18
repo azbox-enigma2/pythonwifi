@@ -46,7 +46,8 @@ class TestWireless(unittest.TestCase):
                    'getRTS',
                    'getSensitivity',
                    'getTXPower',
-                   'getStatistics']
+                   'getStatistics',
+                   'commit']
 
         # None of the methods should return something different then '0'
         for m in methods:
@@ -105,7 +106,7 @@ class TestWireless(unittest.TestCase):
                    'getRTS',
                    'getSensitivity',
                    'getTXPower',
-                   'getStatistics']
+                   'commit']
     
         for m in methods:
             result = getattr(self.wifi, m)()
@@ -143,7 +144,7 @@ class TestWireless(unittest.TestCase):
                    'getRTS',
                    'getSensitivity',
                    'getTXPower',
-                   'getStatistics']
+                   'commit']
     
         for m in methods:
             result = getattr(self.wifi, m)()

@@ -495,6 +495,13 @@ class Wireless(object):
         iwscan = Iwscan(self.ifname)
         return iwscan.scan()
 
+    def commit(self):
+        """commit pending changes"""
+        status, result = self.iwstruct.iw_set_ext(self.ifname, 
+                                                  pythonwifi.flags.SIOCSIWCOMMIT)
+        if status > 0:
+            return (status, result)
+
 
 class Iwstruct(object):
     """basic class to handle iwstruct data """

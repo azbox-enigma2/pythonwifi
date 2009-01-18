@@ -38,6 +38,7 @@ IW_FREQ_FIXED = 0x01      # Force a specific value
 
 # ioctl calls for the Linux/i386 kernel
 SIOCIWFIRST   = 0x8B00    # FIRST ioctl identifier
+SIOCSIWCOMMIT = 0x8B00    # Commit pending changes to driver
 SIOCGIFCONF   = 0x8912    # ifconf struct
 SIOCGIWNAME   = 0x8B01    # get name == wireless protocol
 SIOCSIWFREQ   = 0x8B04    # set channel/frequency
