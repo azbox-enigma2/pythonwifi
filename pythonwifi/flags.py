@@ -30,7 +30,6 @@ IW_ESSID_MAX_SIZE = 32
 IW_MAX_FREQUENCIES = 32
 IW_MAX_BITRATES = 32
 IW_MAX_TXPOWER = 8
-IW_MAX_ENCODING_SIZES = 8
 
 # Frequency flags
 IW_FREQ_AUTO = 0x00       # Let the driver decide
@@ -60,6 +59,7 @@ SIOCGIWSTATS  = 0x8B0F    # get wireless statistics
 SIOCSIWESSID  = 0x8B1A    # set essid
 SIOCGIWESSID  = 0x8B1B    # get essid
 SIOCGIWPOWER  = 0x8B2D    # get power managment settings
+SIOCSIWENCODE = 0x8B2A    # set encryption information
 SIOCGIWENCODE = 0x8B2B    # get encryption information
 SIOCIWLAST    = 0x8BFF    # LAST ioctl identifier
 
@@ -77,8 +77,15 @@ IW_POWER_RELATIVE = 0x0004  # Value is not in seconds/ms/us
 IW_RETRY_TYPE = 0xF000      # Type of parameter
 
 # encoding stuff
-IW_ENCODE_DISABLED = 0x8000     # encoding is disabled
-IW_ENCODE_NOKEY = 0x0800      # key is write only, not present
+IW_MAX_ENCODING_SIZES = 8
+IW_ENCODING_TOKEN_MAX = 64       # 512 bits (for now)
+IW_ENCODE_ENABLED     = 0x0000   # Encoding enabled
+IW_ENCODE_INDEX       = 0x00FF   # Token index (if needed)
+IW_ENCODE_TEMP        = 0x0400   # Temporary key
+IW_ENCODE_NOKEY       = 0x0800   # key is write only, not present
+IW_ENCODE_OPEN        = 0x2000   # Accept non-encoded packets
+IW_ENCODE_RESTRICTED  = 0x4000   # Refuse non-encoded packets
+IW_ENCODE_DISABLED    = 0x8000   # encoding is disabled
 
 # MAC address length
 ETH_ALEN = 6
