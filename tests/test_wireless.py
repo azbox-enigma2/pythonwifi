@@ -46,10 +46,9 @@ class TestWireless(unittest.TestCase):
                    'getRTS',
                    'getSensitivity',
                    'getTXPower',
-                   'getStatistics',
-                   'commit']
+                   'getStatistics']
 
-        # None of the methods should return something different then '0'
+        # None of the methods should return a tuple
         for m in methods:
             result = getattr(self.wifi, m)()
             self.assert_(type(result) is not types.TupleType,
@@ -58,7 +57,8 @@ class TestWireless(unittest.TestCase):
         # tuple-returning methods
         methods = ['getBitrates',
                    'getChannelInfo',
-                   'getNwids']
+                   'getNwids',
+                   'commit']
 
         for m in methods:
             result = getattr(self.wifi, m)()
