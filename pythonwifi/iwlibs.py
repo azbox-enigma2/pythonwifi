@@ -387,7 +387,7 @@ class Wireless(object):
                                              pythonwifi.flags.SIOCGIWNAME)
         if status > 0:
             return (status, result)
-        return result.split('\0')[0]
+        return result.tostring().strip('\x00')
 
     def getPowermanagement(self):
         """returns power management settings 
