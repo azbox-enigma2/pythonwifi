@@ -885,49 +885,41 @@ class Iwquality(object):
 
 
 class Iwpoint(object):
-    """ class to hold iwpoint data """
+    """class to hold iw_point data
+    """
 
-    def __init__(self, ifname):
-        self.key = [0, 0, 0, 0]
-        self.fields = 0
-        self.flags = 0
+    def __init__(self, data=None):
+        self.setData(data)
+
         # (4B) pointer to data, H length, H flags
-        self.fmt = "4BHH"
-        self.errorflag = 0
-        self.error = ""
-        self.ifname = ifname
-        self.update()
+        self.fmt = '4BHH'
+        self.buff = None
+        self.packed_data = None
 
-    def __getattr__(self, attr):
-        return getattr(self.iwstruct, attr)
-    
-    def update(self):
-        """Updates Iwpoint object by system call to the linux kernel."""
-        iwstruct = Iwstruct()
-        dummy_buff, datastr = iwstruct.pack_wrq(32)
-        i, result = iwstruct.iw_get_ext(self.ifname, 
-                                        pythonwifi.flags.SIOCGIWENCODE, 
-                                        data=datastr)
-        if i > 0:
-            self.errorflag = i
-            self.error = result
-        self._parse(result)
-        
-    def getEncryptionKey(self):
-        """ returns encryption key as '**' or 'off' as str """
-        if self.flags & pythonwifi.flags.IW_ENCODE_DISABLED != 0:
-            return 'off'
-        elif self.flags & pythonwifi.flags.IW_ENCODE_NOKEY != 0:
-            # a key is set, so print it
-            return '**' * self.fields
-    
-    def _parse(self, data):
-        """ unpacks iwpoint data
+    def setData(self, data=None):
+        """set the data to be referred to ioctl
         """
-        iwstruct = Iwstruct()
-        ptr, ptr, ptr, ptr, self.fields, self.flags = \
-            iwstruct.parse_data(self.fmt, data)
-        self.key = [ptr, ptr, ptr, ptr]
+        self._pack(data)
+
+    def getData(self):
+        """return the data in the buffer
+        """
+        if self.buff:
+            return self.buff.tostring()
+
+    def getStruct(self):
+        """return the location information for the buffer
+        """
+        return self.packed_data
+
+    def _pack(self, data=None):
+        """make a buffer with user data and
+           a struct with its location in memory
+        """
+        if data:
+            self.buff = array.array('c', data)
+            caddr_t, length = self.buff.buffer_info()
+            self.packed_data = struct.pack(self.fmt, caddr_t, length, 0)
 
 
 class Iwrange(object):
