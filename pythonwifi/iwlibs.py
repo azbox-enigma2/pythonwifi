@@ -214,15 +214,16 @@ class Wireless(object):
             >>> wifi.getEssid()
             'romanofski'
         """
-        essid = ""
-        buff, s = self.iwstruct.pack_wrq(32)
-        i, result = self.iwstruct.iw_get_ext(self.ifname, 
+        # use an IW_ESSID_MAX_SIZE-cell array of NULLs
+        #   as space for ioctl to write ESSID
+        iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ESSID_MAX_SIZE)
+        err, errstr = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWESSID, 
-                                             data=s)
-        if i > 0:
-            return (i, result)
-        datastr = buff.tostring()
-        return datastr.strip('\x00')
+                                             data=iwpoint.getStruct())
+        if err > 0:
+            return (err, errstr)
+        raw_essid = iwpoint.getData()
+        return raw_essid.strip('\x00')
 
     def setEssid(self, essid):
         """set essid
