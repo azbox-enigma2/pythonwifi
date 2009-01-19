@@ -581,24 +581,24 @@ class Iwstruct(object):
         return struct.unpack(fmt, packed_data)
 
     def _fcntl(self, request, args):
-        return fcntl.ioctl(self.sockfd.fileno(), request, args)
-    
+        return fcntl.ioctl(self.sockfd.fileno(), request, args, True)
+
     def iw_get_ext(self, ifname, request, data=None):
         """ read information from ifname """
+        buff = pythonwifi.flags.IFNAMSIZE-len(ifname)
+        ifreq = array.array('c', ifname + '\0'*buff)
         # put some additional data behind the interface name
         if data is not None:
-            buff = pythonwifi.flags.IFNAMSIZE-len(ifname)
-            ifreq = ifname + '\0'*buff
-            ifreq = ifreq + data
+            ifreq.extend(data)
         else:
-            ifreq = (ifname + '\0'*32)
+            buff = 32 # - pythonwifi.flags.IFNAMSIZE
+            ifreq.extend('\0'*buff)
 
         try:
             result = self._fcntl(request, ifreq)
         except IOError, (i, e):
             return i, e
-
-        return (0, result[16:])
+        return (result, ifreq[pythonwifi.flags.IFNAMSIZE:])
 
     def iw_set_ext(self, ifname, operation, data=None):
         """ set options on ifname """
