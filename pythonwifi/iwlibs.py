@@ -889,16 +889,17 @@ class Iwpoint(object):
     """class to hold iw_point data
     """
 
-    def __init__(self, data=None):
-        # (4B) pointer to data, H length, H flags
+    def __init__(self, data=None, flags=0):
+        # P pointer to data, H length, H flags
+        self.fmt = 'PHH'
         self.buff = None
         self.packed_data = None
-        self.setData(data)
+        self.setData(data, flags)
 
-    def setData(self, data=None):
+    def setData(self, data=None, flags=0):
         """set the data to be referred to ioctl
         """
-        self._pack(data)
+        self._pack(data, flags)
 
     def getData(self):
         """return the data in the buffer
@@ -911,14 +912,23 @@ class Iwpoint(object):
         """
         return self.packed_data
 
-    def _pack(self, data=None):
+    def getFlags(self):
+        """return the flags value
+        """
+        if self.packed_data:
+            caddr_t, length, flags = struct.unpack(self.fmt, self.packed_data)
+            return flags
+        else:
+            return None
+
+    def _pack(self, data=None, flags=0):
         """make a buffer with user data and
            a struct with its location in memory
         """
         if data:
             self.buff = array.array('c', data)
             caddr_t, length = self.buff.buffer_info()
-            self.packed_data = struct.pack('PHH', caddr_t, length, 0)
+            self.packed_data = struct.pack(self.fmt, caddr_t, length, flags)
 
 
 class Iwrange(object):
