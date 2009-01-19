@@ -237,12 +237,11 @@ class Wireless(object):
             'Joost'
         """
         if len(essid) > pythonwifi.flags.IW_ESSID_MAX_SIZE:
-            return "essid too big"
-        buff, datastr = self.iwstruct.pack_test(essid, 
-                                             pythonwifi.flags.IW_ESSID_MAX_SIZE)
+            return (errno.EOVERFLOW, os.strerror(errno.EOVERFLOW))
+        iwpoint = Iwpoint(essid, 1)
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWESSID, 
-                                             data=datastr)
+                                             data=iwpoint.getStruct())
         return (status, result)
 
     def getEncryption(self):
