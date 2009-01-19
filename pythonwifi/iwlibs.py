@@ -889,12 +889,10 @@ class Iwpoint(object):
     """
 
     def __init__(self, data=None):
-        self.setData(data)
-
         # (4B) pointer to data, H length, H flags
-        self.fmt = '4BHH'
         self.buff = None
         self.packed_data = None
+        self.setData(data)
 
     def setData(self, data=None):
         """set the data to be referred to ioctl
@@ -919,7 +917,7 @@ class Iwpoint(object):
         if data:
             self.buff = array.array('c', data)
             caddr_t, length = self.buff.buffer_info()
-            self.packed_data = struct.pack(self.fmt, caddr_t, length, 0)
+            self.packed_data = struct.pack('PHH', caddr_t, length, 0)
 
 
 class Iwrange(object):
