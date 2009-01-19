@@ -911,6 +911,11 @@ class Iwpoint(object):
         """
         return self.packed_data
 
+    def updateStruct(self, packed_data):
+        """update the location information for the buffer
+        """
+        self.packed_data = packed_data
+
     def getFlags(self):
         """return the flags value
         """
