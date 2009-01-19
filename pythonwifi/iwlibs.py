@@ -217,11 +217,11 @@ class Wireless(object):
         # use an IW_ESSID_MAX_SIZE-cell array of NULLs
         #   as space for ioctl to write ESSID
         iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ESSID_MAX_SIZE)
-        err, errstr = self.iwstruct.iw_get_ext(self.ifname, 
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWESSID, 
                                              data=iwpoint.getStruct())
-        if err > 0:
-            return (err, errstr)
+        if status > 0:
+            return (status, result)
         raw_essid = iwpoint.getData()
         return raw_essid.strip('\x00')
 
