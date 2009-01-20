@@ -222,7 +222,7 @@ class Wireless(object):
                                              data=iwpoint.getStruct())
         if status > 0:
             return (status, result)
-        raw_essid = iwpoint.getData()
+        raw_essid = iwpoint.getData().tostring()
         return raw_essid.strip('\x00')
 
     def setEssid(self, essid):
