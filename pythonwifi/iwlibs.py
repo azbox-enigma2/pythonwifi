@@ -256,10 +256,25 @@ class Wireless(object):
             >>> wifi.getEncryption()
             (1, 'Operation not permitted')
         """
-        iwpoint = Iwpoint(self.ifname)
-        if iwpoint.errorflag:
-            return (iwpoint.errorflag, iwpoint.error)
-        return iwpoint.getEncryptionKey()
+        # use an IW_ENCODING_TOKEN_MAX-cell array of NULLs
+        #   as space for ioctl to write encryption info
+        iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX)
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                             pythonwifi.flags.SIOCGIWENCODE, 
+                                             data=iwpoint.getStruct())
+        if status < 0:
+            return (status, result)
+        iwpoint.updateStruct(result)
+
+        flags = iwpoint.getFlags()
+        if flags & pythonwifi.flags.IW_ENCODE_NOKEY > 0:
+            return '**'*iwpoint.getLength()
+        elif flags & pythonwifi.flags.IW_ENCODE_OPEN > 0:
+            return 'open'
+        elif flags & pythonwifi.flags.IW_ENCODE_RESTRICTED > 0:
+            return 'restricted'
+        elif flags & pythonwifi.flags.IW_ENCODE_DISABLED > 0:
+            return 'off'
 
     def getFragmentation(self):
         """returns fragmentation threshold 
