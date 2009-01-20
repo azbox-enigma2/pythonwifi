@@ -312,6 +312,23 @@ class Wireless(object):
         else:
             return None
 
+    def getKeys(self):
+        """get all encryption keys
+
+            as a normal user, you will get a 'Operation not permitted'
+            error:
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getKeys()
+            [(1, '1234-5678-91'), (2, None), (3, 'ABCD-EFAB-CD'), (4, None)]
+        """
+        iwrange = Iwrange(self.ifname);
+        keys = []
+        if iwrange.max_encoding_tokens > 0:
+            for i in range(1, iwrange.max_encoding_tokens+1):
+                keys.append((i, self.getKey(i)))
+        return keys
     def getFragmentation(self):
         """returns fragmentation threshold 
            
