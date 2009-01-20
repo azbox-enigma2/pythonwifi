@@ -925,6 +925,15 @@ class Iwpoint(object):
         else:
             return None
 
+    def getLength(self):
+        """return the length of the buffer
+        """
+        if self.packed_data:
+            caddr_t, length, flags = struct.unpack(self.fmt, self.packed_data)
+            return length
+        else:
+            return None
+
     def _pack(self, data=None, flags=0):
         """make a buffer with user data and
            a struct with its location in memory
