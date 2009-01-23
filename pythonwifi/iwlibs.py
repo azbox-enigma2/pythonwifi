@@ -244,13 +244,13 @@ class Wireless(object):
                                              data=iwpoint.getStruct())
         return (status, result)
 
-    def getEncryption(self):
-        """get encryption information which is probably a string of '*',
+    def getEncryption(self, symbolic=True):
+        """get associate mode, which is probably a string of '*',
         'open', 'private', 'off'
-            
+
             as a normal user, you will get a 'Operation not permitted'
             error:
-        
+
             >>> from iwlibs import Wireless
             >>> wifi = Wireless('eth1')
             >>> wifi.getEncryption()
@@ -267,6 +267,9 @@ class Wireless(object):
         iwpoint.updateStruct(result)
 
         flags = iwpoint.getFlags()
+        if not symbolic:
+            return flags
+
         if flags & pythonwifi.flags.IW_ENCODE_NOKEY > 0:
             return '**'*iwpoint.getLength()
         elif flags & pythonwifi.flags.IW_ENCODE_OPEN > 0:
