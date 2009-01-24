@@ -463,7 +463,7 @@ class Wireless(object):
             mode = mode.lower()
             wifimode = this_modes.index(mode)
         except ValueError:
-            return "Invalid operation mode!"
+            raise ValueError("Invalid operation mode!")
 
         datastr = self.iwstruct.pack('I', wifimode)
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
