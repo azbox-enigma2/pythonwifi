@@ -20,7 +20,7 @@ import errno
 import unittest
 import types
 from pythonwifi.iwlibs import Wireless, getNICnames
-from pythonwifi.flags import modes
+from pythonwifi.flags import modes, IW_ENCODE_RESTRICTED
 
 class TestWireless(unittest.TestCase):
 
@@ -93,6 +93,13 @@ class TestWireless(unittest.TestCase):
         #self.assert_(self.wifi.getAPaddr() == '61:62:63:64:65:66')
         #self.wifi.setAPaddr(old_mac)                      # restore mac
 
+        # test setEncryption
+        old_enc = self.wifi.getEncryption()               # save current encryption for later restoration
+        status, result = self.wifi.setEncryption('restricted')
+        self.assert_(self.wifi.getEncryption() == 'restricted')
+        self.assert_(self.wifi.getEncryption(symbolic=False) \
+                        == IW_ENCODE_RESTRICTED+1)
+        self.wifi.setEncryption(old_enc)                  # restore encryption
 
     def test_wirelessWithNonWifiCard(self):
         self.wifi.ifname = 'eth0'
@@ -129,6 +136,10 @@ class TestWireless(unittest.TestCase):
         
         # test setFrequency
         result = self.wifi.setFrequency('2.462GHz')
+        self.assertEquals(result[0], errno.EINVAL)
+
+        # test setEncryption
+        result = self.wifi.setEncryption('restricted')
         self.assertEquals(result[0], errno.EINVAL)
 
     
@@ -168,6 +179,10 @@ class TestWireless(unittest.TestCase):
         
         # test setFrequency
         result = self.wifi.setFrequency('2.462GHz')
+        self.assertEquals(result[0], errno.ENODEV)
+
+        # test setEncryption
+        result = self.wifi.setEncryption('restricted')
         self.assertEquals(result[0], errno.ENODEV)
 
 

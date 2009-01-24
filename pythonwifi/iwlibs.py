@@ -31,7 +31,7 @@ import time
 import re
 
 import pythonwifi.flags
-from types import StringType
+from types import StringType, IntType
 
 
 KILO = 10**3
@@ -332,6 +332,42 @@ class Wireless(object):
             for i in range(1, iwrange.max_encoding_tokens+1):
                 keys.append((i, self.getKey(i)))
         return keys
+
+    def setEncryption(self, mode):
+        """set associate mode
+
+            as a normal user, you will get a 'Operation not permitted'
+            error:
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.setEncryption()
+            (1, 'Operation not permitted')
+        """
+        if type(mode) == IntType:
+            mode = mode
+        else:
+            mode = mode.upper()
+        status, result = self.getEncryption(symbolic=False)
+        if status > 0:
+            return (status, result)
+
+        numeric_mode = status
+        # turn off all associate modes, but do not touch other flag bits
+        numeric_mode = numeric_mode & ~pythonwifi.flags.IW_ENCODE_OPEN \
+                        & ~pythonwifi.flags.IW_ENCODE_RESTRICTED \
+                        & ~pythonwifi.flags.IW_ENCODE_DISABLED
+        if (mode == 'OPEN') or (mode == pythonwifi.flags.IW_ENCODE_OPEN):
+            numeric_mode = numeric_mode | pythonwifi.flags.IW_ENCODE_OPEN
+        elif (mode == 'RESTRICTED') or (mode == pythonwifi.flags.IW_ENCODE_RESTRICTED):
+            numeric_mode = numeric_mode | pythonwifi.flags.IW_ENCODE_RESTRICTED
+        elif (mode == 'OFF') or (mode == pythonwifi.flags.IW_ENCODE_DISABLED):
+            numeric_mode = numeric_mode | pythonwifi.flags.IW_ENCODE_DISABLED
+        iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX, numeric_mode)
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                             pythonwifi.flags.SIOCSIWENCODE, 
+                                             data=iwpoint.getStruct())
+        return (status, result)
     def getFragmentation(self):
         """returns fragmentation threshold 
            
