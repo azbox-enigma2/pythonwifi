@@ -733,10 +733,7 @@ class Iwstruct(object):
             buff = 32 # - pythonwifi.flags.IFNAMSIZE
             ifreq.extend('\0'*buff)
 
-        try:
-            result = self._fcntl(request, ifreq)
-        except IOError, (i, e):
-            return i, e
+        result = self._fcntl(request, ifreq)
         return (result, ifreq[pythonwifi.flags.IFNAMSIZE:])
 
     def iw_set_ext(self, ifname, operation, data=None):
