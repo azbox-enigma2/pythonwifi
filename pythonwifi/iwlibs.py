@@ -228,7 +228,7 @@ class Wireless(object):
             'Joost'
         """
         if len(essid) > pythonwifi.flags.IW_ESSID_MAX_SIZE:
-            return (errno.EOVERFLOW, os.strerror(errno.EOVERFLOW))
+            raise OverflowError(errno.EOVERFLOW, os.strerror(errno.EOVERFLOW))
         iwpoint = Iwpoint(essid, 1)
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWESSID, 
