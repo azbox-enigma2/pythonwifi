@@ -101,6 +101,15 @@ class TestWireless(unittest.TestCase):
                         == IW_ENCODE_RESTRICTED+1)
         self.wifi.setEncryption(old_enc)                  # restore encryption
 
+        # test setKey
+        old_key = self.wifi.getKey()                      # save current key for later restoration
+        status, result = self.wifi.setKey('ABCDEF1234', 1)
+        self.assert_(self.wifi.getKey() == 'ABCD-EF12-34')
+        self.assert_(map(hex, self.wifi.getKey(formatted=False)) \
+                        == ['0xab', '0xcd', '0xef', '0x12', '0x34'])
+        self.wifi.setKey(old_key, 1)                      # restore key
+
+
     def test_wirelessWithNonWifiCard(self):
         self.wifi.ifname = 'eth0'
         methods = ['getAPaddr',
@@ -142,7 +151,11 @@ class TestWireless(unittest.TestCase):
         result = self.wifi.setEncryption('restricted')
         self.assertEquals(result[0], errno.EINVAL)
 
-    
+        # test setKey
+        result = self.wifi.setKey('ABCDEF1234', 1)
+        self.assertEquals(result[0], errno.EINVAL)
+
+
     def test_wirelessWithNonExistantCard(self):
         self.wifi.ifname = 'eth5'
         methods = ['getAPaddr',
@@ -183,6 +196,10 @@ class TestWireless(unittest.TestCase):
 
         # test setEncryption
         result = self.wifi.setEncryption('restricted')
+        self.assertEquals(result[0], errno.ENODEV)
+
+        # test setKey
+        result = self.wifi.setKey('ABCDEF1234', 1)
         self.assertEquals(result[0], errno.ENODEV)
 
 

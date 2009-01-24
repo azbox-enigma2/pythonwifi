@@ -368,6 +368,38 @@ class Wireless(object):
                                              pythonwifi.flags.SIOCSIWENCODE, 
                                              data=iwpoint.getStruct())
         return (status, result)
+
+    def setKey(self, key, index=0):
+        """set encryption key
+
+            as a normal user, you will get a 'Operation not permitted'
+            error:
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.setKey()
+        """
+        if index not in range(1, pythonwifi.flags.IW_ENCODE_INDEX):
+            raise IndexError
+
+        if key:
+            cooked_key = ''
+            for i in range(0, len(key), 2):
+                cooked_key = cooked_key + chr(hex2int(key[i:i+2]))
+        else:
+            status, result = self.getKey(index, False)
+            if status > 0:
+                return (status, result)
+            raw_key = status
+            if not raw_key: raise ValueError("no key found at index")
+            cooked_key = map(chr, raw_key)
+
+        iwpoint = Iwpoint(cooked_key, index)
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                             pythonwifi.flags.SIOCSIWENCODE, 
+                                             data=iwpoint.getStruct())
+        return (status, result)
+
     def getFragmentation(self):
         """returns fragmentation threshold 
            
