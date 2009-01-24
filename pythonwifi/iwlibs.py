@@ -279,7 +279,7 @@ class Wireless(object):
         elif flags & pythonwifi.flags.IW_ENCODE_DISABLED > 0:
             return 'off'
 
-    def getKey(self, key=0):
+    def getKey(self, key=0, formatted=True):
         """get encryption key
 
             key 0 is current key, otherwise, retrieve specific key (1-4)
@@ -304,16 +304,16 @@ class Wireless(object):
 
         # build a list of each char in key
         raw_key = map(ord, iwpoint.getData().tolist())[:iwpoint.getLength()]
-        if sum(raw_key) > 0:
-            # format key in standard form
-            key = "%.2X" % raw_key[0]
-            for i in range(1, iwpoint.getLength()):
-                if ( i & 0x1 ) == 0:
-                        key = key + '-'
-                key = key + "%.2X" % raw_key[i]
-            return key
-        else:
-            return None
+        if sum(raw_key) == 0: return None
+        if not formatted: return raw_key
+
+        # format key in standard form
+        key = "%.2X" % raw_key[0]
+        for i in range(1, iwpoint.getLength()):
+            if ( i & 0x1 ) == 0:
+                    key = key + '-'
+            key = key + "%.2X" % raw_key[i]
+        return key
 
     def getKeys(self):
         """get all encryption keys
