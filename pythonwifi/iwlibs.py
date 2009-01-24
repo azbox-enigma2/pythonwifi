@@ -350,11 +350,7 @@ class Wireless(object):
             for i in range(0, len(key), 2):
                 cooked_key = cooked_key + chr(hex2int(key[i:i+2]))
         else:
-            status, result = self.getKey(index, False)
-            if status > 0:
-                return (status, result)
-            raw_key = status
-            if not raw_key: raise ValueError("no key found at index")
+            raw_key = self.getKey(index, False)
             cooked_key = map(chr, raw_key)
 
         iwpoint = Iwpoint(cooked_key, index)
