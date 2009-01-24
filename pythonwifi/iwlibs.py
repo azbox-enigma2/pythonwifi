@@ -353,7 +353,8 @@ class Wireless(object):
             raw_key = self.getKey(index, False)
             cooked_key = map(chr, raw_key)
 
-        iwpoint = Iwpoint(cooked_key, index)
+        iwpoint = Iwpoint(cooked_key, 
+                    index + pythonwifi.flags.IW_ENCODE_ENABLED)
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWENCODE, 
                                              data=iwpoint.getStruct())
