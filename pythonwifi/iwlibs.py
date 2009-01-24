@@ -975,7 +975,7 @@ class Iwpoint(object):
         """return the data in the buffer
         """
         if self.buff:
-            return self.buff #.tostring()
+            return self.buff
 
     def getStruct(self):
         """return the location information for the buffer
