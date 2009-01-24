@@ -98,6 +98,10 @@ def getConfiguredNICnames():
 def makedict(**kwargs):
     return kwargs
 
+def hex2int(hexstring):
+    """convert hex string to integer"""
+    return int(hexstring, 16)
+
 
 class Wireless(object):
     """Access to wireless interfaces"""
@@ -142,10 +146,6 @@ class Wireless(object):
 
             translated from iwconfig.c
         """
-        def hex2int(hexstring):
-            """convert hex string to integer"""
-            return int(hexstring, 16)
-
         addr = addr.upper()
         if (addr == "AUTO" or addr == "ANY"):
             mac_addr = "\xFF"*pythonwifi.flags.ETH_ALEN
