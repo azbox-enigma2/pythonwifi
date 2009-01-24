@@ -52,52 +52,48 @@ class TestWireless(unittest.TestCase):
 
         for m in methods:
             result = getattr(self.wifi, m)()
-            self.failIf(len(result) == 2 and result[0] == errno.EINVAL, 
-                            "%s: %s" % (m, result[1]))
-        # the user is not allowed to run this method
-        result = self.wifi.getEncryption()
-        
-        self.assert_(result[0] == 1)
-        # test setMode
-        old_mode = self.wifi.getMode()                    # save current mode for later restoration
+
+        old_mode = self.wifi.getMode()
         self.wifi.setMode('Monitor')
         self.assert_(self.wifi.getMode() == 'Monitor')
-        self.wifi.setMode(old_mode)                       # restore mode
-        
-        # test setEssid
-        old_essid = self.wifi.getEssid()                  # save current ESSID for later restoration
+        self.wifi.setMode(old_mode)
+
+        old_essid = self.wifi.getEssid()
         self.wifi.setEssid('Joost')
         self.assert_(self.wifi.getEssid() == 'Joost')
-        self.wifi.setEssid(old_essid)                     # restore ESSID
-        
-        # test setFrequency
-        old_freq = self.wifi.getFrequency()               # save current frequency for later restoration
+        self.wifi.setEssid(old_essid)
+
+        old_freq = self.wifi.getFrequency()
         self.wifi.setFrequency('2.462GHz')
         self.assert_(self.wifi.getFrequency() == '2.462GHz')
-        self.wifi.setFrequency(old_freq)                  # restore frequency
+        self.wifi.setFrequency(old_freq)
 
         # test setAPaddr - does not work unless AP is real and available
-        #old_mac = self.wifi.getAPaddr()                   # save current mac for later restoration
+        #old_mac = self.wifi.getAPaddr()
         #self.wifi.setAPaddr('61:62:63:64:65:66')
         #time.sleep(3)                                     # 3 second delay between set and get required
         #self.assert_(self.wifi.getAPaddr() == '61:62:63:64:65:66')
-        #self.wifi.setAPaddr(old_mac)                      # restore mac
+        #self.wifi.setAPaddr(old_mac)
 
-        # test setEncryption
-        old_enc = self.wifi.getEncryption()               # save current encryption for later restoration
-        status, result = self.wifi.setEncryption('restricted')
+        old_enc = self.wifi.getEncryption()
+        self.wifi.setEncryption('restricted')
         self.assert_(self.wifi.getEncryption() == 'restricted')
         self.assert_(self.wifi.getEncryption(symbolic=False) \
                         == IW_ENCODE_RESTRICTED+1)
-        self.wifi.setEncryption(old_enc)                  # restore encryption
+        self.wifi.setEncryption(old_enc)
 
-        # test setKey
-        old_key = self.wifi.getKey()                      # save current key for later restoration
-        status, result = self.wifi.setKey('ABCDEF1234', 1)
+        try:
+            old_key = self.wifi.getKey()
+        except ValueError, msg:
+            old_key = None
+        self.wifi.setKey('ABCDEF1234', 1)
         self.assert_(self.wifi.getKey() == 'ABCD-EF12-34')
         self.assert_(map(hex, self.wifi.getKey(formatted=False)) \
                         == ['0xab', '0xcd', '0xef', '0x12', '0x34'])
-        self.wifi.setKey(old_key, 1)                      # restore key
+        if old_key:
+            self.wifi.setKey(old_key, 1)
+        else:
+            self.wifi.setEncryption('off')
 
 
     def test_wirelessWithNonWifiCard(self):
