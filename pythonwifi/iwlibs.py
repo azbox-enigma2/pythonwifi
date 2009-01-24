@@ -136,9 +136,6 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                                   pythonwifi.flags.SIOCGIWAP,
                                                   data=datastr)
-        if status > 0:
-            return (status, result)
-
         return self.iwstruct.getMAC(result)
 
     def setAPaddr(self, addr):
@@ -159,8 +156,6 @@ class Wireless(object):
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                                pythonwifi.flags.SIOCSIWAP, 
                                                iwreq)
-        return (status, result)
-
 
     def getBitrate(self):
         """returns device currently set bit rate 
@@ -170,10 +165,8 @@ class Wireless(object):
             >>> wifi.getBitrate()
             '11 Mb/s'
         """
-        i, result = self.iwstruct.iw_get_ext(self.ifname, 
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                             pythonwifi.flags.SIOCGIWRATE)
-        if i > 0:
-            return (i, result)
         iwfreq = Iwfreq(result)
         return iwfreq.getBitrate()
     
@@ -220,8 +213,6 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWESSID, 
                                              data=iwpoint.getStruct())
-        if status > 0:
-            return (status, result)
         raw_essid = iwpoint.getData().tostring()
         return raw_essid.strip('\x00')
 
@@ -242,7 +233,6 @@ class Wireless(object):
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWESSID, 
                                              data=iwpoint.getStruct())
-        return (status, result)
 
     def getEncryption(self, symbolic=True):
         """get associate mode, which is probably a string of '*',
@@ -262,8 +252,6 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
                                              data=iwpoint.getStruct())
-        if status < 0:
-            return (status, result)
         iwpoint.updateStruct(result)
 
         flags = iwpoint.getFlags()
@@ -329,8 +317,6 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
                                              data=iwpoint.getStruct())
-        if status < 0:
-            return (status, result)
         iwpoint.updateStruct(result)
 
         # build a list of each char in key
@@ -392,7 +378,6 @@ class Wireless(object):
             for i in range(1, iwrange.max_encoding_tokens+1):
                 keys.append((i, self.getKey(i)))
         return keys
-        return (status, result)
 
     def getFragmentation(self):
         """returns fragmentation threshold 
@@ -420,8 +405,6 @@ class Wireless(object):
         """
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                                   pythonwifi.flags.SIOCGIWFREQ)
-        if status > 0:
-            return (status, result)
         iwfreq = Iwfreq(result)
         freq = iwfreq.getFrequency()
         if freq < KILO:
@@ -462,7 +445,6 @@ class Wireless(object):
         status, result = iwstruct.iw_set_ext(self.ifname, 
                                                pythonwifi.flags.SIOCSIWFREQ, 
                                                iwreq)
-        return (status, result)
 
     def getMode(self):
         """returns currently set operation mode 
@@ -474,8 +456,6 @@ class Wireless(object):
         """
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWMODE)
-        if status > 0:
-            return (status, result)
         mode = self.iwstruct.unpack('i', result[:4])[0]
         return pythonwifi.flags.modes[mode]
 
@@ -492,7 +472,6 @@ class Wireless(object):
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWMODE, 
                                              data=datastr)
-        return (status, result)
 
     def getNwids(self):
         """returns the mnimum and maximum nwid (network id) for the device
@@ -518,8 +497,6 @@ class Wireless(object):
         """
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWNAME)
-        if status > 0:
-            return (status, result)
         return result.tostring().strip('\x00')
 
     def getPowermanagement(self):
@@ -636,8 +613,6 @@ class Wireless(object):
         """
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                                   pythonwifi.flags.SIOCGIWTXPOW)
-        if status > 0:
-            return (status, result)
         iwfreq = Iwfreq(result)
         return iwfreq.getTransmitPower()
 
