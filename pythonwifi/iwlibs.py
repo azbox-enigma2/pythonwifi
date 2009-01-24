@@ -375,7 +375,7 @@ class Wireless(object):
             for i in range(1, iwrange.max_encoding_tokens+1):
                 try:
                     keys.append((i, self.getKey(i)))
-                except:
+                except ValueError, msg:
                     keys.append((i, None))
         return keys
 
