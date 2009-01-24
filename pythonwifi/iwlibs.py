@@ -373,7 +373,10 @@ class Wireless(object):
         keys = []
         if iwrange.max_encoding_tokens > 0:
             for i in range(1, iwrange.max_encoding_tokens+1):
-                keys.append((i, self.getKey(i)))
+                try:
+                    keys.append((i, self.getKey(i)))
+                except:
+                    keys.append((i, None))
         return keys
 
     def getFragmentation(self):
