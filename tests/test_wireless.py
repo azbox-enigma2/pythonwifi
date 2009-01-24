@@ -27,17 +27,18 @@ class TestWireless(unittest.TestCase):
     def setUp(self):
         ifnames = getNICnames()
         self.wifi = Wireless(ifnames[0])
-        
+
     def test_wirelessMethods(self):
         # test all wireless methods that they don't return an error
-        # 'getBitrates' and 'getChannelInfo' are not tested here,
-        # because they return tuples as a normal result
         methods = ['getAPaddr',
                    'getBitrate',
+                   'getBitrates',
+                   'getChannelInfo',
                    'getEssid',
                    'getFragmentation',
                    'getFrequency',
                    'getMode',
+                   'getNwids',
                    'getWirelessName',
                    'getPowermanagement',
                    'getQualityMax',
@@ -46,18 +47,7 @@ class TestWireless(unittest.TestCase):
                    'getRTS',
                    'getSensitivity',
                    'getTXPower',
-                   'getStatistics']
-
-        # None of the methods should return a tuple
-        for m in methods:
-            result = getattr(self.wifi, m)()
-            self.assert_(type(result) is not types.TupleType,
-                         '%s is a TupleType: %s' % (m, result))
-        
-        # tuple-returning methods
-        methods = ['getBitrates',
-                   'getChannelInfo',
-                   'getNwids',
+                   'getStatistics',
                    'commit']
 
         for m in methods:
@@ -132,9 +122,10 @@ class TestWireless(unittest.TestCase):
                    'commit']
     
         for m in methods:
-            result = getattr(self.wifi, m)()
-            self.assert_(type(result) is types.TupleType)
-            self.assertEquals(result[0], errno.EINVAL)
+            try:
+                result = getattr(self.wifi, m)()
+            except IOError, (error, msg):
+                self.assertEquals(error, errno.EINVAL)
         
         # test setMode
         result = self.wifi.setMode('Monitor')
@@ -178,10 +169,10 @@ class TestWireless(unittest.TestCase):
                    'commit']
     
         for m in methods:
-            result = getattr(self.wifi, m)()
-            self.assert_(type(result) is types.TupleType, 
-                         "%s returns not a TupleType: %s" %(m, result))
-            self.assertEquals(result[0], errno.ENODEV)
+            try:
+                result = getattr(self.wifi, m)()
+            except IOError, (error, msg):
+                self.assertEquals(error, errno.ENODEV)
         
         # test setMode
         result = self.wifi.setMode('Monitor')
