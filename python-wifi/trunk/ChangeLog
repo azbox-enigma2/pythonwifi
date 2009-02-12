@@ -1,4 +1,12 @@
-2008-08-01  Roman Joost  <romanofski@gimp.org>
+2009-02-13  Roman Joost  <roman@bromeco.de>
+
+	* pythonwifi/iwlibs.py: fixes ##13090 (Error parsing the event
+	stream if no available acces points) spotted by Pierre-Nicolas
+
+	* setup.py
+	* README: small spelling fix
+
+2008-08-01  Roman Joost  <roman@bromeco.de>
 
 	* docs/DEVEL.txt: moved devel instructions
 	
@@ -8,7 +16,7 @@
 
 	* setup.py: cleanup
 
-2008-08-01  Roman Joost  <romanofski@gimp.org>
+2008-08-01  Roman Joost  <roman@bromeco.de>
 
 	* docs/NEWS
 	* NEWS

@@ -20,7 +20,7 @@ Files:
     - iwlibs.py: handles all the black magic ;)
 
 
-Python Wireless users:
+Python Wifi users:
 ----------------------
 If you want to use the wirless library, the methods in the Wireless
 class are the ones you want. Lets assume a little example program, which

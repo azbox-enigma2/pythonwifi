@@ -1063,10 +1063,11 @@ class Iwscan(object):
                 "No scanresult. You probably don't have permissions to scan.")
 
         # Don't forgset the final result
-        if scanresult.bssid != "00:00:00:00:00:00":
-            aplist.append(scanresult)
-        else:
-            raise RuntimeError, 'Attempting to add an AP without a bssid'
+        if scanresult:
+            if scanresult.bssid != "00:00:00:00:00:00":
+                aplist.append(scanresult)
+            else:
+                raise RuntimeError, 'Attempting to add an AP without a bssid'
         return aplist
 
 
