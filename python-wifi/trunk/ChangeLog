@@ -1,5 +1,10 @@
 2009-02-13  Roman Joost  <roman@bromeco.de>
 
+	* docs/AUTHORS
+	* pythonwifi/iwlibs.py: bugfix #2636, submitted by Sean Robinson
+
+2009-02-13  Roman Joost  <roman@bromeco.de>
+
 	* pythonwifi/iwlibs.py: fixes ##13090 (Error parsing the event
 	stream if no available acces points) spotted by Pierre-Nicolas
 

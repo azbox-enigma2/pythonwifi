@@ -276,7 +276,7 @@ class Wireless(object):
     def setMode(self, mode):
         """sets the operation mode """
         try:
-            this_modes = [x.lower() for x in modes]
+            this_modes = [x.lower() for x in pythonwifi.flags.modes]
             mode = mode.lower()
             wifimode = this_modes.index(mode)
         except ValueError:
