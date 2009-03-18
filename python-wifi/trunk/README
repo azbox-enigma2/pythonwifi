@@ -62,3 +62,10 @@ What is implemented?
             o Bitrates
             o Channels/Frequency
             o Scanning support!
+
+License
+-------
+
+pythonwifi is licensed under LGPLv2+, however, the examples
+(e.g. pyiwconfig.py and pyiwlist.py) are licensed under GPLv2+.
+
