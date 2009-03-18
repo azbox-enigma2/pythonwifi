@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: latin1 -*-
-# python-wifi -- a wireless library to access wireless cards via python
-# Copyright (C) 2004-2005 Róman Joost
+# Copyright 2004, 2005 Roman Joost <roman@bromeco.de> - Rotterdam, Netherlands
+# this file is part of the python-wifi package - a python wifi library
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Copyright 2004, 2005 Roman Joost <roman@bromeco.de> - Rotterdam, Netherlands
-# this file is part of the pywifi package - a python wifi library
+# this file is part of the python-wifi package - a python wifi library
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
