@@ -19,6 +19,7 @@
 import unittest
 import types
 from pythonwifi.iwlibs import Wireless, getNICnames
+from pythonwifi.flags import modes
 
 class TestWireless(unittest.TestCase):
 
@@ -52,7 +53,20 @@ class TestWireless(unittest.TestCase):
         
         # the user is not allowed to run this method
         result = self.wifi.getEncryption()
+        
         self.assert_(result[0] == 1)
+        # test setMode
+        old_mode = self.wifi.getMode()                   # save current mode for later restoration
+        self.wifi.setMode('Monitor')
+        self.assert_(self.wifi.getMode() == 'Monitor')
+        self.wifi.setMode(old_mode)                      # restore mode
+        
+        # test setEssid
+        old_mode = self.wifi.getEssid()                  # save current ESSID for later restoration
+        self.wifi.setEssid('Joost')
+        self.assert_(self.wifi.getEssid() == 'Joost')
+        self.wifi.setEssid(old_mode)                     # restore ESSID
+
 
     def test_wirelessWithNonWifiCard(self):
         self.wifi.ifname = 'eth0'
