@@ -198,8 +198,16 @@ class Wireless(object):
         return datastr.strip('\x00')
 
     def setEssid(self, essid):
-        """set essid """
-        # Warning! untested code XXX
+        """set essid
+
+            >>> fromiwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getEssid()
+            'romanofski'
+            >>> wifi.setEssid('Joost')
+            >>> wifi.getEssid()
+            'Joost'
+        """
         if len(essid) > pythonwifi.flags.IW_ESSID_MAX_SIZE:
             return "essid to big"
         buff, datastr = self.iwstruct.pack_test(essid, 32)
