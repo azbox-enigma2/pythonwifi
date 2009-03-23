@@ -732,8 +732,7 @@ class Iwquality(object):
 
     def setValues(self, vallist):
         """ assigns values given by a list to our attributes """
-        attributes = ["quality", "signallevel", "noise_level",
-            "updated"]
+        attributes = ["quality", "siglevel", "nlevel", "updated"]
         assert len(vallist) == 4
         
         for i in range(len(vallist)):
