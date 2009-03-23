@@ -26,7 +26,7 @@ modes = ['Auto',
          'Monitor']
 
 IFNAMSIZE = 16
-IW_ESSID_MAX_SIZE = 16
+IW_ESSID_MAX_SIZE = 32
 
 # ioctl calls for the Linux/i386 kernel
 SIOCIWFIRST   = 0x8B00    # FIRST ioctl identifier
