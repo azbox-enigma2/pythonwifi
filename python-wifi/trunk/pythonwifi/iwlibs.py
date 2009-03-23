@@ -209,8 +209,9 @@ class Wireless(object):
             'Joost'
         """
         if len(essid) > pythonwifi.flags.IW_ESSID_MAX_SIZE:
-            return "essid to big"
-        buff, datastr = self.iwstruct.pack_test(essid, 32)
+            return "essid too big"
+        buff, datastr = self.iwstruct.pack_test(essid, 
+                                             pythonwifi.flags.IW_ESSID_MAX_SIZE)
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWESSID, 
                                              data=datastr)
