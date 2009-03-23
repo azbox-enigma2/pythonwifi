@@ -453,7 +453,7 @@ class Iwstruct(object):
         buffsize = buffsize - len(string)
         buff = array.array('c', string+'\0'*buffsize)
         caddr_t, length = buff.buffer_info()
-        s = struct.pack('Pii', caddr_t, length, 1)
+        s = struct.pack('PHH', caddr_t, length, 1)
         return buff, s
 
     def unpack(self, fmt, packed_data):
