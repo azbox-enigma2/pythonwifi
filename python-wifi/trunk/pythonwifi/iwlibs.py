@@ -271,7 +271,7 @@ class Wireless(object):
         if status > 0:
             return (status, result)
         mode = self.iwstruct.unpack('i', result[:4])[0]
-        return result[mode]
+        return pythonwifi.flags.modes[mode]
 
     def setMode(self, mode):
         """sets the operation mode """
