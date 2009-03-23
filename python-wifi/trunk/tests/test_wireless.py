@@ -18,7 +18,7 @@
 #
 import unittest
 import types
-from iwlibs import Wireless, getNICnames
+from pythonwifi.iwlibs import Wireless, getNICnames
 
 class TestWireless(unittest.TestCase):
 
