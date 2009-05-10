@@ -132,7 +132,7 @@ def main():
     try:
         ifnames.index(ifname)
     except ValueError:
-        print "You passed an invalid interface name."
+        print "%s is not a wireless device." % (ifname, )
         sys.exit(0)
         
     wifi = Wireless(ifname)
