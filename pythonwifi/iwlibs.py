@@ -1,7 +1,8 @@
 # -*- coding: latin1 -*-
-# python-wifi -- a wireless library to access wireless cards via python
+# Python WiFi -- a library to access wireless card properties via Python
 # Copyright (C) 2004 - 2008 Róman Joost
-# 
+# Copyright (C) 2008 - 2009 Sean Robinson
+#
 # Contributions from:
 #   Mike Auty <m.auty@softhome.net> (Iwscanresult, Iwscan)
 #
@@ -1421,5 +1422,3 @@ class Iwscanresult(object):
             print "Custom:", custom
         print ""
 
-#$LastChangedDated$
-#$Rev: 37 $

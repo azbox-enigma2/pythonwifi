@@ -1,6 +1,7 @@
 # -*- coding: latin1 -*-
-# python-wifi -- a wireless library to access wireless cards via python
-# Copyright (C) 2004, 2005, 2006 Róman Joost
+# Python WiFi -- a library to access wireless card properties via Python
+# Copyright (C) 2004 - 2008 Róman Joost
+# Copyright (C) 2008 - 2009 Sean Robinson
 #
 #    This library is free software; you can redistribute it and/or
 #    modify it under the terms of the GNU Lesser General Public License
