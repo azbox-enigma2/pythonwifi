@@ -77,11 +77,7 @@ def getConfiguredNICnames():
     buff = array.array('c', '\0'*1024)
     caddr_t, length = buff.buffer_info()
     datastr = iwstruct.pack('iP', length, caddr_t)
-    try:
-        result = iwstruct._fcntl(pythonwifi.flags.SIOCGIFCONF, datastr)
-    except IOError, (i, error):
-        return i, error
-
+    result = iwstruct._fcntl(pythonwifi.flags.SIOCGIFCONF, datastr)
     # get the interface names out of the buffer
     for i in range(0, 1024, 32):
         ifname = buff.tostring()[i:i+32]
@@ -93,7 +89,6 @@ def getConfiguredNICnames():
             result = wifi.getAPaddr()
             if result[0] == 0:
                 ifnames.append(ifname)
-
     return ifnames
 
 def makedict(**kwargs):
