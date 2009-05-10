@@ -1364,7 +1364,8 @@ class Iwscanresult(object):
         if cmd == pythonwifi.flags.SIOCGIWESSID:
             self.essid = data[4:]
         elif cmd == pythonwifi.flags.SIOCGIWMODE:
-            self.mode = data[self.iwstruct.unpack('i', data[:4])[0]]
+            raw_mode = self.iwstruct.unpack('I', data[:4])[0]
+            self.mode = pythonwifi.flags.modes[raw_mode]
         elif cmd == pythonwifi.flags.SIOCGIWRATE:
             # TODO, deal with multiple rates, or at least the highest rate
             freqsize = struct.calcsize("ihbb")
