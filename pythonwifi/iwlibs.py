@@ -696,7 +696,7 @@ class Iwstruct(object):
         return struct.unpack(fmt, packed_data)
 
     def _fcntl(self, request, args):
-        return fcntl.ioctl(self.sockfd.fileno(), request, args, True)
+        return fcntl.ioctl(self.sockfd.fileno(), request, args)
 
     def iw_get_ext(self, ifname, request, data=None):
         """ Read information from ifname. """
