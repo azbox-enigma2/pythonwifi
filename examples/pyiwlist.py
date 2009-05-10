@@ -58,6 +58,24 @@ def print_channel_information(wifi):
     print "\tCurrent Frequency:%s (Channel %s)" %(current_freq,
                                                   sys.exit(1))
 
+def usage():
+    print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
+Get more detailed wireless information from a wireless interface
+
+Usage: pyiwlist [interface] scanning [essid NNN] [last]
+                [interface] frequency
+                [interface] channel
+                [interface] bitrate
+                [interface] encryption
+                [interface] keys
+                [interface] power
+                [interface] txpower
+                [interface] retry
+                [interface] ap
+                [interface] accesspoints
+
+"""
+
 def main():
     if len(sys.argv) < 1:
         usage()
@@ -91,15 +109,6 @@ def main():
         print "\nSorry, this is an invalid option you passed!\n"
         usage()
 
-def usage():
-    print """iwlist.py - Copyright 2004-2005 Roman Joost
-Get more detailed wireless information from a wireless interface
-
-usage:
-    pyiwlist IFNAME scanning
-    pyiwlist IFNAME bitrates 
-    pyiwlist IFNAME channel 
-    pyiwlist IFNAME frequency"""
 
 if __name__ == "__main__":
     main()
