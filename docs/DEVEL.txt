@@ -91,18 +91,3 @@ Iwstruct):
     Then, the request can be made by specifying the interface name,
     which is passed as a second argument to the ioctl method.
 
-Please let me help you!
------------------------
-    
-    Well, thanks for your help. This python library is a learning project
-    for me and if you're able to pass me some hints for a better
-    coding style, I would be thankful. 
-
-    If you already know, how to gather information out of the kernel and
-    know how to handle all this stuff better, let me know. But please
-    don't implement something which is not in the current release. Some
-    of us spared unnecessary time on something, which can be handled with
-    a little bit more communication.
-
-    So, if you wanna help me, drop me an e-mail (roman@bromeco.de).
-
