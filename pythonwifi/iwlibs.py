@@ -493,20 +493,6 @@ class Wireless(object):
                                              pythonwifi.flags.SIOCSIWMODE, 
                                              data=datastr)
 
-    def getNwids(self):
-        """returns the mnimum and maximum nwid (network id) for the device
-           
-            >>> from iwlibs import Wireless
-            >>> wifi = Wireless('eth1')
-            >>> nwid_min, nwid_max = wifi.getNwids()
-            >>> print "min:",nwid_min, "max:", nwid_max
-            min: 0 max: 0
-        """
-        iwrange = Iwrange(self.ifname)
-        if iwrange.errorflag:
-            return (iwrange.errorflag, iwrange.error)
-        return (iwrange.min_nwid, iwrange.max_nwid)
-
     def getWirelessName(self):
         """ Returns the wireless name.
 
