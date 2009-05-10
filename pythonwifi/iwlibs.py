@@ -469,7 +469,7 @@ class Wireless(object):
         """
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWMODE)
-        mode = self.iwstruct.unpack('i', result[:4])[0]
+        mode = self.iwstruct.unpack('I', result[:4])[0]
         return pythonwifi.flags.modes[mode]
 
     def setMode(self, mode):
