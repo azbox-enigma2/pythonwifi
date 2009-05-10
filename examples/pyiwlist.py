@@ -56,7 +56,8 @@ def print_scanning_results(wifi):
                 print "                              ",
                 line = line + 1
             print "%s; "*(rate_remainder - 1) % tuple(ap.rate[line * 5:line * 5 + rate_remainder - 1]),
-            print "%s" % tuple(ap.rate[line * 5 + rate_remainder - 1:])
+            sys.stdout.write(ap.rate[line * 5 + rate_remainder - 1])
+            print
         index = index + 1
 
 def print_bitrate_information(wifi):
