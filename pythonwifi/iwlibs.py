@@ -805,6 +805,7 @@ class Iwparam(object):
 class Iwfreq(object):
     """ Class to hold iwfreq data.
         Delegates to Iwstruct class.
+
     """
 
     def __init__(self, data=None):
@@ -830,8 +831,6 @@ class Iwfreq(object):
 
     def getFrequency(self):
         """ Returns Frequency (str) or channel (int) depending on driver
-
-           data - binary data returned by systemcall (iw_get_ext())
 
         """
         freq = self.frequency
