@@ -23,9 +23,41 @@ import types
 from pythonwifi.iwlibs import Wireless, getNICnames
 
 def print_scanning_results(wifi):
-    for results in wifi.scan():
-        results.display()
-    sys.exit(0)
+    try:
+        results = wifi.scan()
+    except IOError, (errno, strerror):
+        print "%s" % (strerror, )
+        sys.exit(0)
+
+    (num_channels, frequencies) = wifi.getChannelInfo()
+    index = 1
+    for ap in results:
+        print "          Cell %02d - Address: %s" % (index, ap.bssid)
+        print "                    ESSID:\"%s\"" % (ap.essid, )
+        print "                    Mode:%s" % (ap.mode, )
+        print "                    Frequency:%s %s (Channel: %d)" % \
+                            (ap.frequency.getFrequency()[:5], ap.frequency.getFrequency()[5:],
+                            frequencies.index(ap.frequency.getFrequency()) + 1)
+        print "                    Quality=%s/%s  Signal level=%s/%s  Noise level=%s/%s" % \
+                            (ap.quality.quality,
+                             wifi.getQualityMax().quality,
+                             ap.quality.getSignallevel(),
+                             "100",
+                             ap.quality.getNoiselevel(),
+                             "100")
+        #print "                    Encryption key:%s" % (ap.encode, )
+        if len(ap.rate) > 0:
+            print "                    Bit Rates:",
+            rate_lines = len(ap.rate) % 5
+            rate_remainder = len(ap.rate) - (rate_lines * 5)
+            line = 0
+            while line < rate_lines:
+                print "%s; %s; %s; %s; %s" % tuple(ap.rate[line * 5:(line * 5) + 5])
+                print "                              ",
+                line = line + 1
+            print "%s; "*(rate_remainder - 1) % tuple(ap.rate[line * 5:line * 5 + rate_remainder - 1]),
+            print "%s" % tuple(ap.rate[line * 5 + rate_remainder - 1:])
+        index = index + 1
 
 def print_bitrate_information(wifi):
     num_bitrates, bitrates = wifi.getBitrates()
