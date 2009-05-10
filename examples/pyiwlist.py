@@ -118,8 +118,13 @@ def main():
     except ValueError:
         usage()
         sys.exit(2)
-   
-    ifnames = getNICnames()
+
+    # Make sure provided interface is a wireless device
+    try:
+        ifnames = getNICnames()
+    except IOError, (errno, strerror):
+        print "Error: %s" % (strerror, )
+        sys.exit(0)
     if ifnames == []:
         print "No wireless devices present or incompatible OS."
         sys.exit(0)
