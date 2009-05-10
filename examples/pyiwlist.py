@@ -112,8 +112,8 @@ def main():
     if len(sys.argv) < 1:
         usage()
         sys.exit(1)
-    
     try:
+        # Get the interface and command from command line
         ifname, option = sys.argv[1:]
     except ValueError:
         usage()
@@ -128,13 +128,12 @@ def main():
     if ifnames == []:
         print "No wireless devices present or incompatible OS."
         sys.exit(0)
-    # find out if the user passed a valid device
     try:
         ifnames.index(ifname)
     except ValueError:
         print "%s is not a wireless device." % (ifname, )
         sys.exit(0)
-        
+
     wifi = Wireless(ifname)
     if option in ('channel', 'frequency'):
         print_channel_information(wifi)
