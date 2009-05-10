@@ -864,19 +864,6 @@ class Iwfreq(object):
         # m and don't needs to be recalculated
         return "%i dBm" %self.mw2dbm(self.frequency/10)
 
-    def getChannel(self, freq, iwrange):
-        """ Returns channel information given by frequency.
-
-           returns None if frequency can't be converted
-           freq = frequency to convert (int)
-           iwrange = Iwrange object
-
-        """
-        if freq < KILO:
-            return None
-        # XXX
-        # for frequency in iwrange.frequencies
-
     def mw2dbm(self, mwatt):
         """ Converts mW to dBm (float). """
         return math.ceil(10.0 * math.log10(mwatt))
