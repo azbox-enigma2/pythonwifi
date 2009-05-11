@@ -63,7 +63,7 @@ def print_scanning_results(wifi):
             print
         index = index + 1
 
-def print_bitrate_information(wifi):
+def print_bitrates(wifi):
     num_bitrates, bitrates = wifi.getBitrates()
     if num_bitrates == 0:
         print "\t 0 Bit Rates found."
@@ -142,7 +142,7 @@ def main():
     if option in ('channel', 'frequency'):
         print_channel_information(wifi)
     elif option == 'bitrates':
-        print_bitrate_information(wifi)
+        print_bitrates(wifi)
     elif option == 'scanning':
         print_scanning_results(wifi)
     else:
