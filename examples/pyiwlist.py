@@ -80,7 +80,7 @@ def print_bitrates(wifi):
             print "\t%s" % rate.getBitrate()
     print "\tCurrent Bit Rate: %s" %wifi.getBitrate()
 
-def print_channel_information(wifi):
+def print_channels(wifi):
     # XXX The channel information is bogus here, because it just
     # numerates how many channels the card provides, but doesn't give
     # any information about *which* channel *which* frequencies has
@@ -140,7 +140,7 @@ def main():
 
     wifi = Wireless(ifname)
     if option in ('channel', 'frequency'):
-        print_channel_information(wifi)
+        print_channels(wifi)
     elif option == 'bitrates':
         print_bitrates(wifi)
     elif option == 'scanning':
