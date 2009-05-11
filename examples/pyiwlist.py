@@ -81,18 +81,20 @@ def print_bitrates(wifi):
     print "\tCurrent Bit Rate: %s" %wifi.getBitrate()
 
 def print_channels(wifi):
+    """ Print all frequencies/channels available on the card.
+
+    """
     # XXX The channel information is bogus here, because it just
     # numerates how many channels the card provides, but doesn't give
     # any information about *which* channel *which* frequencies has
-    num_frequencies, channels = wifi.getChannelInfo()
+    (num_frequencies, channels) = wifi.getChannelInfo()
     current_freq = wifi.getFrequency()
-    print "%s channels in total; available frequencies: \n"\
-        %num_frequencies
+    print "%s     %02d channels in total; available frequencies :" % \
+                (wifi.ifname, num_frequencies)
     for channel in channels:
-        print "\tChannel %.2d: %s" %(channels.index(channel)+1, 
-                                     channel)
-    print "\tCurrent Frequency:%s (Channel %s)" %(current_freq,
-                                                  sys.exit(1))
+        print "          Channel %02d : %s %s" % \
+                (channels.index(channel)+1, channel[:5], channel[5:])
+    print "          Current Channel=%s" % (channels.index(current_freq) + 1, )
 
 def usage():
     print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
