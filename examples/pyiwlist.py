@@ -23,6 +23,9 @@ import types
 from pythonwifi.iwlibs import Wireless, getNICnames
 
 def print_scanning_results(wifi):
+    """ Print the access points detected nearby.
+
+    """
     try:
         results = wifi.scan()
     except IOError, (errno, strerror):
