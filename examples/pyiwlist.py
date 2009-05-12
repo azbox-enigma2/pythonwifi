@@ -63,23 +63,6 @@ def print_scanning_results(wifi):
             print
         index = index + 1
 
-def print_bitrates(wifi):
-    num_bitrates, bitrates = wifi.getBitrates()
-    if num_bitrates == 0:
-        print "\t 0 Bit Rates found."
-        sys.exit(0)
-
-    bitrate_type =  type(bitrates[-1]) is types.StringType
-    print "\t%s available bit-rates:" % num_bitrates
-    for rate in bitrates:
-        # rate is Iwfreq
-        # XXX - there are to much bitrates?
-        if bitrate_type:
-            print "\t%s" % rate
-        elif rate.getBitrate() is not None:
-            print "\t%s" % rate.getBitrate()
-    print "\tCurrent Bit Rate: %s" %wifi.getBitrate()
-
 def print_channels(wifi):
     """ Print all frequencies/channels available on the card.
 
@@ -95,6 +78,26 @@ def print_channels(wifi):
         print "          Channel %02d : %s %s" % \
                 (channels.index(channel)+1, channel[:5], channel[5:])
     print "          Current Channel=%s" % (channels.index(current_freq) + 1, )
+
+def print_bitrates(wifi):
+    """ Print all bitrates available on the card.
+
+    """
+    num_bitrates, bitrates = wifi.getBitrates()
+    if num_bitrates == 0:
+        print "\t 0 Bit Rates found."
+        sys.exit(0)
+
+    bitrate_type =  type(bitrates[-1]) is types.StringType
+    print "%s     %02d available bit-rates :" % (wifi.ifname, num_bitrates)
+    for rate in bitrates:
+        # rate is Iwfreq
+        # XXX - there are to much bitrates?
+        if bitrate_type:
+            print "          %s" % rate
+        elif rate.getBitrate() is not None:
+            print "          %s" % rate.getBitrate()
+    print "          Current Bit Rate:%s\n" % wifi.getBitrate()
 
 def usage():
     print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
