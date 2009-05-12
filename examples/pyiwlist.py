@@ -156,15 +156,12 @@ def main():
                  }
 
     wifi = Wireless(ifname)
-    if option in ('channel', 'frequency'):
-        print_channels(wifi)
-    elif option == 'bitrates':
-        print_bitrates(wifi)
-    elif option == 'scanning':
-        print_scanning_results(wifi)
-    else:
-        print "\nSorry, this is an invalid option you passed!\n"
-        usage()
+    for command in iwcommands.keys():
+        if command.startswith(option):
+            iwcommands[command](wifi)
+            sys.exit(0)
+
+    print "pyiwlist.py: unknown command '%s' (check 'pyiwlist.py --help')." % (command, )
 
 
 if __name__ == "__main__":
