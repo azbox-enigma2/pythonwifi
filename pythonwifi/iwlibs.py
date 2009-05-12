@@ -327,8 +327,10 @@ class Wireless(object):
 
         # build a list of each char in key
         raw_key = map(ord, iwpoint.getData().tolist())[:iwpoint.getLength()]
-        if sum(raw_key) == 0: raise ValueError("no key found at index")
-        if not formatted: return raw_key
+        if sum(raw_key) == 0:
+            return "off"
+        if not formatted:
+            return raw_key
 
         # format key in standard form
         key = "%.2X" % raw_key[0]
