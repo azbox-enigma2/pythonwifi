@@ -20,7 +20,7 @@
 #
 import sys
 import types
-from pythonwifi.iwlibs import Wireless, getNICnames
+from pythonwifi.iwlibs import Wireless, Iwrange, getNICnames
 
 def print_scanning_results(wifi):
     """ Print the access points detected nearby.
