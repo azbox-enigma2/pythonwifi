@@ -99,6 +99,28 @@ def print_bitrates(wifi):
             print "          %s" % rate.getBitrate()
     print "          Current Bit Rate:%s\n" % wifi.getBitrate()
 
+def print_encryption(wifi):
+    """ Print encryption keys on the card.
+
+    """
+    keys = wifi.getKeys()
+    range_info = Iwrange(wifi.ifname)
+
+    print wifi.ifname,
+    print "   ",
+    print range_info.num_encoding_sizes,
+    print "key sizes :",
+    for index in range(range_info.num_encoding_sizes - 1):
+        print repr(range_info.encoding_size[index] * 8) + ",",
+    print repr(range_info.encoding_size[range_info.num_encoding_sizes - 1] * 8) + "bits"
+    print "          %d keys available :" % (len(keys), )
+    index = 1
+    for key in keys:
+        print "                [%d]: %s" % (index, key[1])
+        index = index + 1
+    print "          Current Transmit Key: [%s]" % ("XXX", )
+    print "\n"
+
 def usage():
     print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
 Get more detailed wireless information from a wireless interface
