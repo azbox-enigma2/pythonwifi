@@ -140,6 +140,21 @@ def main():
         print "%s is not a wireless device." % (ifname, )
         sys.exit(0)
 
+    # build dictionary of commands and functions
+    iwcommands = { "scanning"     : print_scanning_results,
+                   "channel"      : print_channels,
+                   "frequency"    : print_channels,
+                   "bitrate"      : print_bitrates,
+                   "rate"         : print_bitrates,
+                   #"encryption"   : print_encryption,
+                   #"keys"         : print_encryption,
+                   #"power"        : print_power,
+                   #"txpower"      : print_power,
+                   #"retry"        : print_retry,
+                   #"ap"           : print_aps,
+                   #"accesspoints" : print_aps,
+                 }
+
     wifi = Wireless(ifname)
     if option in ('channel', 'frequency'):
         print_channels(wifi)
