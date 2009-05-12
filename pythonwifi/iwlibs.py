@@ -368,6 +368,8 @@ class Wireless(object):
     def getKeys(self):
         """ Get all encryption keys.
 
+            Returns a list of tuples.
+
             As a normal user, you will get a 'Operation not permitted'
             error:
 
