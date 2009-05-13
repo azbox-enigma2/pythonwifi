@@ -166,18 +166,24 @@ def main():
         sys.exit(0)
 
     # build dictionary of commands and functions
-    iwcommands = { "scanning"     : print_scanning_results,
-                   "channel"      : print_channels,
-                   "frequency"    : print_channels,
-                   "bitrate"      : print_bitrates,
-                   "rate"         : print_bitrates,
-                   "encryption"   : print_encryption,
-                   "keys"         : print_encryption,
-                   #"power"        : print_power,
-                   #"txpower"      : print_power,
-                   #"retry"        : print_retry,
-                   #"ap"           : print_aps,
-                   #"accesspoints" : print_aps,
+    iwcommands = { "s"   : ("scanning", print_scanning_results),
+                   "c"   : ("channel", print_channels),
+                   "f"   : ("frequency", print_channels),
+                   "b"   : ("bitrate", print_bitrates),
+                   "ra"  : ("rate", print_bitrates),
+                   "en"  : ("encryption", print_encryption),
+                   "k"   : ("keys", print_encryption),
+                   "po" : ("power", print_power),
+                   #"t"  : ("txpower", print_power),
+                   #"re" : ("retry", print_retry),
+                   #"ap" : ("ap", print_aps),
+                   #"ac" : ("accesspoints", print_aps),
+                   #"pe" : ("peers", print_aps),
+                   #"ev" : ("event", print_event),
+                   #"au" : ("auth", print_auth),
+                   #"w"  : ("wpakeys", print_wpa),
+                   #"g"  : ("genie", print_genie),
+                   #"m"  : ("modulation", print_modulation),
                  }
 
     wifi = Wireless(ifname)
