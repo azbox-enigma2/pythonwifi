@@ -121,6 +121,12 @@ def print_encryption(wifi):
     print "          Current Transmit Key: [%s]" % ("XXX", )
     print "\n"
 
+def print_power(wifi):
+    """ Print power management info for the card.
+
+    """
+    print wifi.getPowermanagement()
+
 def usage():
     print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
 Get more detailed wireless information from a wireless interface
