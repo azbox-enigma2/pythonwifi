@@ -65,14 +65,21 @@ SIOCGIWENCODE = 0x8B2B    # get encryption information
 SIOCIWLAST    = 0x8BFF    # LAST ioctl identifier
 
 # Power management flags
-IW_POWER_ON = 0x0000        # No details ...
-IW_POWER_TYPE = 0xF000      # Type of parameter
-IW_POWER_PERIOD = 0x1000    # Value is a period/duration of
-IW_POWER_TIMEOUT = 0x2000   # Value is a timeout
-IW_POWER_MODE = 0x0F00      # Power management mode
-IW_POWER_MIN = 0x0001       # Value is a minimum
-IW_POWER_MAX = 0x0002       # Value is a maximum
-IW_POWER_RELATIVE = 0x0004  # Value is not in seconds/ms/us
+IW_POWER_ON = 0x0000           # No details ...
+IW_POWER_TYPE = 0xF000         # Type of parameter
+IW_POWER_PERIOD = 0x1000       # Value is a period/duration of
+IW_POWER_TIMEOUT = 0x2000      # Value is a timeout
+IW_POWER_SAVING = 0x4000       # Value is relative (how aggressive)
+IW_POWER_MODE = 0x0F00         # Power management mode
+IW_POWER_UNICAST_R = 0x0100    # Receive only unicast messages
+IW_POWER_MULTICAST_R = 0x0200  # Receive only multicast messages
+IW_POWER_ALL_R = 0x0300        # Receive all messages though PM
+IW_POWER_FORCE_S = 0x0400      # Force PM procedure for sending unicast
+IW_POWER_REPEATER = 0x0800     # Repeat broadcast messages in PM period
+IW_POWER_MODIFIER = 0x000F     # Modify a parameter
+IW_POWER_MIN = 0x0001          # Value is a minimum
+IW_POWER_MAX = 0x0002          # Value is a maximum
+IW_POWER_RELATIVE = 0x0004     # Value is not in seconds/ms/us
 
 # Retry limits 
 IW_RETRY_TYPE = 0xF000      # Type of parameter
