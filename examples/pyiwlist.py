@@ -186,7 +186,7 @@ def main():
             iwcommands[command](wifi)
             sys.exit(0)
 
-    print "pyiwlist.py: unknown command '%s' (check 'pyiwlist.py --help')." % (command, )
+    print "pyiwlist.py: unknown command '%s' (check 'pyiwlist.py --help')." % (option, )
 
 
 if __name__ == "__main__":
