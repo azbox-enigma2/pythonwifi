@@ -188,9 +188,10 @@ def main():
 
     wifi = Wireless(ifname)
     for command in iwcommands.keys():
-        if command.startswith(option):
-            iwcommands[command](wifi)
-            sys.exit(0)
+        if option.startswith(command):
+            if iwcommands[command][0].startswith(option):
+                iwcommands[command][1](wifi)
+                sys.exit(0)
 
     print "pyiwlist.py: unknown command '%s' (check 'pyiwlist.py --help')." % (option, )
 
