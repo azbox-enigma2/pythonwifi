@@ -126,7 +126,21 @@ def print_power(wifi):
     """ Print power management info for the card.
 
     """
-    print wifi.getPowermanagement()
+    (value, fixed, disabled, flags, pm_capa) = wifi.getPowermanagement()
+    print "%-8.16s  Supported modes :" % (wifi.ifname, )
+    if pm_capa & (pythonwifi.flags.IW_POWER_UNICAST_R | 
+                  pythonwifi.flags.IW_POWER_MULTICAST_R):
+        print "\t\t\to Receive all packets (unicast & multicast)"
+    if pm_capa & pythonwifi.flags.IW_POWER_UNICAST_R:
+        print "\t\t\to Receive Unicast only (discard multicast)"
+    if pm_capa & pythonwifi.flags.IW_POWER_MULTICAST_R:
+        print "\t\t\to Receive Multicast only (discard unicast)"
+    if pm_capa & pythonwifi.flags.IW_POWER_FORCE_S:
+        print "\t\t\to Force sending using Power Management"
+    if pm_capa & pythonwifi.flags.IW_POWER_REPEATER:
+        print "\t\t\to Repeat multicast"
+    if disabled:
+        print "\t  Current mode:off"
 
 def usage():
     print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
