@@ -727,7 +727,7 @@ class Iwparam(object):
     """ Class to hold iwparam data. """
 
     def __init__(self, ifname, ioctl):
-        # (i) value, (b) fixed, (b) disabled, (b) flags
+        # (i) value, (b) fixed, (b) disabled, (H) flags
         self.fmt = "ibbH"
         self.value = 0
         self.fixed = 0
