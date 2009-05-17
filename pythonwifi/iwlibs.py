@@ -729,12 +729,12 @@ class Iwparam(object):
     def __init__(self, ifname, ioctl):
         # (i) value, (b) fixed, (b) disabled, (H) flags
         self.fmt = "ibbH"
+        self.ifname = ifname
+        self.ioctl = ioctl
         self.value = 0
         self.fixed = 0
         self.disabled = 0
         self.flags = 0
-        self.ioctl = ioctl 
-        self.ifname = ifname
         self.update()
 
     def getValue(self):
