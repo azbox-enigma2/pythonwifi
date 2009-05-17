@@ -74,7 +74,7 @@ def print_channels(wifi):
     # any information about *which* channel *which* frequencies has
     (num_frequencies, channels) = wifi.getChannelInfo()
     current_freq = wifi.getFrequency()
-    print "%s     %02d channels in total; available frequencies :" % \
+    print "%-8.16s  %02d channels in total; available frequencies :" % \
                 (wifi.ifname, num_frequencies)
     for channel in channels:
         print "          Channel %02d : %s %s" % \
@@ -91,7 +91,7 @@ def print_bitrates(wifi):
         sys.exit(0)
 
     bitrate_type =  type(bitrates[-1]) is types.StringType
-    print "%s     %02d available bit-rates :" % (wifi.ifname, num_bitrates)
+    print "%-8.16s  %02d available bit-rates :" % (wifi.ifname, num_bitrates)
     for rate in bitrates:
         # rate is Iwfreq
         # XXX - there are to much bitrates?
@@ -108,8 +108,7 @@ def print_encryption(wifi):
     keys = wifi.getKeys()
     range_info = Iwrange(wifi.ifname)
 
-    print wifi.ifname,
-    print "   ",
+    print "%-8.16s  " % (wifi.ifname, )
     print range_info.num_encoding_sizes,
     print "key sizes :",
     for index in range(range_info.num_encoding_sizes - 1):
