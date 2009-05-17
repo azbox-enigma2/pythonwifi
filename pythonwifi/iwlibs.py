@@ -737,42 +737,6 @@ class Iwparam(object):
         self.flags = 0
         self.update()
 
-    def getRLAttributes(self):
-        """ Returns a string with attributes determined by self.flags."""
-        return self.value
-
-    def getPMAttributes(self):
-        """ Returns a string with attributes determined by self.flags
-           and IW_POWER*.
-
-        """
-        result = ""
-
-        # Modifiers
-        if self.flags & pythonwifi.flags.IW_POWER_MIN == 0:
-            result = " min"
-        if self.flags & pythonwifi.flags.IW_POWER_MAX == 0:
-            result = " max"
-
-        # Type
-        if self.flags & pythonwifi.flags.IW_POWER_TIMEOUT == 0:
-            result = " period:" 
-        else:
-            result = " timeout:"
-        # Value with or without units
-        # IW_POWER_RELATIVE - value is *not* in s/ms/us
-        if self.flags & pythonwifi.flags.IW_POWER_RELATIVE:
-            result += "%f" % (float(self.value)/MEGA)
-        else:
-            if self.value >= MEGA:
-                result += "%fs" % (float(self.value)/MEGA)
-            elif self.value >= KILO:
-                result += "%fms" % (float(self.value)/KILO)
-            else:
-                result += "%dus" % self.value
-
-        return result
-
     def update(self):
         """ Updates Iwstruct object by a system call to the kernel
            and updates internal attributes.
