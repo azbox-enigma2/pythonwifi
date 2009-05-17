@@ -790,12 +790,8 @@ class Iwparam(object):
 
         """
         iwstruct = Iwstruct()
-        i, r = iwstruct.iw_get_ext(self.ifname, 
-                                   self.ioctl)
-        if i > 0:
-            self.errorflag = i
-            self.error = r
-        self._parse(r)
+        status, result = iwstruct.iw_get_ext(self.ifname, self.ioctl)
+        self._parse(result)
 
     def _parse(self, data):
         """ Unpacks iwparam data. """
