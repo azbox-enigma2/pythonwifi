@@ -733,8 +733,6 @@ class Iwparam(object):
         self.fixed = 0
         self.disabled = 0
         self.flags = 0
-        self.errorflag = 0
-        self.error = ""
         self.ioctl = ioctl 
         self.ifname = ifname
         self.update()
