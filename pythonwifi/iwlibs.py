@@ -800,7 +800,7 @@ class Iwparam(object):
     def _parse(self, data):
         """ Unpacks iwparam data. """
         iwstruct = Iwstruct()
-        self.value, self.fixed, self.disabled, self.flags =\
+        self.value, self.fixed, self.disabled, self.flags = \
             iwstruct.parse_data(self.fmt, data)
 
 class Iwfreq(object):
