@@ -505,10 +505,10 @@ class Wireless(object):
     def getPowermanagement(self):
         """ Returns the power management settings.
 
-            >>> from iwlibs import Wireless
-            >>> wifi = Wireless('eth1')
-            >>> wifi.getPowermanagement()
-            'off'
+            #>>> from iwlibs import Wireless
+            #>>> wifi = Wireless('eth1')
+            #>>> wifi.getPowermanagement()
+            #'off'
 
         """
         iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWPOWER)
