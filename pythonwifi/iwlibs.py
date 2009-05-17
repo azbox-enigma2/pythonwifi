@@ -503,7 +503,7 @@ class Wireless(object):
         return result.tostring().strip('\x00')
 
     def getPowermanagement(self):
-        """ Returns the power management settings 
+        """ Returns the power management settings.
 
             >>> from iwlibs import Wireless
             >>> wifi = Wireless('eth1')
@@ -512,9 +512,9 @@ class Wireless(object):
 
         """
         iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWPOWER)
-        if iwparam.errorflag:
-            return (iwparam.errorflag, iwparam.error)
-        return iwparam.getValue()
+        iwrange = Iwrange(self.ifname)
+        return (iwparam.value, iwparam.fixed, iwparam.disabled,
+            iwparam.flags, iwrange.pm_capa)
 
     def getQualityMax(self):
         """ Returns an Iwquality object with maximum quality information.
