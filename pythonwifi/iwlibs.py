@@ -737,15 +737,6 @@ class Iwparam(object):
         self.flags = 0
         self.update()
 
-    def getValue(self):
-        """ Returns the value, if not disabled. """
-        if self.disabled:
-            return 'off'
-        if self.flags & pythonwifi.flags.IW_RETRY_TYPE == 0:
-            return self.getRLAttributes()
-        else:
-            return self.getPMAttributes()
-
     def getRLAttributes(self):
         """ Returns a string with attributes determined by self.flags."""
         return self.value
