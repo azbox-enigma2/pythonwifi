@@ -126,7 +126,8 @@ def print_power(wifi):
     """ Print power management info for the card.
 
     """
-    (value, fixed, disabled, flags, pm_capa) = wifi.getPowermanagement()
+    (pm_capa, power_period, power_timeout, power_saving, power_params) = \
+        wifi.getPowermanagement()
     print "%-8.16s  Supported modes :" % (wifi.ifname, )
     if pm_capa & (pythonwifi.flags.IW_POWER_UNICAST_R | 
                   pythonwifi.flags.IW_POWER_MULTICAST_R):
@@ -139,7 +140,7 @@ def print_power(wifi):
         print "\t\t\to Force sending using Power Management"
     if pm_capa & pythonwifi.flags.IW_POWER_REPEATER:
         print "\t\t\to Repeat multicast"
-    if disabled:
+    if power_params.disabled:
         print "\t  Current mode:off"
 
 def usage():
