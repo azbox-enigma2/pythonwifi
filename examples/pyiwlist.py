@@ -128,20 +128,28 @@ def print_power(wifi):
     """
     (pm_capa, power_period, power_timeout, power_saving, power_params) = \
         wifi.getPowermanagement()
-    print "%-8.16s  Supported modes :" % (wifi.ifname, )
-    if pm_capa & (pythonwifi.flags.IW_POWER_UNICAST_R | 
-                  pythonwifi.flags.IW_POWER_MULTICAST_R):
-        print "\t\t\to Receive all packets (unicast & multicast)"
-    if pm_capa & pythonwifi.flags.IW_POWER_UNICAST_R:
-        print "\t\t\to Receive Unicast only (discard multicast)"
-    if pm_capa & pythonwifi.flags.IW_POWER_MULTICAST_R:
-        print "\t\t\to Receive Multicast only (discard unicast)"
-    if pm_capa & pythonwifi.flags.IW_POWER_FORCE_S:
-        print "\t\t\to Force sending using Power Management"
-    if pm_capa & pythonwifi.flags.IW_POWER_REPEATER:
-        print "\t\t\to Repeat multicast"
+    print "%-8.16s " % (wifi.ifname, ),
+    if (pm_capa & pythonwifi.flags.IW_POWER_MODE):
+        print "Supported modes :"
+        if pm_capa & (pythonwifi.flags.IW_POWER_UNICAST_R | 
+                    pythonwifi.flags.IW_POWER_MULTICAST_R):
+            print "\t\t\to Receive all packets (unicast & multicast)"
+            print "\t ",
+        if pm_capa & pythonwifi.flags.IW_POWER_UNICAST_R:
+            print "\t\to Receive Unicast only (discard multicast)"
+            print "\t ",
+        if pm_capa & pythonwifi.flags.IW_POWER_MULTICAST_R:
+            print "\t\to Receive Multicast only (discard unicast)"
+            print "\t ",
+        if pm_capa & pythonwifi.flags.IW_POWER_FORCE_S:
+            print "\t\to Force sending using Power Management"
+            print "\t ",
+        if pm_capa & pythonwifi.flags.IW_POWER_REPEATER:
+            print "\t\to Repeat multicast"
+            print "\t ",
     if power_params.disabled:
-        print "\t  Current mode:off"
+        print "Current mode:off"
+    print
 
 def usage():
     print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
