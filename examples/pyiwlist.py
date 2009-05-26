@@ -160,6 +160,14 @@ def print_power(wifi):
         if pm_capa & pythonwifi.flags.IW_POWER_REPEATER:
             print "\t\to Repeat multicast"
             print "\t ",
+    if (power_period[0] & pythonwifi.flags.IW_POWER_PERIOD):
+        if (power_period[0] & pythonwifi.flags.IW_POWER_MIN):
+            print "Auto  period  ; ",
+        else:
+            print "Fixed period  ; ",
+        print "min period:%s\n\t\t\t  " % \
+                (format_pm_value(power_period[1]), ),
+        print "max period:%s\n\t " % (format_pm_value(power_period[2]), ),
     if power_params.disabled:
         print "Current mode:off"
     print
