@@ -122,6 +122,19 @@ def print_encryption(wifi):
     print "          Current Transmit Key: [%s]" % ("XXX", )
     print "\n"
 
+def format_pm_value(value):
+    """ Return formatted PM value.
+
+    """
+    if (value >= pythonwifi.iwlibs.MEGA):
+        fvalue = "%gs" % (value / pythonwifi.iwlibs.MEGA, )
+    else:
+        if (value >= pythonwifi.iwlibs.KILO):
+            fvalue = "%gms" % (value / pythonwifi.iwlibs.KILO, )
+        else:
+            fvalue = "%dus" % (value, )
+    return fvalue
+
 def print_power(wifi):
     """ Print power management info for the card.
 
