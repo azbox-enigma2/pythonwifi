@@ -186,6 +186,22 @@ def print_power(wifi):
         print "max period:%s\n\t " % (format_pm_value(power_saving[2]), ),
     if power_params.disabled:
         print "Current mode:off"
+    else:
+        if (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                    pythonwifi.flags.IW_POWER_UNICAST_R):
+            print "Current mode:Unicast only received"
+        elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                    pythonwifi.flags.IW_POWER_MULTICAST_R):
+            print "Current mode:Multicast only received"
+        elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                    pythonwifi.flags.IW_POWER_ALL_R):
+            print "Current mode:All packets received"
+        elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                    pythonwifi.flags.IW_POWER_FORCE_S):
+            print "Current mode:Force sending"
+        elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                    pythonwifi.flags.IW_POWER_REPEATER):
+            print "Current mode:Repeat multicasts"
     print
 
 def usage():
