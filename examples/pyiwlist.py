@@ -168,6 +168,14 @@ def print_power(wifi):
         print "min period:%s\n\t\t\t  " % \
                 (format_pm_value(power_period[1]), ),
         print "max period:%s\n\t " % (format_pm_value(power_period[2]), ),
+    if (power_timeout[0] & pythonwifi.flags.IW_POWER_TIMEOUT):
+        if (power_timeout[0] & pythonwifi.flags.IW_POWER_MIN):
+            print "Auto  timeout ; ",
+        else:
+            print "Fixed timeout ; ",
+        print "min period:%s\n\t\t\t  " % \
+                (format_pm_value(power_timeout[1]), ),
+        print "max period:%s\n\t " % (format_pm_value(power_timeout[2]), ),
     if power_params.disabled:
         print "Current mode:off"
     print
