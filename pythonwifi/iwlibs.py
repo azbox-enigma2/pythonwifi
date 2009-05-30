@@ -975,7 +975,7 @@ class Iwfreq(object):
         return getattr(self.iwstruct, attr)
 
     def parse(self, data):
-        """ Unpacks iwparam. """
+        """ Unpacks iw_freq. """
         size = struct.calcsize(self.fmt)
         m, e, dummy, pad = struct.unpack(self.fmt, data[:size])
         # XXX well, its not *the* frequency - we need a better name
