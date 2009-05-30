@@ -60,7 +60,7 @@ def iwconfig():
                 fixed = ":"
             print """Tx-Power%c%s   """ % (fixed, txpower.value),
         try:
-            sensitivity = wifi.getSensitivity()
+            sensitivity = wifi_details.getSensitivity()
         except IOError, (errno, strerror):
             pass
         else:
@@ -68,9 +68,9 @@ def iwconfig():
                 fixed = "="
             else:
                 fixed = ":"
-            print """Sensitivity:%c%s/65535""" % (fixed, sensitivity),
-
+            print """Sensitivity:%c%s/65535""" % (fixed, sensitivity.value),
         print
+
         print """\t  Retry limit:%s  RTS thr:%s   Fragment thr:%s""" % \
             (wifi.getRetrylimit(), wifi.getRTS(), wifi.getFragmentation())
         print """\t  Encryption key:%s""" % (wifi.getEncryption(), )
