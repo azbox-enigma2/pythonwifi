@@ -977,7 +977,7 @@ class Iwfreq(object):
     def parse(self, data):
         """ Unpacks iw_freq. """
         size = struct.calcsize(self.fmt)
-        m, e, dummy, pad = struct.unpack(self.fmt, data[:size])
+        m, e, index, flags = struct.unpack(self.fmt, data[:size])
         # XXX well, its not *the* frequency - we need a better name
         if e == 0:
             return m
@@ -1004,7 +1004,7 @@ class Iwfreq(object):
 
         """
         assert len(vallist) == 4
-        m, e, i, pad = vallist
+        m, e, index, flags = vallist
         if e == 0:
             self.frequency = m
         else:
