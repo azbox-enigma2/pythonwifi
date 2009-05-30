@@ -667,6 +667,19 @@ class WirelessConfig(object):
         WirelessInfo.
 
     """
+
+    def __init__(self, ifname):
+        self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.ifname = ifname
+        self.iwstruct = Iwstruct()
+        #self.nwid = Iwparam
+        self.freq = 0
+        self.freq_flags = 0
+        self.key = ""
+        self.key_size = 0
+        self.key_flags = 0
+        self.essid_on = 0
+
 class WirelessInfo(WirelessConfig):
     """ Low level access to wireless extensions on a device.  This class
         is the exhaustive list of information for a card.
