@@ -624,6 +624,7 @@ class Wireless(object):
     def getStatistics(self):
         """ Returns statistics information which can also be found in
             /proc/net/wireless.
+
         """
         iwstats = Iwstats(self.ifname)
         if iwstats.errorflag > 0:
