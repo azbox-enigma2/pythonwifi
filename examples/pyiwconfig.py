@@ -34,6 +34,8 @@ def iwconfig():
         wifi = Wireless(name)
         print """%-8.16s  %s  ESSID:"%s" """ % (name,
             wifi.getWirelessName(), wifi.getEssid())
+        print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
+            wifi.getFrequency(), wifi.getAPaddr())
         print "\t ",
 
         try:
@@ -70,8 +72,6 @@ def iwconfig():
             print """Sensitivity:%c%s/65535""" % (fixed, sensitivity),
 
         print
-        print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
-            wifi.getFrequency(), wifi.getAPaddr())
         print """\t  Retry limit:%s  RTS thr:%s   Fragment thr:%s""" % \
             (wifi.getRetrylimit(), wifi.getRTS(), wifi.getFragmentation())
         print """\t  Encryption key:%s""" % (wifi.getEncryption(), )
