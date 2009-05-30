@@ -999,12 +999,6 @@ class Iwfreq(object):
             return "%0.3fKHz" % (freq/KILO)
         return freq
 
-    def getTransmitPower(self):
-        """ Returns transmit power in dBm. """
-        # XXX something flaky is going on with m and e
-        # eg. m = 50 and e should than be 0, because the number is stored in
-        # m and don't needs to be recalculated
-        return "%i dBm" % self.mw2dbm(self.frequency/10)
     def _setFrequency(self, vallist):
         """ Sets self.frequency by given list.
 
