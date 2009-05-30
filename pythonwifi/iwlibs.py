@@ -618,10 +618,8 @@ class Wireless(object):
                 return 0
             return math.ceil(10.0 * math.log10(mwatt))
 
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
-                                                  pythonwifi.flags.SIOCGIWTXPOW)
-        iwfreq = Iwfreq(result)
-        return iwfreq.getTransmitPower()
+        iwparam = self.wireless_info.getTXPower()
+        return "%i dBm" % iwparam.value
 
     def getStatistics(self):
         """ Returns statistics information which can also be found in
