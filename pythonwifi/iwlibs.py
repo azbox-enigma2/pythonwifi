@@ -852,6 +852,21 @@ class WirelessInfo(WirelessConfig):
         """
         return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWTXPOW)
 
+    def getRetry(self):
+        """ Returns the retry/lifetime limit.
+
+            man iwconfig:
+                "Most cards have MAC retransmissions, and some allow to set
+                the behaviour of the retry mechanism."
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getRetrylimit()
+            16
+
+        """
+        return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRETRY)
+
 
 class Iwstruct(object):
     """ The basic class to handle iwstruct data. """
