@@ -924,10 +924,10 @@ class Iwstruct(object):
         """ Set options on ifname. """
         return self.iw_get_ext(ifname, operation, data)
 
-    def getMAC(self, packed_data):
-        """ Extracts MAC address from packed data and returns it as a str. """
-        mac_addr = struct.unpack('xxBBBBBB', packed_data[:8])
-        return "%02X:%02X:%02X:%02X:%02X:%02X" % mac_addr
+    #def getMAC(self, packed_data):
+        #""" Extracts MAC address from packed data and returns it as a str. """
+        #mac_addr = struct.unpack('xxBBBBBB', packed_data[:8])
+        #return "%02X:%02X:%02X:%02X:%02X:%02X" % mac_addr
 
 
 class Iwparam(object):
