@@ -86,7 +86,11 @@ def getConfiguredNICnames():
         if ifname:
             # verify if ifnames are really wifi devices
             wifi = Wireless(ifname)
-            result = wifi.getAPaddr()
+            try:
+                result = wifi.getAPaddr()
+            except IOError, (errno, strerror):
+                # don't stop on an individual error
+                pass
             if result[0] == 0:
                 ifnames.append(ifname)
     return ifnames
