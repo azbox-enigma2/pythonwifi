@@ -691,7 +691,7 @@ class WirelessConfig(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                                   pythonwifi.flags.SIOCGIWFREQ)
         iwfreq = Iwfreq(result)
-        freq = iwfreq.getFrequency()
+        return iwfreq.frequency
 
     def getEssid(self):
         """ Returns the current ESSID information.
