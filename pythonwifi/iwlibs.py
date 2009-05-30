@@ -406,9 +406,9 @@ class Wireless(object):
 
         """
         iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWFRAG)
-        if iwparam.errorflag:
-            return (iwparam.errorflag, iwparam.error)
-        return iwparam.getValue()
+        #if iwparam.errorflag:
+            #return (iwparam.errorflag, iwparam.error)
+        return iwparam.value
 
     def getFrequency(self):
         """ Returns currently set frequency of the card.
@@ -567,9 +567,9 @@ class Wireless(object):
 
         """
         iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRETRY)
-        if iwparam.errorflag:
-            return (iwparam.errorflag, iwparam.error)
-        return iwparam.getValue()
+        #if iwparam.errorflag:
+            #return (iwparam.errorflag, iwparam.error)
+        return iwparam.value
 
     def getRTS(self):
         """ Returns the RTS threshold, likely to be int, 'auto',
@@ -590,9 +590,9 @@ class Wireless(object):
 
         """
         iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRTS)
-        if iwparam.errorflag:
-            return (iwparam.errorflag, iwparam.error)
-        return iwparam.getValue()
+        #if iwparam.errorflag:
+            #return (iwparam.errorflag, iwparam.error)
+        return iwparam.value
 
     def getSensitivity(self):
         """ Returns sensitivity information.
@@ -613,9 +613,9 @@ class Wireless(object):
 
         """
         iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWSENS)
-        if iwparam.errorflag:
-            return (iwparam.errorflag, iwparam.error)
-        return iwparam.getValue()
+        #if iwparam.errorflag:
+            #return (iwparam.errorflag, iwparam.error)
+        return iwparam.value
 
     def getTXPower(self):
         """ Returns the transmit power in dBm.
