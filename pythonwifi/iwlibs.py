@@ -114,6 +114,7 @@ class Wireless(object):
         self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.ifname = ifname
         self.iwstruct = Iwstruct()
+        self.wireless_info = WirelessInfo(self.ifname)
 
     def getAPaddr(self):
         """ Returns the access point MAC address.
