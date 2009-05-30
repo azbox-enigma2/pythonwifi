@@ -830,6 +830,17 @@ class WirelessInfo(WirelessConfig):
         """
         return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWFRAG)
 
+    def getPower(self):
+        """ Returns the power management settings.
+
+            #>>> from iwlibs import Wireless
+            #>>> wifi = Wireless('eth1')
+            #>>> wifi.getPowermanagement()
+            #'off'
+
+        """
+        return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWPOWER)
+
 
 
 class Iwstruct(object):
