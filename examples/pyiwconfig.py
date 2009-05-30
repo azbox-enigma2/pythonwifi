@@ -50,7 +50,7 @@ def iwconfig():
                 fixed = ":"
             print """Bit Rate:%c%s   """ % (fixed, bitrate.value),
         try:
-            txpower = wifi.getTXPower()
+            txpower = wifi_details.getTXPower()
         except IOError, (errno, strerror):
             pass
         else:
@@ -58,8 +58,7 @@ def iwconfig():
                 fixed = "="
             else:
                 fixed = ":"
-            print """Tx-Power%c%s   """ % (fixed, txpower),
-
+            print """Tx-Power%c%s   """ % (fixed, txpower.value),
         try:
             sensitivity = wifi.getSensitivity()
         except IOError, (errno, strerror):
