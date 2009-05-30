@@ -767,7 +767,35 @@ class WirelessInfo(WirelessConfig):
         self.has_auth_cipher_group = 0
         WirelessConfig.__init__(self, ifname)
 
+    def getAPaddr(self):
+        """ Returns the access point MAC address.
 
+            >>> from iwlibs import Wireless, getNICnames
+            >>> ifnames = getNICnames()
+            >>> ifnames
+            ['eth1', 'wifi0']
+            >>> wifi = Wireless(ifnames[0])
+            >>> wifi.getAPaddr()
+            '00:0D:88:8E:4E:93'
+
+            Test with non-wifi card:
+            >>> wifi = Wireless('eth0')
+            >>> wifi.getAPaddr()
+            (95, 'Operation not supported')
+
+            Test with non-existant card:
+            >>> wifi = Wireless('eth2')
+            >>> wifi.getAPaddr()
+            (19, 'No such device')
+
+        """
+        buff, datastr = self.iwstruct.pack_wrq(32)
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                                  pythonwifi.flags.SIOCGIWAP,
+                                                  data=datastr)
+        # Extracts MAC address from packed data and returns it as a str.
+        mac_addr = struct.unpack('xxBBBBBB', result[:8])
+        return "%02X:%02X:%02X:%02X:%02X:%02X" % (mac_addr, )
 
 
 
