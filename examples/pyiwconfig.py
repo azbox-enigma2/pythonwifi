@@ -29,7 +29,7 @@ def iwconfig():
     if ifnames == []:
         print "no WLAN devices found"
         return 1
-    
+
     for name in ifnames:
         wifi = Wireless(name)
         stat, qual, discard, missed_beacon = wifi.getStatistics()
@@ -51,7 +51,7 @@ def iwconfig():
         qual.quality, qual.signallevel, qual.noiselevel,
         discard['nwid'], discard['code'], discard['fragment'],
         discard['retries'], discard['misc'], missed_beacon)
-        
+
 def main():
     if len(sys.argv) > 1:
         try:
@@ -62,7 +62,7 @@ def main():
     else:
         iwconfig()
         sys.exit(1)
-   
+
     ifnames = getNICnames()
     if ifnames == []:
         print "No wireless devices present or incompatible OS."
@@ -73,18 +73,18 @@ def main():
     except IndexError:
         print "You passed an invalid interface name."
         sys.exit(0)
-        
+
     wifi = Wireless(ifname)
     if option == 'mode':
         val = wifi.setMode(value)
     else:
         print "\nSorry, this is an invalid option you passed!\n"
         usage()
-    
+
     #if type(val) is types.StringType:
     #        print "%s" %val
-        
-    
+
+
 def usage():
     print """iwconfig.py - Copyright 2004-2005 Roman Joost
 Configure a wireless network interface via Python. This programm is
@@ -96,7 +96,7 @@ usage: pyiwconfig IFNAME option value
         mode    Auto, Ad-Hoc, Managed, Master, Repeater, Secondary,
                 Montior"""
 
-    
+
 
 if __name__ == "__main__":
     main()
