@@ -749,6 +749,24 @@ class WirelessInfo(WirelessConfig):
 
     """
 
+    def __init__(self, ifname):
+        self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.ifname = ifname
+        self.iwstruct = Iwstruct()
+        
+        self.nickname = ""
+        # Stats
+        self.stats = Iwstats
+        self.range = Iwrange
+        # Auth params for WPA/802.1x/802.11i
+        self.auth_key_mgmt = 0
+        self.has_auth_key_mgmt = 0
+        self.auth_cipher_pairwise = 0
+        self.has_auth_cipher_pairwise = 0
+        self.auth_cipher_group = 0
+        self.has_auth_cipher_group = 0
+        WirelessConfig.__init__(self, ifname)
+
 
 
 
