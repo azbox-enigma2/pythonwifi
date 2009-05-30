@@ -999,20 +999,6 @@ class Iwfreq(object):
             return "%0.3fKHz" % (freq/KILO)
         return freq
 
-    def getBitrate(self):
-        """ Returns bitrate in Mbit.
-
-           data - binary data returned by systemcall (iw_get_ext())
-
-        """
-        bitrate = self.frequency
-        if bitrate >= GIGA:
-            return "%i Gb/s" % (bitrate/GIGA)
-        if bitrate >= MEGA:
-            return "%i Mb/s" % (bitrate/MEGA)
-        if bitrate >= KILO:
-            return "%i Kb/s" % (bitrate/KILO)
-
     def getTransmitPower(self):
         """ Returns transmit power in dBm. """
         # XXX something flaky is going on with m and e
