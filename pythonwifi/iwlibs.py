@@ -797,6 +797,17 @@ class WirelessInfo(WirelessConfig):
         mac_addr = struct.unpack('xxBBBBBB', result[:8])
         return "%02X:%02X:%02X:%02X:%02X:%02X" % (mac_addr, )
 
+    def getBitrate(self):
+        """ Returns the device's currently set bit rate.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getBitrate()
+            '11 Mb/s'
+
+        """
+        return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRATE)
+
 
 
 
