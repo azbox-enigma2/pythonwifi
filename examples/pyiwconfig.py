@@ -40,7 +40,7 @@ def iwconfig():
         print "\t ",
 
         try:
-            bitrate = wifi.getBitrate()
+            bitrate = wifi_details.getBitrate()
         except IOError, (errno, strerror):
             pass
         else:
@@ -48,8 +48,7 @@ def iwconfig():
                 fixed = "="
             else:
                 fixed = ":"
-            print """Bit Rate:%c%s   """ % (fixed, bitrate),
-
+            print """Bit Rate:%c%s   """ % (fixed, bitrate.value),
         try:
             txpower = wifi.getTXPower()
         except IOError, (errno, strerror):
