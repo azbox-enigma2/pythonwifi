@@ -653,6 +653,17 @@ class Wireless(object):
         return (status, result)
 
 
+class WirelessInfo(WirelessConfig):
+    """ Low level access to wireless extensions on a device.  This class
+        is the exhaustive list of information for a card.
+
+        WirelessInfo implements the wireless_info struct in iwlib.h.
+        This class should be used by those needing lower-level access
+        than Wireless provides.
+
+    """
+
+
 class WirelessConfig(object):
     """ Low level access to wireless information on a device.  This class
         contains only those things absolutely needed to configure a card.
