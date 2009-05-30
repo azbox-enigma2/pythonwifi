@@ -680,6 +680,19 @@ class WirelessConfig(object):
         self.key_flags = 0
         self.essid_on = 0
 
+    def getWirelessName(self):
+        """ Returns the wireless name.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getWirelessName()
+            'IEEE 802.11-DS'
+
+        """
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                             pythonwifi.flags.SIOCGIWNAME)
+        return result.tostring().strip('\x00')
+
 class WirelessInfo(WirelessConfig):
     """ Low level access to wireless extensions on a device.  This class
         is the exhaustive list of information for a card.
