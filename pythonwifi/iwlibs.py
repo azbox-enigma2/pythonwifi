@@ -161,7 +161,7 @@ class Wireless(object):
                                                iwreq)
 
     def getBitrate(self):
-        """ Returns the device's currently set bit rate.
+        """ Returns the device's currently set bit rate in Mbit.
 
             >>> from iwlibs import Wireless
             >>> wifi = Wireless('eth1')
@@ -169,10 +169,13 @@ class Wireless(object):
             '11 Mb/s'
 
         """
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
-                                            pythonwifi.flags.SIOCGIWRATE)
-        iwfreq = Iwfreq(result)
-        return iwfreq.getBitrate()
+        iwparam = self.wireless_info.getBitrate()
+        if iwparam.value >= GIGA:
+            return "%i Gb/s" % (iwparam.value/GIGA)
+        if iwparam.value >= MEGA:
+            return "%i Mb/s" % (iwparam.value/MEGA)
+        if iwparam.value >= KILO:
+            return "%i Kb/s" % (iwparam.value/KILO)
 
     def getBitrates(self):
         """ Returns the number of bitrates available for the device.
