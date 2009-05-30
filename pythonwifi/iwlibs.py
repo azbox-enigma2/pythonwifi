@@ -556,9 +556,7 @@ class Wireless(object):
             16
 
         """
-        iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRETRY)
-        #if iwparam.errorflag:
-            #return (iwparam.errorflag, iwparam.error)
+        iwparam = self.wireless_info.getRetry()
         return iwparam.value
 
     def getRTS(self):
