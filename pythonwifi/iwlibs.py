@@ -494,9 +494,7 @@ class Wireless(object):
             'IEEE 802.11-DS'
 
         """
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
-                                             pythonwifi.flags.SIOCGIWNAME)
-        return result.tostring().strip('\x00')
+        return self.wireless_info.getWirelessName()
 
     def getPowermanagement(self):
         """ Returns the power management settings.
