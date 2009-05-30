@@ -577,9 +577,7 @@ class Wireless(object):
             'off'
 
         """
-        iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRTS)
-        #if iwparam.errorflag:
-            #return (iwparam.errorflag, iwparam.error)
+        iwparam = self.wireless_info.getRTS()
         return iwparam.value
 
     def getSensitivity(self):
