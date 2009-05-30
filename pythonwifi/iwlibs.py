@@ -818,7 +818,7 @@ class Iwfreq(object):
         # XXX something flaky is going on with m and e
         # eg. m = 50 and e should than be 0, because the number is stored in
         # m and don't needs to be recalculated
-        return "%i dBm" %self.mw2dbm(self.frequency/10)
+        return "%i dBm" % self.mw2dbm(self.frequency/10)
 
     def mw2dbm(self, mwatt):
         """ Converts mW to dBm (float). """
