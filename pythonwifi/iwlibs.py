@@ -841,6 +841,16 @@ class WirelessInfo(WirelessConfig):
         """
         return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWPOWER)
 
+    def getTXPower(self):
+        """ Returns the transmit power in dBm.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getTXPower()
+            '17 dBm'
+
+        """
+        return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWTXPOW)
 
 
 class Iwstruct(object):
