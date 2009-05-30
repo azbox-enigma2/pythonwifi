@@ -217,14 +217,7 @@ class Wireless(object):
             'romanofski'
 
         """
-        # use an IW_ESSID_MAX_SIZE-cell array of NULLs
-        #   as space for ioctl to write ESSID
-        iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ESSID_MAX_SIZE)
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
-                                             pythonwifi.flags.SIOCGIWESSID, 
-                                             data=iwpoint.getStruct())
-        raw_essid = iwpoint.getData().tostring()
-        return raw_essid.strip('\x00')
+        return self.wireless_info.getEssid()
 
     def setEssid(self, essid):
         """ Sets the ESSID.
