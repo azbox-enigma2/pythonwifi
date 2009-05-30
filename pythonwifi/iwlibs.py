@@ -822,6 +822,8 @@ class Iwfreq(object):
 
     def mw2dbm(self, mwatt):
         """ Converts mW to dBm (float). """
+        if mwatt == 0:
+            return 0
         return math.ceil(10.0 * math.log10(mwatt))
 
     def _setFrequency(self, vallist):
