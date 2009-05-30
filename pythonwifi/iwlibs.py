@@ -808,6 +808,16 @@ class WirelessInfo(WirelessConfig):
         """
         return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRATE)
 
+    def getRTS(self):
+        """ Returns the RTS threshold.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getRTS()
+            'off'
+
+        """
+        return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRTS)
 
 
 
