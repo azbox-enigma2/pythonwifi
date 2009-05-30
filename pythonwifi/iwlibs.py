@@ -612,6 +612,12 @@ class Wireless(object):
             '17 dBm'
 
         """
+        def mw2dbm(self, mwatt):
+            """ Converts mW to dBm (float). """
+            if mwatt == 0:
+                return 0
+            return math.ceil(10.0 * math.log10(mwatt))
+
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                                   pythonwifi.flags.SIOCGIWTXPOW)
         iwfreq = Iwfreq(result)
@@ -1015,13 +1021,6 @@ class Iwfreq(object):
         # eg. m = 50 and e should than be 0, because the number is stored in
         # m and don't needs to be recalculated
         return "%i dBm" % self.mw2dbm(self.frequency/10)
-
-    def mw2dbm(self, mwatt):
-        """ Converts mW to dBm (float). """
-        if mwatt == 0:
-            return 0
-        return math.ceil(10.0 * math.log10(mwatt))
-
     def _setFrequency(self, vallist):
         """ Sets self.frequency by given list.
 
