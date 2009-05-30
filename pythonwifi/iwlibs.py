@@ -781,7 +781,7 @@ class WirelessInfo(WirelessConfig):
                                                   data=datastr)
         # Extracts MAC address from packed data and returns it as a str.
         mac_addr = struct.unpack('xxBBBBBB', result[:8])
-        return "%02X:%02X:%02X:%02X:%02X:%02X" % (mac_addr, )
+        return "%02X:%02X:%02X:%02X:%02X:%02X" % mac_addr
 
     def getBitrate(self):
         """ Returns the device's currently set bit rate.
