@@ -393,7 +393,7 @@ class Wireless(object):
         """ Returns the fragmentation threshold.
 
             It depends on what the driver says. If you have fragmentation
-            threshold turned on, you'll get an int. If it's turned of
+            threshold turned on, you'll get an int. If it's turned off
             you'll get a string: 'off'.
 
             >>> from iwlibs import Wireless
@@ -403,6 +403,8 @@ class Wireless(object):
 
         """
         iwparam = self.wireless_info.getFragmentation()
+        if iwparam.disabled:
+            return "off"
         return iwparam.value
 
     def getFrequency(self):
