@@ -32,6 +32,7 @@ def iwconfig():
 
     for name in ifnames:
         wifi = Wireless(name)
+        wifi_details = WirelessInfo(name)
         print """%-8.16s  %s  ESSID:"%s" """ % (name,
             wifi.getWirelessName(), wifi.getEssid())
         print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
