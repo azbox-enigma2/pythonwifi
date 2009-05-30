@@ -138,11 +138,7 @@ class Wireless(object):
             (19, 'No such device')
 
         """
-        buff, datastr = self.iwstruct.pack_wrq(32)
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
-                                                  pythonwifi.flags.SIOCGIWAP,
-                                                  data=datastr)
-        return self.iwstruct.getMAC(result)
+        return self.wireless_info.getAPaddr()
 
     def setAPaddr(self, addr):
         """ Sets the access point MAC address.
