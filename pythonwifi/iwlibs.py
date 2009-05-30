@@ -725,6 +725,20 @@ class WirelessConfig(object):
         raw_essid = iwpoint.getData().tostring()
         return raw_essid.strip('\x00')
 
+    def getMode(self):
+        """ Returns currently set operation mode.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getMode()
+            'Managed'
+
+        """
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                             pythonwifi.flags.SIOCGIWMODE)
+        return self.iwstruct.unpack('I', result[:4])[0]
+
+
 class WirelessInfo(WirelessConfig):
     """ Low level access to wireless extensions on a device.  This class
         is the exhaustive list of information for a card.
