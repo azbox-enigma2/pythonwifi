@@ -707,6 +707,24 @@ class WirelessConfig(object):
         iwfreq = Iwfreq(result)
         freq = iwfreq.getFrequency()
 
+    def getEssid(self):
+        """ Returns the current ESSID information.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getEssid()
+            'romanofski'
+
+        """
+        # use an IW_ESSID_MAX_SIZE-cell array of NULLs
+        #   as space for ioctl to write ESSID
+        iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ESSID_MAX_SIZE)
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                             pythonwifi.flags.SIOCGIWESSID, 
+                                             data=iwpoint.getStruct())
+        raw_essid = iwpoint.getData().tostring()
+        return raw_essid.strip('\x00')
+
 class WirelessInfo(WirelessConfig):
     """ Low level access to wireless extensions on a device.  This class
         is the exhaustive list of information for a card.
