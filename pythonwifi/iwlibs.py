@@ -467,10 +467,7 @@ class Wireless(object):
             'Managed'
 
         """
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
-                                             pythonwifi.flags.SIOCGIWMODE)
-        mode = self.iwstruct.unpack('I', result[:4])[0]
-        return pythonwifi.flags.modes[mode]
+        return pythonwifi.flags.modes[self.wireless_info.getMode()]
 
     def setMode(self, mode):
         """ Sets the operation mode.
