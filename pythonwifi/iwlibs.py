@@ -506,12 +506,12 @@ class Wireless(object):
 
         """
         iwrange = Iwrange(self.ifname)
-        power = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWPOWER)
+        iwparam = self.wireless_info.getPower()
         return (iwrange.pm_capa, 
                 (iwrange.pmp_flags, iwrange.min_pmp, iwrange.max_pmp),
                 (iwrange.pmt_flags, iwrange.min_pmt, iwrange.max_pmt),
                 (iwrange.pms_flags, iwrange.min_pms, iwrange.max_pms),
-                power)
+                iwparam)
 
     def getQualityMax(self):
         """ Returns an Iwquality object with maximum quality information.
