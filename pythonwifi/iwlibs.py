@@ -402,9 +402,7 @@ class Wireless(object):
             'off'
 
         """
-        iwparam = Iwparam(self.ifname, pythonwifi.flags.SIOCGIWFRAG)
-        #if iwparam.errorflag:
-            #return (iwparam.errorflag, iwparam.error)
+        iwparam = self.wireless_info.getFragmentation()
         return iwparam.value
 
     def getFrequency(self):
