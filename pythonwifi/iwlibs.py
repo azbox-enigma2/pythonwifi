@@ -819,6 +819,17 @@ class WirelessInfo(WirelessConfig):
         """
         return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRTS)
 
+    def getFragmentation(self):
+        """ Returns the fragmentation threshold.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getFragmentation()
+            'off'
+
+        """
+        return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWFRAG)
+
 
 
 class Iwstruct(object):
