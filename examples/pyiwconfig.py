@@ -37,8 +37,8 @@ def iwconfig():
             wifi.getWirelessName(), wifi.getEssid())
         print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
             wifi.getFrequency(), wifi.getAPaddr())
-        print "\t ",
 
+        print "\t ",
         try:
             bitrate = wifi_details.getBitrate()
         except IOError, (errno, strerror):
