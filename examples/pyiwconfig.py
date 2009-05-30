@@ -32,25 +32,61 @@ def iwconfig():
 
     for name in ifnames:
         wifi = Wireless(name)
+        print """%-8.16s  %s  ESSID:"%s" """ % (name,
+            wifi.getWirelessName(), wifi.getEssid())
+        print "\t ",
+
+        try:
+            bitrate = wifi.getBitrate()
+        except IOError, (errno, strerror):
+            pass
+        else:
+            if bitrate.fixed:
+                fixed = "="
+            else:
+                fixed = ":"
+            print """Bit Rate:%c%s   """ % (fixed, bitrate),
+
+        try:
+            txpower = wifi.getTXPower()
+        except IOError, (errno, strerror):
+            pass
+        else:
+            if txpower.fixed:
+                fixed = "="
+            else:
+                fixed = ":"
+            print """Tx-Power%c%s   """ % (fixed, txpower),
+
+        try:
+            sensitivity = wifi.getSensitivity()
+        except IOError, (errno, strerror):
+            pass
+        else:
+            if sensitivity.fixed:
+                fixed = "="
+            else:
+                fixed = ":"
+            print """Sensitivity:%c%s/65535""" % (fixed, sensitivity),
+
+        print
+        print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
+            wifi.getFrequency(), wifi.getAPaddr())
+        print """\t  Retry limit:%s  RTS thr:%s   Fragment thr:%s""" % \
+            (wifi.getRetrylimit(), wifi.getRTS(), wifi.getFragmentation())
+        print """\t  Encryption key:%s""" % (wifi.getEncryption(), )
+
+        pm = wifi.getPowermanagement()
+        print """\t  Power Management:%s""" % (pm[0], )
+
         stat, qual, discard, missed_beacon = wifi.getStatistics()
-        print """%s  %s  ESSID:"%s"
-        Mode:%s  Frequency:%s  Access Point:%s
-        Bit Rate:%s   Tx-Power:%s   Sensitivity:%s/65535
-        Retry limit:%s  RTS thr:%s   Fragment thr:%s
-        Encryption:%s
-        Power Management:%s
-        Link Quality:%s/100  Signal level:%sdBm  Noise level:%sdBm
-        Rx invalid nwid:%s  Rx invalid crypt:%s  Rx invalid frag:%s
-        Tx excessive retries:%s  Invalid misc:%s   Missed beacon: %s
-        """ %(name, wifi.getWirelessName(), wifi.getEssid(),
-        wifi.getMode(), wifi.getFrequency(), wifi.getAPaddr(),
-        wifi.getBitrate(), wifi.getTXPower(), wifi.getSensitivity(), 
-        wifi.getRetrylimit(), wifi.getRTS(), wifi.getFragmentation(), 
-        wifi.getEncryption(),
-        wifi.getPowermanagement(), 
-        qual.quality, qual.signallevel, qual.noiselevel,
-        discard['nwid'], discard['code'], discard['fragment'],
-        discard['retries'], discard['misc'], missed_beacon)
+        print """\t  Link Quality:%s/100  Signal level:%sdBm  Noise level:%sdBm""" % \
+            (qual.quality, qual.signallevel, qual.noiselevel)
+        print """\t  Rx invalid nwid:%s  Rx invalid crypt:%s  Rx invalid frag:%s""" % \
+            (discard['nwid'], discard['code'], discard['fragment'],)
+        print """\t  Tx excessive retries:%s  Invalid misc:%s   Missed beacon: %s""" % \
+            (discard['retries'], discard['misc'], missed_beacon)
+
 
 def main():
     if len(sys.argv) > 1:
