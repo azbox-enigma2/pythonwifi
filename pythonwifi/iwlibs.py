@@ -581,6 +581,8 @@ class Wireless(object):
 
         """
         iwparam = self.wireless_info.getRTS()
+        if iwparam.disabled:
+            return "off"
         return iwparam.value
 
     def getSensitivity(self):
