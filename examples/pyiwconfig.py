@@ -20,7 +20,7 @@
 #
 import sys
 import types
-from pythonwifi.iwlibs import Wireless, getNICnames
+from pythonwifi.iwlibs import Wireless, WirelessInfo, getNICnames
 
 
 def iwconfig():
