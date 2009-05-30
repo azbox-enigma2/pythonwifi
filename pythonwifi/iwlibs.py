@@ -754,6 +754,26 @@ class WirelessInfo(WirelessConfig):
         self.has_auth_cipher_group = 0
         WirelessConfig.__init__(self, ifname)
 
+    def getSensitivity(self):
+        """ Returns sensitivity information.
+
+            man iwconfig:
+                "This is the lowest signal level for which the hardware
+                attempt packet reception, signals weaker than this are
+                ignored. This is used to avoid receiving background noise,
+                so you should set it according to the average noise
+                level. Positive values are assumed to be the raw value used
+                by the hardware or a percentage, negative values are
+                assumed to be dBm."
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getSensitivity()
+            'off'
+
+        """
+        return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWSENS)
+
     def getAPaddr(self):
         """ Returns the access point MAC address.
 
