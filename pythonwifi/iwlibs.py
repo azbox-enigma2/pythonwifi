@@ -693,6 +693,20 @@ class WirelessConfig(object):
                                              pythonwifi.flags.SIOCGIWNAME)
         return result.tostring().strip('\x00')
 
+    def getFrequency(self):
+        """ Returns currently set frequency of the card.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getFrequency()
+            '2.417GHz'
+
+        """
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                                  pythonwifi.flags.SIOCGIWFREQ)
+        iwfreq = Iwfreq(result)
+        freq = iwfreq.getFrequency()
+
 class WirelessInfo(WirelessConfig):
     """ Low level access to wireless extensions on a device.  This class
         is the exhaustive list of information for a card.
