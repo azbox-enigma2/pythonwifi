@@ -104,7 +104,11 @@ def hex2int(hexstring):
 
 
 class Wireless(object):
-    """ Access to wireless interfaces """
+    """ Provides high-level access to wireless interfaces.
+
+        This class uses WirelessInfo for most access.
+
+    """
 
     def __init__(self, ifname):
         self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
