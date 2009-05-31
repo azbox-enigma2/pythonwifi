@@ -1,0 +1,122 @@
+.\" Author: Sean Robinson <seankrobinson@gmail.com>
+.\" iwconfig.py.8
+.\"
+.TH IWCONFIG.py 8 "31 May 2009" "Python WiFi" "Linux Programmer's Manual"
+.\"
+.\" NAME part
+.\"
+.SH NAME
+iwconfig.py \- configure a wireless network interface via Python
+.\"
+.\" SYNOPSIS part
+.\"
+.SH SYNOPSIS
+.BI "iwconfig.py [" interface ]
+.br
+.BI "iwconfig.py " interface " [essid " X "] [nwid " N "] [mode " M "] [freq " F "]
+.br
+.BI "                   [channel " C ] [sens " S "] [ap " A "] [nick " NN ]
+.br
+.BI "                   [rate " R "] [rts " RT "] [frag " FT "] [txpower " T ]
+.br
+.BI "                   [enc " E "] [key " K "] [power " P "] [retry " R ]
+.br
+.BI "                   [modu " M "] [commit]
+.br
+.BI "iwconfig.py --help"
+.br
+.BI "iwconfig.py --version"
+.\"
+.\" DESCRIPTION part
+.\"
+.SH DESCRIPTION
+.B Iwconfig.py
+is a drop-in replacement for
+.IR iwconfig (8),
+but uses the pythonwifi module to implement its functionality in pure Python.
+See the
+.IR iwconfig (8)
+man page for more detail about what
+.B iwconfig.py
+can do.
+.PP
+The compatitibilty of specific operations
+.B iwconfig.py
+has with
+.IR iwconfig (8)
+are listed below.
+.\"
+.\" COMPATIBILITY part
+.\"
+.SH COMPATIBILITY
+.TP
+.B essid
+
+.TP
+.BR nwid
+
+.TP
+.BR nick [name]
+
+.TP
+.B mode
+
+.TP
+.BR freq / channel
+
+.TP
+.B ap
+
+.TP
+.BR rate / bit [rate]
+
+.TP
+.BR txpower
+
+.TP
+.B sens
+
+.TP
+.BR retry
+
+.TP
+.BR rts [_threshold]
+
+.TP
+.BR frag [mentation_threshold]
+
+.TP
+.BR key / enc [ryption]
+
+.TP
+.BR power
+
+.TP
+.BR modu [lation]
+
+.TP
+.BR commit
+.\"
+.\" AUTHOR part
+.\"
+.SH AUTHOR
+Sean Robinson \- seankrobinson@gmail.com
+.\"
+.\" COPYRIGHT part
+.\"
+.SH COPYRIGHT
+Copyright 2004-2005 Roman Joost
+.br
+Copyright 2009 Sean Robinson
+.\"
+.\" FILES part
+.\"
+.SH FILES
+.I /proc/net/dev,
+.I /proc/net/wireless
+.\"
+.\" SEE ALSO part
+.\"
+.SH SEE ALSO
+.BR ifconfig (8),
+.BR iwlist.py (8),
