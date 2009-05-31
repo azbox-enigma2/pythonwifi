@@ -203,6 +203,9 @@ def usage():
                    interface commit
           Check man pages for more details."""
 
+def version_info():
+    pass
+
 
 if __name__ == "__main__":
     main()
