@@ -53,8 +53,7 @@ def getWNICnames():
     ifnames = []
 
     fp = open('/proc/net/wireless', 'r')
-    data = fp.readlines()
-    for line in data:
+    for line in fp:
         try:
             ifnames.append(device.search(line).group())
         except AttributeError:
