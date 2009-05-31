@@ -85,6 +85,21 @@ def getRTS(wifi, wifi_details):
             fixed = ":"
         return "RTS thr%c%d B   " % (fixed, wifi.getRTS())
 
+def getFragmentation(wifi, wifi_details):
+    """ Return formatted string with Fragmentation info. """
+    try:
+        frag = wifi_details.getFragmentation()
+    except IOError, (errno, strerror):
+        return None
+    else:
+        if frag.disabled:
+            return "RTS thr:off"
+        if frag.fixed:
+            fixed = "="
+        else:
+            fixed = ":"
+        return "Fragment thr%c%d B   " % (fixed, wifi.getFragmentation())
+
 def iwconfig():
     """ get wireless information from the device driver """
     ifnames = getNICnames()
@@ -120,7 +135,11 @@ def iwconfig():
         rts = getRTS(wifi, wifi_details)
         if rts:
             print rts,
+        fragment = getFragmentation(wifi, wifi_details)
+        if fragment:
+            print fragment,
         print
+
         print """\t  Encryption key:%s""" % (wifi.getEncryption(), )
 
         pm = wifi.getPowermanagement()
