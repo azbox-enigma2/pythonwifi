@@ -155,36 +155,30 @@ def iwconfig(interface):
     print
 
 def main():
-    if len(sys.argv) > 1:
-        try:
-            ifname, option, value = sys.argv[1:]
-        except ValueError:
-            usage()
-            sys.exit(2)
-    else:
-        iwconfig()
-        sys.exit(1)
-
-    ifnames = getNICnames()
-    if ifnames == []:
-        print "No wireless devices present or incompatible OS."
-        sys.exit(0)
-    # find out if the user passed a valid device
     try:
-        ifnames.index(ifname)
-    except IndexError:
-        print "You passed an invalid interface name."
-        sys.exit(0)
-
-    wifi = Wireless(ifname)
-    if option == 'mode':
-        val = wifi.setMode(value)
-    else:
-        print "\nSorry, this is an invalid option you passed!\n"
+        opts, args = getopt.getopt(sys.argv[1:], "hv", ["help", "version"])
+    except getopt.GetoptError, err:
+        # print help information and exit:
+        print str(err) # will print something like "option -a not recognized"
         usage()
+        sys.exit(2)
 
-    #if type(val) is types.StringType:
-    #        print "%s" %val
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            usage()
+            sys.exit(0)
+        if opt in ("-v", "--version"):
+            version_info()
+            sys.exit(0)
+
+    if len(args) == 0:
+        # no params given to iwconfig.py
+        for interface in getNICnames():
+            iwconfig(interface)
+    if len(args) == 1:
+        # one param given to iwconfig.py, it should be a network device
+        if sys.argv[1] in getNICnames():
+            iwconfig(sys.argv[1])
 
 
 def usage():
