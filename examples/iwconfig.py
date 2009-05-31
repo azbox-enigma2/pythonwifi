@@ -101,18 +101,14 @@ def getFragmentation(wifi, wifi_details):
             fixed = ":"
         return "Fragment thr%c%d B   " % (fixed, wifi.getFragmentation())
 
-def iwconfig():
+def iwconfig(interface):
     """ get wireless information from the device driver """
-    ifnames = getNICnames()
-    wifinames = getWNICnames()
-    for interface in ifnames:
-        if interface not in wifinames:
-            print "%-8.16s  no wireless extensions.\n" % (interface, )
-
-    for name in wifinames:
-        wifi = Wireless(name)
-        wifi_details = WirelessInfo(name)
-        print """%-8.16s  %s  ESSID:"%s" """ % (name,
+    if interface not in getWNICnames():
+        print "%-8.16s  no wireless extensions." % (interface, )
+    else:
+        wifi = Wireless(interface)
+        wifi_details = WirelessInfo(interface)
+        print """%-8.16s  %s  ESSID:"%s" """ % (interface,
             wifi.getWirelessName(), wifi.getEssid())
         print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
             wifi.getFrequency(), wifi.getAPaddr())
@@ -156,6 +152,7 @@ def iwconfig():
         print """\t  Tx excessive retries:%s  Invalid misc:%s   Missed beacon: %s""" % \
             (discard['retries'], discard['misc'], missed_beacon)
 
+    print
 
 def main():
     if len(sys.argv) > 1:
