@@ -222,7 +222,7 @@ class Wireless(object):
     def setEssid(self, essid):
         """ Sets the ESSID.
 
-            >>> fromiwlibs import Wireless
+            >>> from iwlibs import Wireless
             >>> wifi = Wireless('eth1')
             >>> wifi.getEssid()
             'romanofski'
