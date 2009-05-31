@@ -20,7 +20,7 @@
 #
 import sys
 import types
-from pythonwifi.iwlibs import Wireless, WirelessInfo, getNICnames
+from pythonwifi.iwlibs import Wireless, WirelessInfo, getNICnames, getWNICnames
 
 def getBitrate(wifi, wifi_details):
     """ Return formatted string with Bit Rate info. """
