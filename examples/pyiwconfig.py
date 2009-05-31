@@ -22,6 +22,19 @@ import sys
 import types
 from pythonwifi.iwlibs import Wireless, WirelessInfo, getNICnames
 
+def getBitrate(wifi, wifi_details):
+    """ Return formatted string with Bit Rate info. """
+    try:
+        bitrate = wifi_details.getBitrate()
+    except IOError, (errno, strerror):
+        return None
+    else:
+        if bitrate.fixed:
+            fixed = "="
+        else:
+            fixed = ":"
+        return """Bit Rate%c%s   """ % (fixed, wifi.getBitrate())
+
 
 def iwconfig():
     """ get wireless information from the device driver """
@@ -39,16 +52,9 @@ def iwconfig():
             wifi.getFrequency(), wifi.getAPaddr())
 
         print "\t ",
-        try:
-            bitrate = wifi_details.getBitrate()
-        except IOError, (errno, strerror):
-            pass
-        else:
-            if bitrate.fixed:
-                fixed = "="
-            else:
-                fixed = ":"
-            print """Bit Rate%c%s   """ % (fixed, wifi.getBitrate()),
+        bitrate = getBitrate(wifi, wifi_details)
+        if bitrate:
+            print bitrate,
         try:
             txpower = wifi_details.getTXPower()
         except IOError, (errno, strerror):
