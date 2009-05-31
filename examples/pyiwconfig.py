@@ -33,7 +33,7 @@ def getBitrate(wifi, wifi_details):
             fixed = "="
         else:
             fixed = ":"
-        return """Bit Rate%c%s   """ % (fixed, wifi.getBitrate())
+        return "Bit Rate%c%s   " % (fixed, wifi.getBitrate())
 
 def getTXPower(wifi, wifi_details):
     """ Return formatted string with TXPower info. """
@@ -46,7 +46,7 @@ def getTXPower(wifi, wifi_details):
             fixed = "="
         else:
             fixed = ":"
-        return """Tx-Power%c%s   """ % (fixed, wifi.getTXPower())
+        return "Tx-Power%c%s   " % (fixed, wifi.getTXPower())
 
 def getSensitivity(wifi, wifi_details):
     """ Return formatted string with Sensitivity info. """
@@ -59,7 +59,7 @@ def getSensitivity(wifi, wifi_details):
             fixed = "="
         else:
             fixed = ":"
-        return """Sensitivity%c%s/65535""" % (fixed, wifi.getSensitivity())
+        return "Sensitivity%c%d/65535" % (fixed, wifi.getSensitivity())
 
 def iwconfig():
     """ get wireless information from the device driver """
