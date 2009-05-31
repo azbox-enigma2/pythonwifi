@@ -180,18 +180,28 @@ def main():
         if sys.argv[1] in getNICnames():
             iwconfig(sys.argv[1])
 
-
 def usage():
-    print """iwconfig.py - Copyright 2004-2005 Roman Joost
-Configure a wireless network interface via Python. This programm is
-a frontend tool, to the Wireless Library for Python.
-
-usage: pyiwconfig IFNAME option value
-
-    options:    value:
-        mode    Auto, Ad-Hoc, Managed, Master, Repeater, Secondary,
-                Montior"""
-
+    print """Usage: iwconfig.py [interface]
+                   interface essid {NNN|any|on|off}
+                   interface mode {managed|ad-hoc|master|...}
+                   interface freq N.NNN[k|M|G]
+                   interface channel N
+                   interface bit {N[k|M|G]|auto|fixed}
+                   interface rate {N[k|M|G]|auto|fixed}
+                   interface enc {NNNN-NNNN|off}
+                   interface key {NNNN-NNNN|off}
+                   interface power {period N|timeout N|saving N|off}
+                   interface nickname NNN
+                   interface nwid {NN|on|off}
+                   interface ap {N|off|auto}
+                   interface txpower {NmW|NdBm|off|auto}
+                   interface sens N
+                   interface retry {limit N|lifetime N}
+                   interface rts {N|auto|fixed|off}
+                   interface frag {N|auto|fixed|off}
+                   interface modulation {11g|11a|CCK|OFDMg|...}
+                   interface commit
+          Check man pages for more details."""
 
 
 if __name__ == "__main__":
