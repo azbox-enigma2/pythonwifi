@@ -40,6 +40,28 @@ MEGA = 10**6
 GIGA = 10**9
 
 
+def getNICnames():
+    """ Extract network device names from /proc/net/dev.
+
+        Returns list of device names.  Returns empty list if no network
+        devices are present.
+
+        >>> getNICnames()
+        ['lo', 'eth0']
+
+    """
+    device = re.compile('[a-z]{2,4}[0-9]*:') 
+    ifnames = []
+
+    fp = open('/proc/net/dev', 'r')
+    for line in fp:
+        try:
+            # append matching pattern, without the trailing colon
+            ifnames.append(device.search(line).group()[:-1])
+        except AttributeError:
+            pass
+    return ifnames
+
 def getWNICnames():
     """ Extract wireless device names from /proc/net/wireless.
 
