@@ -35,6 +35,19 @@ def getBitrate(wifi, wifi_details):
             fixed = ":"
         return """Bit Rate%c%s   """ % (fixed, wifi.getBitrate())
 
+def getTXPower(wifi, wifi_details):
+    """ Return formatted string with TXPower info. """
+    try:
+        txpower = wifi_details.getTXPower()
+    except IOError, (errno, strerror):
+        return None
+    else:
+        if txpower.fixed:
+            fixed = "="
+        else:
+            fixed = ":"
+        return """Tx-Power%c%s   """ % (fixed, wifi.getTXPower())
+
 
 def iwconfig():
     """ get wireless information from the device driver """
@@ -55,16 +68,9 @@ def iwconfig():
         bitrate = getBitrate(wifi, wifi_details)
         if bitrate:
             print bitrate,
-        try:
-            txpower = wifi_details.getTXPower()
-        except IOError, (errno, strerror):
-            pass
-        else:
-            if txpower.fixed:
-                fixed = "="
-            else:
-                fixed = ":"
-            print """Tx-Power%c%s   """ % (fixed, txpower.value),
+        txpower = getTXPower(wifi, wifi_details)
+        if txpower:
+            print txpower,
         try:
             sensitivity = wifi_details.getSensitivity()
         except IOError, (errno, strerror):
