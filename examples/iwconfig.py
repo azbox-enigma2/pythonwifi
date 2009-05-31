@@ -93,7 +93,7 @@ def getFragmentation(wifi, wifi_details):
         return None
     else:
         if frag.disabled:
-            return "RTS thr:off"
+            return "Fragment thr:off"
         if frag.fixed:
             fixed = "="
         else:
