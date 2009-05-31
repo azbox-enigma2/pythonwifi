@@ -40,12 +40,12 @@ MEGA = 10**6
 GIGA = 10**9
 
 
-def getNICnames():
-    """ Extract wireless device names of /proc/net/wireless.
+def getWNICnames():
+    """ Extract wireless device names from /proc/net/wireless.
 
         Returns empty list if no devices are present.
 
-        >>> getNICnames()
+        >>> getWNICnames()
         ['eth1', 'wifi0']
 
     """
