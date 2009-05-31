@@ -1288,11 +1288,8 @@ class Iwrange(object):
         self.num_bitrates = result[20] # <- XXX
         raw_bitrates = result[21:21+self.num_bitrates]
         for rate in raw_bitrates:
-            iwfreq = Iwfreq()
-            iwfreq.frequency = rate
-            btr = iwfreq.getBitrate()
-            if btr is not None:
-                self.bitrates.append(btr)
+            if rate is not None:
+                self.bitrates.append(rate)
 
         self.min_rts, self.max_rts = result[53:55]
         self.min_frag, self.max_frag = result[55:57]
