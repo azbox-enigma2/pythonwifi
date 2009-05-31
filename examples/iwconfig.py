@@ -104,9 +104,9 @@ def iwconfig():
     """ get wireless information from the device driver """
     ifnames = getNICnames()
     wifinames = getWNICnames()
-    if ifnames == []:
-        print "no WLAN devices found"
-        return 1
+    for interface in ifnames:
+        if interface not in wifinames:
+            print "%-8.16s  no wireless extensions.\n" % (interface, )
 
     for name in wifinames:
         wifi = Wireless(name)
