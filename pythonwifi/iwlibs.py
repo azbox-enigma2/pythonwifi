@@ -61,7 +61,7 @@ def getWNICnames():
             pass 
     # if we couldn't lookup the devices, try to ask the kernel
     if ifnames == []:
-        ifnames = getConfiguredNICnames()
+        ifnames = getConfiguredWNICnames()
 
     return ifnames
 
