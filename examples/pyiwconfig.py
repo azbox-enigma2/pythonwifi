@@ -48,7 +48,7 @@ def iwconfig():
                 fixed = "="
             else:
                 fixed = ":"
-            print """Bit Rate:%c%s   """ % (fixed, bitrate.value),
+            print """Bit Rate%c%s   """ % (fixed, wifi.getBitrate()),
         try:
             txpower = wifi_details.getTXPower()
         except IOError, (errno, strerror):
@@ -68,7 +68,7 @@ def iwconfig():
                 fixed = "="
             else:
                 fixed = ":"
-            print """Sensitivity:%c%s/65535""" % (fixed, sensitivity.value),
+            print """Sensitivity%c%s/65535""" % (fixed, sensitivity.value),
         print
 
         print """\t  Retry limit:%s  RTS thr:%s   Fragment thr:%s""" % \
