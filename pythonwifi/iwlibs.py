@@ -65,10 +65,10 @@ def getNICnames():
 
     return ifnames
 
-def getConfiguredNICnames():
+def getConfiguredWNICnames():
     """ Get the *configured* ifnames by a systemcall.
 
-       >>> getConfiguredNICnames()
+       >>> getConfiguredWNICnames()
        []
 
     """
