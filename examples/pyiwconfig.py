@@ -115,6 +115,7 @@ def iwconfig():
         print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
             wifi.getFrequency(), wifi.getAPaddr())
 
+        # Bit Rate, TXPower, and Sensitivity line
         print "\t ",
         bitrate = getBitrate(wifi, wifi_details)
         if bitrate:
