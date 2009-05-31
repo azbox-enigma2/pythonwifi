@@ -70,6 +70,21 @@ def getRetrylimit(wifi, wifi_details):
     else:
         return "Retry limit:%s  " % (wifi.getRetrylimit(), )
 
+def getRTS(wifi, wifi_details):
+    """ Return formatted string with RTS info. """
+    try:
+        rts = wifi_details.getRTS()
+    except IOError, (errno, strerror):
+        return None
+    else:
+        if rts.disabled:
+            return "RTS thr:off   "
+        if rts.fixed:
+            fixed = "="
+        else:
+            fixed = ":"
+        return "RTS thr%c%d B   " % (fixed, wifi.getRTS())
+
 def iwconfig():
     """ get wireless information from the device driver """
     ifnames = getNICnames()
@@ -102,6 +117,9 @@ def iwconfig():
         retry = getRetrylimit(wifi, wifi_details)
         if retry:
             print retry,
+        rts = getRTS(wifi, wifi_details)
+        if rts:
+            print rts,
         print
         print """\t  Encryption key:%s""" % (wifi.getEncryption(), )
 
