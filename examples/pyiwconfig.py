@@ -48,6 +48,18 @@ def getTXPower(wifi, wifi_details):
             fixed = ":"
         return """Tx-Power%c%s   """ % (fixed, wifi.getTXPower())
 
+def getSensitivity(wifi, wifi_details):
+    """ Return formatted string with Sensitivity info. """
+    try:
+        sensitivity = wifi_details.getSensitivity()
+    except IOError, (errno, strerror):
+        return None
+    else:
+        if sensitivity.fixed:
+            fixed = "="
+        else:
+            fixed = ":"
+        return """Sensitivity%c%s/65535""" % (fixed, wifi.getSensitivity())
 
 def iwconfig():
     """ get wireless information from the device driver """
@@ -71,16 +83,9 @@ def iwconfig():
         txpower = getTXPower(wifi, wifi_details)
         if txpower:
             print txpower,
-        try:
-            sensitivity = wifi_details.getSensitivity()
-        except IOError, (errno, strerror):
-            pass
-        else:
-            if sensitivity.fixed:
-                fixed = "="
-            else:
-                fixed = ":"
-            print """Sensitivity%c%s/65535""" % (fixed, sensitivity.value),
+        sensitivity = getSensitivity(wifi, wifi_details)
+        if sensitivity:
+            print sensitivity,
         print
 
         print """\t  Retry limit:%s  RTS thr:%s   Fragment thr:%s""" % \
