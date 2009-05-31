@@ -103,11 +103,12 @@ def getFragmentation(wifi, wifi_details):
 def iwconfig():
     """ get wireless information from the device driver """
     ifnames = getNICnames()
+    wifinames = getWNICnames()
     if ifnames == []:
         print "no WLAN devices found"
         return 1
 
-    for name in ifnames:
+    for name in wifinames:
         wifi = Wireless(name)
         wifi_details = WirelessInfo(name)
         print """%-8.16s  %s  ESSID:"%s" """ % (name,
