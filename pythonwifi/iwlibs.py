@@ -735,7 +735,7 @@ class WirelessConfig(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWESSID, 
                                              data=iwpoint.packed_data)
-        raw_essid = iwpoint.getData().tostring()
+        raw_essid = iwpoint.buff.tostring()
         return raw_essid.strip('\x00')
 
     def getMode(self):
