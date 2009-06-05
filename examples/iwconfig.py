@@ -101,6 +101,35 @@ def getFragmentation(wifi, wifi_details):
             fixed = ":"
         return "Fragment thr%c%d B   " % (fixed, wifi.getFragmentation())
 
+def getEncryption(wifi, wifi_details):
+    """ Return formatted string with Encryption info.
+
+    As noted in iwconfig.c: we display only the "current" key, use iwlist
+    to list all keys.
+
+    """
+    #try:
+    enc = wifi_details.getEncryption()
+    #except IOError, (errno, strerror):
+        #print errno, strerror
+        #return None
+    #else:
+    if enc.disabled:
+        key = "Encryption key:off"
+    else:
+        key = "Encryption key:%s" % (wifi.getKey(), )
+    if ((enc.flags & pythonwifi.flags.IW_ENCODE_INDEX) > 1):
+        index = " [%d]" % (enc.flags & pythonwifi.flags.IW_ENCODE_INDEX, )
+    else:
+        index = ""
+    if ((enc.flags & pythonwifi.flags.IW_ENCODE_RESTRICTED) > 0):
+        mode = "   Security mode:restricted"
+    elif ((enc.flags & pythonwifi.flags.IW_ENCODE_OPEN) > 0):
+        mode = "   Security mode:open"
+    else:
+        mode = ""
+    return "%s%s%s" % (key, index, mode)
+
 def iwconfig(interface):
     """ get wireless information from the device driver """
     if interface not in getWNICnames():
@@ -139,7 +168,9 @@ def iwconfig(interface):
             print fragment,
         print
 
-        print """\t  Encryption key:%s""" % (wifi.getEncryption(), )
+        print "\t ",
+        print getEncryption(wifi, wifi_details)
+        print
 
         pm = wifi.getPowermanagement()
         print """\t  Power Management:%s""" % (pm[0], )

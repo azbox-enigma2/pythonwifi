@@ -702,6 +702,25 @@ class WirelessConfig(object):
                                              pythonwifi.flags.SIOCGIWNAME)
         return result.tostring().strip('\x00')
 
+    def getEncryption(self):
+        """ Returns the encryption status.
+
+            >>> from iwlibs import Wireless
+            >>> wifi = Wireless('eth1')
+            >>> wifi.getEncryption()
+            'off'
+
+        """
+        # use an IW_ENCODING_TOKEN_MAX-cell array of NULLs
+        #   as space for ioctl to write encryption info
+        iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX)
+        status, result = self.iwstruct.iw_get_ext(self.ifname, 
+                                             pythonwifi.flags.SIOCGIWENCODE, 
+                                             data=iwpoint.getStruct())
+        iwpoint.updateStruct(result)
+
+        return iwpoint
+
     def getFrequency(self):
         """ Returns currently set frequency of the card.
 
