@@ -1157,54 +1157,21 @@ class Iwpoint(object):
     """ Class to hold iw_point data. """
 
     def __init__(self, data=None, flags=0):
+        if data is None:
+            raise ValueError, "data must be passed to Iwpoint"
         # P pointer to data, H length, H flags
         self.fmt = 'PHH'
-        self.buff = None
-        self.packed_data = None
-        self.setData(data, flags)
+        self.flags = flags
+        self.buff = array.array('c', data)
+        self.caddr_t, self.length = self.buff.buffer_info()
+        self.packed_data = \
+            struct.pack(self.fmt, self.caddr_t, self.length, self.flags)
 
-    def setData(self, data=None, flags=0):
-        """ Set the data to be referred to ioctl. """
-        self._pack(data, flags)
-
-    def getData(self):
-        """ Returns the data in the buffer. """
-        if self.buff:
-            return self.buff
-
-    def getStruct(self):
-        """ Returns the location information for the buffer. """
-        return self.packed_data
-
-    def updateStruct(self, packed_data):
-        """ Update the location information for the buffer. """
-        self.packed_data = packed_data
-
-    def getFlags(self):
-        """ Returns the flags value. """
+    def update(self):
+        """ Updates the object attributes. """
         if self.packed_data:
-            caddr_t, length, flags = struct.unpack(self.fmt, self.packed_data)
-            return flags
-        else:
-            return None
-
-    def getLength(self):
-        """ Returns the length of the buffer. """
-        if self.packed_data:
-            caddr_t, length, flags = struct.unpack(self.fmt, self.packed_data)
-            return length
-        else:
-            return None
-
-    def _pack(self, data=None, flags=0):
-        """ Make a buffer with user data and a struct with its
-            location in memory.
-
-        """
-        if data:
-            self.buff = array.array('c', data)
-            caddr_t, length = self.buff.buffer_info()
-            self.packed_data = struct.pack(self.fmt, caddr_t, length, flags)
+            self.caddr_t, self.length, self.flags = \
+                struct.unpack(self.fmt, self.packed_data)
 
 
 class Iwrange(object):
