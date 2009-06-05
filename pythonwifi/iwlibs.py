@@ -351,7 +351,7 @@ class Wireless(object):
         iwpoint.update()
 
         # build a list of each char in key
-        raw_key = map(ord, iwpoint.getData().tolist())[:iwpoint.getLength()]
+        raw_key = map(ord, iwpoint.buff.tolist())[:iwpoint.length]
         if sum(raw_key) == 0:
             return "off"
         if not formatted:
@@ -359,7 +359,7 @@ class Wireless(object):
 
         # format key in standard form
         key = "%.2X" % raw_key[0]
-        for i in range(1, iwpoint.getLength()):
+        for i in range(1, iwpoint.length):
             if ( i & 0x1 ) == 0:
                     key = key + '-'
             key = key + "%.2X" % raw_key[i]
