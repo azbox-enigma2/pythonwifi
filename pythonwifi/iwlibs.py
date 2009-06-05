@@ -258,7 +258,7 @@ class Wireless(object):
         iwpoint = Iwpoint(essid, 1)
         status, result = self.iwstruct.iw_set_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWESSID, 
-                                             data=iwpoint.getStruct())
+                                             data=iwpoint.packed_data)
 
     def getEncryption(self, symbolic=True):
         """ Get the association mode, which is probably a string of '*',
@@ -278,7 +278,7 @@ class Wireless(object):
         iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX)
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
-                                             data=iwpoint.getStruct())
+                                             data=iwpoint.packed_data)
         iwpoint.updateStruct(result)
 
         flags = iwpoint.getFlags()
@@ -324,7 +324,7 @@ class Wireless(object):
         iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX, numeric_mode)
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWENCODE, 
-                                             data=iwpoint.getStruct())
+                                             data=iwpoint.packed_data)
 
     def getKey(self, key=0, formatted=True):
         """ Get an encryption key.
@@ -345,7 +345,7 @@ class Wireless(object):
         iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX, key)
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
-                                             data=iwpoint.getStruct())
+                                             data=iwpoint.packed_data)
         iwpoint.updateStruct(result)
 
         # build a list of each char in key
@@ -389,7 +389,7 @@ class Wireless(object):
                     index + pythonwifi.flags.IW_ENCODE_ENABLED)
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWENCODE, 
-                                             data=iwpoint.getStruct())
+                                             data=iwpoint.packed_data)
     def getKeys(self):
         """ Get all encryption keys.
 
@@ -732,7 +732,7 @@ class WirelessConfig(object):
         iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ESSID_MAX_SIZE)
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWESSID, 
-                                             data=iwpoint.getStruct())
+                                             data=iwpoint.packed_data)
         raw_essid = iwpoint.getData().tostring()
         return raw_essid.strip('\x00')
 
