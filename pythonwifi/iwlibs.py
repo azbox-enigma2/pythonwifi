@@ -260,7 +260,7 @@ class Wireless(object):
                                              pythonwifi.flags.SIOCSIWESSID, 
                                              data=iwpoint.packed_data)
 
-    def getEncryption(self, symbolic=True):
+    def getEncryption(self):
         """ Get the association mode, which is probably a string of '*',
             'open', 'private', 'off'.
 
@@ -283,8 +283,6 @@ class Wireless(object):
         iwpoint.update()
 
         flags = iwpoint.getFlags()
-        if not symbolic:
-            return flags
 
         if flags & pythonwifi.flags.IW_ENCODE_NOKEY > 0:
             return '**'*iwpoint.getLength()
