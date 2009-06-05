@@ -282,15 +282,13 @@ class Wireless(object):
         iwpoint.packed_data = result
         iwpoint.update()
 
-        flags = iwpoint.getFlags()
-
-        if flags & pythonwifi.flags.IW_ENCODE_NOKEY > 0:
-            return '**'*iwpoint.getLength()
-        elif flags & pythonwifi.flags.IW_ENCODE_OPEN > 0:
+        if iwpoint.flags & pythonwifi.flags.IW_ENCODE_NOKEY > 0:
+            return '**'*iwpoint.length
+        elif iwpoint.flags & pythonwifi.flags.IW_ENCODE_OPEN > 0:
             return 'open'
-        elif flags & pythonwifi.flags.IW_ENCODE_RESTRICTED > 0:
+        elif iwpoint.flags & pythonwifi.flags.IW_ENCODE_RESTRICTED > 0:
             return 'restricted'
-        elif flags & pythonwifi.flags.IW_ENCODE_DISABLED > 0:
+        elif iwpoint.flags & pythonwifi.flags.IW_ENCODE_DISABLED > 0:
             return 'off'
 
     def setEncryption(self, mode):
