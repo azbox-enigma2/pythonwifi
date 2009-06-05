@@ -279,7 +279,8 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
                                              data=iwpoint.packed_data)
-        iwpoint.updateStruct(result)
+        iwpoint.packed_data = result
+        iwpoint.update()
 
         flags = iwpoint.getFlags()
         if not symbolic:
@@ -346,7 +347,8 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
                                              data=iwpoint.packed_data)
-        iwpoint.updateStruct(result)
+        iwpoint.packed_data = result
+        iwpoint.update()
 
         # build a list of each char in key
         raw_key = map(ord, iwpoint.getData().tolist())[:iwpoint.getLength()]
