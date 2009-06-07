@@ -716,8 +716,9 @@ class WirelessConfig(object):
         iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX)
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
-                                             data=iwpoint.getStruct())
-        iwpoint.updateStruct(result)
+                                             data=iwpoint.packed_data)
+        iwpoint.packed_data = result
+        iwpoint.update()
 
         return iwpoint
 
