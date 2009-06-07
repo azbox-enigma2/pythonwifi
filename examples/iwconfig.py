@@ -116,7 +116,7 @@ def getEncryption(wifi, wifi_details):
         #print errno, strerror
         #return None
     #else:
-    if enc.disabled:
+    if (enc.flags & pythonwifi.flags.IW_ENCODE_DISABLED):
         key = "Encryption key:off"
     else:
         key = "Encryption key:%s" % (wifi.getKey(), )
