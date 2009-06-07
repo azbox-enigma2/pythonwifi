@@ -171,7 +171,7 @@ def iwconfig(interface):
         print
 
         print "\t ",
-        print getEncryption(wifi, wifi_details)
+        print getEncryption(wifi, wifi_details),
         print
 
         pm = wifi.getPowermanagement()
