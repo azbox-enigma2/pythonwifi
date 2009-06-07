@@ -1,4 +1,4 @@
-Feature Matrix
+WE Feature Matrix
 --------------
 
 Comparison of Linux Wireless Extension 22 vs Python WiFi.  WE22 is the baseline
@@ -11,12 +11,12 @@ Feature           WE22    Class              Version   Note
 /proc devices     yes     iwlib              0.3.1     get wireless devices from /proc
 SIOCGIFCONF       yes     iwlib              0.3.1     get wireless devices via ioctl
 
-SIOCSIWCOMMIT     yes     Wireless           0.4.0     send commit instruction
+SIOCSIWCOMMIT     yes     Wireless                     send commit instruction
 SIOCGIWNAME       yes     Wireless           0.3.1     get wireless protocol
 SIOCSIWNWID       yes     not implemented              set network id (pre-802.11)
 SIOCGIWNWID       yes     not implemented              get network id (the cell)
 
-SIOCSIWFREQ       yes     Wireless           0.4.0     set channel/frequency (Hz)
+SIOCSIWFREQ       yes     Wireless                     set channel/frequency (Hz)
 SIOCGIWFREQ       yes     Wireless           0.3.1     get channel/frequency (Hz)
 all freqs                 Wireless           0.3.1     get all frequencies/channels
                                                            device can handle
@@ -32,7 +32,7 @@ SIOCSIWSPY        yes     not implemented              set spy addresses
 SIOCGIWSPY        yes     not implemented              get spy info (quality of link)
 SIOCSIWTHRSPY     yes     not implemented              set spy threshold (spy event)
 SIOCGIWTHRSPY     yes     not implemented              get spy threshold
-SIOCSIWAP         yes     Wireless           0.4.0     set access point MAC addresses
+SIOCSIWAP         yes     Wireless                     set access point MAC addresses
 SIOCGIWAP         yes     Wireless           0.3.1     get access point MAC addresses
 SIOCSIWSCAN       yes     Iwscan             0.3.1     trigger scanning (list cells)
 SIOCGIWSCAN       yes     Iwscan             0.3.1     get scanning results
@@ -54,7 +54,7 @@ SIOCSIWTXPOW      yes     not implemented              set transmit power (dBm)
 SIOCGIWTXPOW      yes     Wireless           0.3.1     get transmit power (dBm)
 SIOCSIWRETRY      yes     not implemented              set retry limits and lifetime
 SIOCGIWRETRY      yes     Wireless           0.3.1     get retry limits and lifetime
-SIOCSIWENCODE     yes     Wireless           0.4.0     set encoding token & mode
+SIOCSIWENCODE     yes     Wireless                     set encoding token & mode
 SIOCGIWENCODE     yes     Wireless           0.3.1     get encoding token & mode
 SIOCSIWPOWER      yes     not implemented              set Power Management settings
 SIOCGIWPOWER      yes     Wireless           0.3.1     get Power Management settings
