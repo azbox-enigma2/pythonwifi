@@ -1,30 +1,45 @@
-python-wifi - README
-====================
+README
+======
 
-I startet to write a python library which reads wireless data from the
-kernel like the wireless extensions. In order to know how to handle all
-this binary encrypted C structure stuff, Guido Goldstein from Infrae
-helped me to getting started. Thanks to him!
+Python WiFi is a Python module that provides read and write access to a
+wireless network card's capabilities using the Linux Wireless Extensions.
+It was initially developed by Roman Joost with advice from Guido Goldstein
+of Infrae.  It is currently maintained by Sean Robinson.
 
-I want to see some output!
---------------------------
-I've implemented some example programs which use the functionality of
-the libraries. You'll find them in the 'examples' directory. 
+More information is available at http://pythonwifi.wikispot.org and
+https://developer.berlios.de/projects/pythonwifi/  Mailing lists for
+announcements and developer discussion are available at
+https://developer.berlios.de/mail/?group_id=7134
 
-
-Files:
-------
-
-    - pyiwconfig, pyiwlist: the corresponding python programs to the C
-      correspondents. These are example implementations.
-    - iwlibs.py: handles all the black magic ;)
+Check the ./docs/feature_matrix_*.txt files for a detailed list of what is
+implemented.
 
 
-Python Wifi users:
-----------------------
-If you want to use the wirless library, the methods in the Wireless
-class are the ones you want. Lets assume a little example program, which
-prints the ESSID:
+Example Applications
+--------------------
+The examples directory contains iwconfig.py and iwlist.py, which are sample
+re-implementations of iwconfig and iwlist.  These scripts use the pythonwifi
+module to duplicate the functionality of those programs as closely as possible.
+
+
+Files and Directories
+---------------------
+./docs/ - supporting documentation
+./docs/api/ - documentation of the pythonwifi API
+./docs/logos/ - the Python WiFi logo in various formats
+./examples/ - sample uses of pythonwifi module
+./pythonwifi/ - the module source code
+./ez_setup.py - installation script
+./INSTALL - installation instructions
+./Makefile - convenience commands for developers
+./README - this file
+./setup.py - installation script
+
+
+Python WiFi Users
+-----------------
+The methods in the Wireless class are the highest level interace. An example
+program, which prints the ESSID and the association mode:
 
 >>> from pythonwifi.iwlibs import Wireless
 >>> wifi = Wireless('eth1')
@@ -34,38 +49,9 @@ prints the ESSID:
 'Managed'
 
 
-What is implemented?
---------------------
-
-    - pyiwconfig: 
-        
-            read                                write
-            --------------------------------||--------
-            Accesspoint MAC                     Mode
-            Bitrate
-            available Bitrates
-            available Channels/Frequency
-            ESSID
-            Encryption
-            Frequency
-            Mode
-            WirelessName
-            Powermanagement
-            Retrylimit
-            RTS
-            Sensitivity
-            TXPower
-            Statistics
-            
-    - pyiwlist: prints detailed information about:
-
-            o Bitrates
-            o Channels/Frequency
-            o Scanning support!
-
 License
 -------
 
 pythonwifi is licensed under LGPLv2+, however, the examples
-(e.g. pyiwconfig.py and pyiwlist.py) are licensed under GPLv2+.
+(e.g. iwconfig.py and iwlist.py) are licensed under GPLv2+.
 
