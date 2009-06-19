@@ -88,7 +88,7 @@ def print_bitrates(wifi):
     """
     num_bitrates, bitrates = wifi.getBitrates()
     if num_bitrates == 0:
-        print "\t 0 Bit Rates found."
+        print "%-8.16s  unknown bit-rate information.\n" % (wifi.ifname, )
         sys.exit(0)
 
     bitrate_type =  type(bitrates[-1]) is types.StringType
