@@ -219,6 +219,7 @@ Usage: pyiwlist [interface] scanning [essid NNN] [last]
                 [interface] retry
                 [interface] ap
                 [interface] accesspoints
+                [interface] peers
 
 """
 
