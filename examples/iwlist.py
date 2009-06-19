@@ -79,7 +79,7 @@ def print_channels(wifi):
     for channel in channels:
         print "          Channel %02d : %s" % \
                 (channels.index(channel)+1, channel)
-    print "          Current Frequency=%s (Channel %d)" % \
+    print "          Current Frequency=%s (Channel %d)\n" % \
                 (current_freq, channels.index(current_freq) + 1, )
 
 def print_bitrates(wifi):
