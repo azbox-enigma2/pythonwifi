@@ -204,6 +204,12 @@ def print_power(wifi):
             print "Current mode:Repeat multicasts"
     print
 
+def print_retry(wifi):
+    pass
+
+def print_aps(wifi):
+    pass
+
 def usage():
     print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
 Get more detailed wireless information from a wireless interface
@@ -259,10 +265,10 @@ def main():
                    "k"   : ("keys", print_encryption),
                    "po"  : ("power", print_power),
                    "t"   : ("txpower", print_power),
-                   "re" : ("retry", print_retry),
-                   "ap" : ("ap", print_aps),
-                   "ac" : ("accesspoints", print_aps),
-                   "pe" : ("peers", print_aps),
+                   "re"  : ("retry", print_retry),
+                   "ap"  : ("ap", print_aps),
+                   "ac"  : ("accesspoints", print_aps),
+                   "pe"  : ("peers", print_aps),
                    #"ev" : ("event", print_event),
                    #"au" : ("auth", print_auth),
                    #"w"  : ("wpakeys", print_wpa),
