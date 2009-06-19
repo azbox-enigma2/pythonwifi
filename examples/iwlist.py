@@ -212,23 +212,19 @@ def print_aps(wifi):
     pass
 
 def usage():
-    print """pyiwlist.py - Copyright 2004-2005 Roman Joost, 2009 Sean Robinson
-Get more detailed wireless information from a wireless interface
-
-Usage: pyiwlist [interface] scanning [essid NNN] [last]
-                [interface] frequency
-                [interface] channel
-                [interface] bitrate
-                [interface] encryption
-                [interface] keys
-                [interface] power
-                [interface] txpower
-                [interface] retry
-                [interface] ap
-                [interface] accesspoints
-                [interface] peers
-
-"""
+    print """\
+Usage: iwlist.py [interface] scanning [essid NNN] [last]
+                 [interface] frequency
+                 [interface] channel
+                 [interface] bitrate
+                 [interface] encryption
+                 [interface] keys
+                 [interface] power
+                 [interface] txpower
+                 [interface] retry
+                 [interface] ap
+                 [interface] accesspoints
+                 [interface] peers"""
 
 def main():
     if len(sys.argv) < 1:
