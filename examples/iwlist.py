@@ -77,9 +77,10 @@ def print_channels(wifi):
     print "%-8.16s  %02d channels in total; available frequencies :" % \
                 (wifi.ifname, num_frequencies)
     for channel in channels:
-        print "          Channel %02d : %s %s" % \
-                (channels.index(channel)+1, channel[:5], channel[5:])
-    print "          Current Channel=%s" % (channels.index(current_freq) + 1, )
+        print "          Channel %02d : %s" % \
+                (channels.index(channel)+1, channel)
+    print "          Current Frequency=%s (Channel %d)" % \
+                (current_freq, channels.index(current_freq) + 1, )
 
 def print_bitrates(wifi):
     """ Print all bitrates available on the card.
