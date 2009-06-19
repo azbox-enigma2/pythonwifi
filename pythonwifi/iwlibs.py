@@ -433,7 +433,7 @@ class Wireless(object):
             >>> from iwlibs import Wireless
             >>> wifi = Wireless('eth1')
             >>> wifi.getFrequency()
-            '2.417GHz'
+            '2.417 GHz'
 
         """
         freq = self.wireless_info.getFrequency()
@@ -442,7 +442,7 @@ class Wireless(object):
         if freq >= MEGA:
             return "%0.3f MHZ" % (freq/MEGA)
         if freq >= KILO:
-            return "%0.3f KHz" % (freq/KILO)
+            return "%0.3f kHz" % (freq/KILO)
         # This is probably a channel number
         try:
             return self.getChannelInfo()[1][freq-1]
@@ -728,7 +728,7 @@ class WirelessConfig(object):
             >>> from iwlibs import Wireless
             >>> wifi = Wireless('eth1')
             >>> wifi.getFrequency()
-            '2.417GHz'
+            '2.417 GHz'
 
         """
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
@@ -1054,11 +1054,11 @@ class Iwfreq(object):
         """
         freq = self.frequency
         if freq >= GIGA:
-            return "%0.3fGHz" % (freq/GIGA)
+            return "%0.3f GHz" % (freq/GIGA)
         if freq >= MEGA:
-            return "%0.3fMHZ" % (freq/MEGA)
+            return "%0.3f MHZ" % (freq/MEGA)
         if freq >= KILO:
-            return "%0.3fKHz" % (freq/KILO)
+            return "%0.3f kHz" % (freq/KILO)
         return freq
 
     def _setFrequency(self, vallist):
