@@ -10,24 +10,34 @@ usage message           yes         yes             0.5         close match
 
 unknown command error   yes         yes             0.3.1       close match
 
-commands
- scanning               yes         yes
- frequency              yes         yes             0.5         exact match
- channel                yes         yes             0.5         exact match
- bitrate                yes         yes
- rate                   yes         yes
- encryption             yes         yes                         close
- keys                   yes         yes                         close
- power                  yes         yes                         close
+commands:
+ scanning               yes         yes             0.3.1
+ frequency              yes         yes             0.3.1       exact match
+ channel                yes         yes             0.3.1       exact match
+
+ bitrate                yes         yes             0.3.1       75% match
+ rate                   yes         yes             0.3.1       75% match
+
+ encryption             yes         yes             0.5         close
+ keys                   yes         yes             0.5         close
+
+ power                  yes         yes             0.5         close
  txpower                yes         yes
+
  retry                  yes         yes
+
  ap                     yes         yes
  accesspoints           yes         yes
  peers                  yes         yes
+
  events                 yes         no
+
  auth                   yes         no
+
  wpakeys                yes         no
+
  genie                  yes         no
+
  modulation             yes         no
 
 
