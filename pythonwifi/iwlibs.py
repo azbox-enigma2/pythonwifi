@@ -205,12 +205,7 @@ class Wireless(object):
 
         """
         iwparam = self.wireless_info.getBitrate()
-        if iwparam.value >= GIGA:
-            return "%i Gb/s" % (iwparam.value/GIGA)
-        if iwparam.value >= MEGA:
-            return "%i Mb/s" % (iwparam.value/MEGA)
-        if iwparam.value >= KILO:
-            return "%i Kb/s" % (iwparam.value/KILO)
+        return self._formatBitrate(iwparam.value)
 
     def getBitrates(self):
         """ Returns the number of bitrates available for the device.
