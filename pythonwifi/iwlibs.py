@@ -217,10 +217,11 @@ class Wireless(object):
             True
 
         """
-        iwrange = Iwrange(self.ifname)
-        if iwrange.errorflag:
-            return (iwrange.errorflag, iwrange.error)
-        return (iwrange.num_bitrates, iwrange.bitrates)
+        num_bitrates, bitrates = self.wireless_info.getBitrates()
+        cooked_rates = []
+        for rate in bitrates:
+            cooked_rates.append(self._formatBitrate(rate))
+        return (num_bitrates, cooked_rates)
 
     def getChannelInfo(self):
         """ Returns the number of channels and available frequency for
