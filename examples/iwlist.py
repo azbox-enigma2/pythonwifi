@@ -145,7 +145,7 @@ def print_power(wifi, args=None):
     print "%-8.16s " % (wifi.ifname, ),
     if (pm_capa & pythonwifi.flags.IW_POWER_MODE):
         print "Supported modes :"
-        if pm_capa & (pythonwifi.flags.IW_POWER_UNICAST_R | 
+        if pm_capa & (pythonwifi.flags.IW_POWER_UNICAST_R |
                     pythonwifi.flags.IW_POWER_MULTICAST_R):
             print "\t\t\to Receive all packets (unicast & multicast)"
             print "\t ",
