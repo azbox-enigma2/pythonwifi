@@ -83,6 +83,7 @@ def print_channels(wifi, args=None):
             print "%-8.16s  no frequency information.\n" % (wifi.ifname, )
         else:
             report_error("channel", wifi.ifname, error_number, error_string)
+    else:
         print "%-8.16s  %02d channels in total; available frequencies :" % \
                     (wifi.ifname, num_frequencies)
         for channel in channels:
