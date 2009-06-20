@@ -279,8 +279,7 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
                                              data=iwpoint.packed_data)
-        iwpoint.packed_data = result
-        iwpoint.update()
+        iwpoint.update(result)
 
         if iwpoint.flags & pythonwifi.flags.IW_ENCODE_NOKEY > 0:
             return '**'*iwpoint.length
@@ -343,8 +342,7 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
                                              data=iwpoint.packed_data)
-        iwpoint.packed_data = result
-        iwpoint.update()
+        iwpoint.update(result)
 
         # build a list of each char in key
         raw_key = map(ord, iwpoint.buff.tolist())[:iwpoint.length]
@@ -718,8 +716,7 @@ class WirelessConfig(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCGIWENCODE, 
                                              data=iwpoint.packed_data)
-        iwpoint.packed_data = result
-        iwpoint.update()
+        iwpoint.update(result)
 
         return iwpoint
 
@@ -1186,11 +1183,11 @@ class Iwpoint(object):
         self.packed_data = \
             struct.pack(self.fmt, self.caddr_t, self.length, self.flags)
 
-    def update(self):
+    def update(self, packed_data):
         """ Updates the object attributes. """
-        if self.packed_data:
-            self.caddr_t, self.length, self.flags = \
-                struct.unpack(self.fmt, self.packed_data)
+        self.packed_data = packed_data
+        self.caddr_t, self.length, self.flags = \
+            struct.unpack(self.fmt, self.packed_data)
 
 
 class Iwrange(object):
