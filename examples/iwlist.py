@@ -77,7 +77,9 @@ def print_channels(wifi, args=None):
         (num_frequencies, channels) = wifi.getChannelInfo()
         current_freq = wifi.getFrequency()
     except IOError, (error_number, error_string):
-        if (error_number == errno.EOPNOTSUPP) or (error_number == errno.EINVAL):
+        if (error_number == errno.EOPNOTSUPP) or \
+           (error_number == errno.EINVAL) or \
+           (error_number == errno.ENODEV):
             print "%-8.16s  no frequency information.\n" % (wifi.ifname, )
     else:
         print "%-8.16s  %02d channels in total; available frequencies :" % \
