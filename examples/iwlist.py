@@ -226,32 +226,14 @@ Usage: iwlist.py [interface] scanning [essid NNN] [last]
                  [interface] accesspoints
                  [interface] peers"""
 
-def main():
-    if len(sys.argv) < 1:
-        usage()
-        sys.exit(1)
-    try:
-        # Get the interface and command from command line
-        ifname, option = sys.argv[1:]
-    except ValueError:
-        usage()
-        sys.exit(2)
+def get_matching_command(option):
+    """ Return a function for the command.
 
-    # Make sure provided interface is a wireless device
-    try:
-        ifnames = getNICnames()
-    except IOError, (errno, strerror):
-        print "Error: %s" % (strerror, )
-        sys.exit(0)
-    if ifnames == []:
-        print "No wireless devices present or incompatible OS."
-        sys.exit(0)
-    try:
-        ifnames.index(ifname)
-    except ValueError:
-        print "%s is not a wireless device." % (ifname, )
-        sys.exit(0)
+        'option' -- string -- command to match
 
+        Return None if no match found.
+
+    """
     # build dictionary of commands and functions
     iwcommands = { "s"   : ("scanning", print_scanning_results),
                    "c"   : ("channel", print_channels),
@@ -273,15 +255,54 @@ def main():
                    #"m"  : ("modulation", print_modulation),
                  }
 
-    wifi = Wireless(ifname)
+    function = None
     for command in iwcommands.keys():
         if option.startswith(command):
             if iwcommands[command][0].startswith(option):
-                iwcommands[command][1](wifi)
-                sys.exit(0)
+                function = iwcommands[command][1]
+    return function
+
+def main():
+    # if only program name is given, print usage info
+    if len(sys.argv) == 1:
+        usage()
+        sys.exit(1)
+
+    # if program name and one argument are given
+    if len(sys.argv) == 2:
+        # look for matching command
+        list_command = None
+        option = sys.argv[1]
+        for command in iwcommands.keys():
+            if option.startswith(command):
+                if iwcommands[command][0].startswith(option):
+                    list_command = iwcommands[command][1]
+
+        # if the one argument is not a command
+        if list_command is None:
+            print "iwlist.py: unknown command `%s' \
+                   (check 'iwlist.py --help')." % (option, )
+        else:
+            # if it is a command
+            for ifname in getNICnames():
+                wifi = Wireless(ifname)
+                list_command(wifi)
+
+    # if program name and two arguments are given
+    if len(sys.argv) == 3:
+        # Get the interface and command from command line
+        ifname, option = sys.argv[1:]
+        if ifname in getWNICnames():
+            wifi = Wireless(ifname)
+            list_command(wifi)
+
 
     print "iwlist.py: unknown command `%s' (check 'iwlist.py --help')." % (option, )
+
+    wifi = Wireless(ifname)
+    list_command(wifi)
 
 
 if __name__ == "__main__":
     main()
+
