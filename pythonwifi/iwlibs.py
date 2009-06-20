@@ -336,13 +336,7 @@ class Wireless(object):
             ABCD-9512-34
 
         """
-        # use an IW_ENCODING_TOKEN_MAX-cell array of NULLs
-        #   as space for ioctl to write encryption info
-        iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX, key)
-        status, result = self.iwstruct.iw_get_ext(self.ifname, 
-                                             pythonwifi.flags.SIOCGIWENCODE, 
-                                             data=iwpoint.packed_data)
-        iwpoint.update(result)
+        iwpoint = self.wireless_info.getKey(key)
 
         # build a list of each char in key
         raw_key = map(ord, iwpoint.buff.tolist())[:iwpoint.length]
