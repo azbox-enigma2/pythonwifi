@@ -229,6 +229,14 @@ def print_retry(wifi, args=None):
 def print_aps(wifi, args=None):
     pass
 
+def report_error(function, interface, error_number, error_string):
+    """ Print error to user. """
+    print """Uncaught error condition.  Please report this to the \
+developers' mailing list (informaion available at \
+http://lists.berlios.de/mailman/listinfo/pythonwifi-dev).  While attempting to \
+print %s informaion for %s, the error "%d - %s" occurred.""" % \
+(function, interface, error_number, error_string)
+
 def usage():
     print """\
 Usage: iwlist.py [interface] scanning [essid NNN] [last]
