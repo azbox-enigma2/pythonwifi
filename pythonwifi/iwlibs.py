@@ -1321,7 +1321,7 @@ class Iwrange(object):
         self.sensitivity = result[11]
         self.max_qual.setValues(result[12:16])
         self.avg_qual.setValues(result[16:20])
-        self.num_bitrates = result[20] # <- XXX
+        self.num_bitrates = result[20]
         raw_bitrates = result[21:21+self.num_bitrates]
         for rate in raw_bitrates:
             if rate is not None:
