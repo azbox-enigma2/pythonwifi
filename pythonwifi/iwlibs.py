@@ -189,11 +189,11 @@ class Wireless(object):
 
         """
         if raw_bitrate >= GIGA:
-            return "%i Gb/s" % (raw_bitrate/GIGA)
+            return "%g Gb/s" % (float(raw_bitrate)/GIGA)
         if raw_bitrate >= MEGA:
-            return "%i Mb/s" % (raw_bitrate/MEGA)
+            return "%g Mb/s" % (float(raw_bitrate)/MEGA)
         if raw_bitrate >= KILO:
-            return "%i kb/s" % (raw_bitrate/KILO)
+            return "%g kb/s" % (float(raw_bitrate)/KILO)
 
     def getBitrate(self):
         """ Returns the device's currently set bit rate in Mbit.
