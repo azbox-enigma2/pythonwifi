@@ -135,6 +135,10 @@ def print_encryption(wifi, args=None):
         print "                [%d]: %s" % (key[0], key[1])
     print "          Current Transmit Key: [%s]" % \
             (wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_INDEX, )
+    if wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_RESTRICTED:
+        print "          Security mode:restricted"
+    if wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_OPEN:
+        print "          Security mode:open"
     print "\n"
 
 def format_pm_value(value, args=None):
