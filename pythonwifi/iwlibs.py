@@ -876,6 +876,15 @@ class WirelessInfo(WirelessConfig):
         """
         return Iwparam(self.ifname, pythonwifi.flags.SIOCGIWRATE)
 
+    def getBitrates(self):
+        """ Returns the device's number and list of available bit rates.
+
+            The bit rates in the list are long integer type.
+
+        """
+        iwrange = Iwrange(self.ifname)
+        return (iwrange.num_bitrates, iwrange.bitrates)
+
     def getRTS(self):
         """ Returns the RTS threshold.
 
