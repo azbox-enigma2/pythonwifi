@@ -266,41 +266,34 @@ def main():
     # if only program name is given, print usage info
     if len(sys.argv) == 1:
         usage()
-        sys.exit(1)
 
     # if program name and one argument are given
     if len(sys.argv) == 2:
-        # look for matching command
-        list_command = None
         option = sys.argv[1]
-        for command in iwcommands.keys():
-            if option.startswith(command):
-                if iwcommands[command][0].startswith(option):
-                    list_command = iwcommands[command][1]
-
-        # if the one argument is not a command
-        if list_command is None:
-            print "iwlist.py: unknown command `%s' \
-                   (check 'iwlist.py --help')." % (option, )
-        else:
-            # if it is a command
+        # look for matching command
+        list_command = get_matching_command(option)
+        # if the one argument is a command
+        if list_command is not None:
             for ifname in getNICnames():
                 wifi = Wireless(ifname)
                 list_command(wifi)
+        else:
+            print "iwlist.py: unknown command `%s' " \
+                  "(check 'iwlist.py --help')." % (option, )
 
-    # if program name and two arguments are given
-    if len(sys.argv) == 3:
+    # if program name and more than one argument are given
+    if len(sys.argv) > 2:
         # Get the interface and command from command line
         ifname, option = sys.argv[1:]
-        if ifname in getWNICnames():
+        # look for matching command
+        list_command = get_matching_command(option)
+        # if the second argument is a command
+        if list_command is not None:
             wifi = Wireless(ifname)
-            list_command(wifi)
-
-
-    print "iwlist.py: unknown command `%s' (check 'iwlist.py --help')." % (option, )
-
-    wifi = Wireless(ifname)
-    list_command(wifi)
+            list_command(wifi, sys.argv[3:])
+        else:
+            print "iwlist.py: unknown command `%s' " \
+                   "(check 'iwlist.py --help')." % (option, )
 
 
 if __name__ == "__main__":
