@@ -50,7 +50,7 @@ def getNICnames():
         ['lo', 'eth0']
 
     """
-    device = re.compile('[a-z]{2,4}[0-9]*:')
+    device = re.compile('[a-z]{2,}[0-9]*:')
     ifnames = []
 
     fp = open('/proc/net/dev', 'r')
