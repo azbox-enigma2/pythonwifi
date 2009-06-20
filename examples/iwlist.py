@@ -95,21 +95,40 @@ def print_bitrates(wifi, args=None):
     """ Print all bitrates available on the card.
 
     """
-    num_bitrates, bitrates = wifi.getBitrates()
-    if num_bitrates == 0:
-        print "%-8.16s  unknown bit-rate information.\n" % (wifi.ifname, )
-        sys.exit(0)
-
-    bitrate_type =  type(bitrates[-1]) is types.StringType
-    print "%-8.16s  %02d available bit-rates :" % (wifi.ifname, num_bitrates)
-    for rate in bitrates:
-        # rate is Iwfreq
-        # XXX - there are to much bitrates?
-        if bitrate_type:
-            print "          %s" % rate
-        elif rate.getBitrate() is not None:
-            print "          %s" % rate.getBitrate()
-    print "          Current Bit Rate:%s\n" % wifi.getBitrate()
+    try:
+        num_bitrates, bitrates = wifi.getBitrates()
+    except IOError, (error_number, error_string):
+        if (error_number == errno.EOPNOTSUPP) or (error_number == errno.EINVAL):
+            # not a wireless device
+            print "%-8.16s  no bit-rate information." % (wifi.ifname, )
+        else:
+            report_error("bit rate", wifi.ifname, error_number, error_string)
+    else:
+        if (num_bitrates > 0) and \
+           (num_bitrates <= pythonwifi.flags.IW_MAX_BITRATES):
+            # wireless device with bit rate info, so list 'em
+            print "%-8.16s  %02d available bit-rates :" % \
+                    (wifi.ifname, num_bitrates)
+            for rate in bitrates:
+                print "          %s" % rate
+        else:
+            # wireless device, but no bit rate info available
+            print "%-8.16s  unknown bit-rate information." % (wifi.ifname, )
+    # current bit rate
+    try:
+        bitrate = wifi.wireless_info.getBitrate()
+    except IOError, (error_number, error_string):
+        # no bit rate info is okay, error was given above
+        pass
+    else:
+        if bitrate.fixed:
+            fixed = "="
+        else:
+            fixed = ":"
+        print "          Current Bit Rate%c%s" % (fixed, wifi.getBitrate())
+    # broadcast bit rate
+    # XXX add broadcast bit rate
+    print
 
 def print_encryption(wifi, args=None):
     """ Print encryption keys on the card.
