@@ -182,6 +182,19 @@ class Wireless(object):
                                                pythonwifi.flags.SIOCSIWAP,
                                                iwreq)
 
+    def _formatBitrate(self, raw_bitrate):
+        """ Returns formatted bitrate.
+
+            'raw_bitrate' -- long -- The unformatted bitrate as a long integer.
+
+        """
+        if raw_bitrate >= GIGA:
+            return "%i Gb/s" % (raw_bitrate/GIGA)
+        if raw_bitrate >= MEGA:
+            return "%i Mb/s" % (raw_bitrate/MEGA)
+        if raw_bitrate >= KILO:
+            return "%i kb/s" % (raw_bitrate/KILO)
+
     def getBitrate(self):
         """ Returns the device's currently set bit rate in Mbit.
 
