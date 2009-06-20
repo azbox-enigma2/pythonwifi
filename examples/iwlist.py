@@ -81,6 +81,12 @@ def print_channels(wifi, args=None):
            (error_number == errno.EINVAL) or \
            (error_number == errno.ENODEV):
             print "%-8.16s  no frequency information.\n" % (wifi.ifname, )
+        else:
+            print """Uncaught error condition.  Please report this to the \
+developers' mailing list (informaion available at \
+http://lists.berlios.de/mailman/listinfo/pythonwifi-dev).  While attempting to \
+print channel informaion for %s, the error "%d - %s" occurred.""" % \
+(wifi.ifname, error_number, error_string)
     else:
         print "%-8.16s  %02d channels in total; available frequencies :" % \
                     (wifi.ifname, num_frequencies)
