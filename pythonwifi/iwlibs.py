@@ -388,6 +388,7 @@ class Wireless(object):
         status, result = self.iwstruct.iw_get_ext(self.ifname, 
                                              pythonwifi.flags.SIOCSIWENCODE, 
                                              data=iwpoint.packed_data)
+
     def getKeys(self):
         """ Get all encryption keys.
 
