@@ -109,18 +109,18 @@ def print_encryption(wifi, args=None):
     keys = wifi.getKeys()
     range_info = Iwrange(wifi.ifname)
 
-    print "%-8.16s  " % (wifi.ifname, )
-    print range_info.num_encoding_sizes,
-    print "key sizes :",
     for index in range(range_info.num_encoding_sizes - 1):
-        print repr(range_info.encoding_size[index] * 8) + ",",
-    print repr(range_info.encoding_size[range_info.num_encoding_sizes - 1] * 8) + "bits"
+        key_sizes = repr(range_info.encoding_size[index] * 8) + ", "
+    key_sizes = key_sizes + \
+                repr(range_info.encoding_size[range_info.num_encoding_sizes - 1] * 8) + \
+                "bits"
+    print "%-8.16s  %d key sizes : %s" % \
+            (wifi.ifname, range_info.num_encoding_sizes, key_sizes)
     print "          %d keys available :" % (len(keys), )
-    index = 1
     for key in keys:
-        print "                [%d]: %s" % (index, key[1])
-        index = index + 1
-    print "          Current Transmit Key: [%s]" % ("XXX", )
+        print "                [%d]: %s" % (key[0], key[1])
+    print "          Current Transmit Key: [%s]" % \
+            (wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_INDEX, )
     print "\n"
 
 def format_pm_value(value, args=None):
