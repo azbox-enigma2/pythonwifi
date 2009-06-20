@@ -73,15 +73,20 @@ def print_channels(wifi, args=None):
     # XXX The channel information is bogus here, because it just
     # numerates how many channels the card provides, but doesn't give
     # any information about *which* channel *which* frequencies has
-    (num_frequencies, channels) = wifi.getChannelInfo()
-    current_freq = wifi.getFrequency()
-    print "%-8.16s  %02d channels in total; available frequencies :" % \
-                (wifi.ifname, num_frequencies)
-    for channel in channels:
-        print "          Channel %02d : %s" % \
-                (channels.index(channel)+1, channel)
-    print "          Current Frequency=%s (Channel %d)\n" % \
-                (current_freq, channels.index(current_freq) + 1, )
+    try:
+        (num_frequencies, channels) = wifi.getChannelInfo()
+        current_freq = wifi.getFrequency()
+    except IOError, (error_number, error_string):
+        if (error_number == errno.EOPNOTSUPP) or (error_number == errno.EINVAL):
+            print "%-8.16s  no frequency information.\n" % (wifi.ifname, )
+    else:
+        print "%-8.16s  %02d channels in total; available frequencies :" % \
+                    (wifi.ifname, num_frequencies)
+        for channel in channels:
+            print "          Channel %02d : %s" % \
+                    (channels.index(channel)+1, channel)
+        print "          Current Frequency=%s (Channel %d)\n" % \
+                    (current_freq, channels.index(current_freq) + 1, )
 
 def print_bitrates(wifi, args=None):
     """ Print all bitrates available on the card.
