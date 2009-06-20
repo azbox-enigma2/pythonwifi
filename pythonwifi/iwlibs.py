@@ -734,6 +734,29 @@ class WirelessConfig(object):
         iwfreq = Iwfreq(result)
         return iwfreq.frequency
 
+    def getKey(self, key=0):
+        """ Get an encryption key.
+
+            key 0 is current key, otherwise, retrieve specific key (1-4)
+
+            As a normal user, you will get an 'Operation not permitted'
+            error:
+
+            >>> from iwlibs import Wireless
+            >>> wifi_conf = WirelessConfig('eth1')
+            >>> isinstance(wifi_conf.getKey(), Iwpoint)
+            True
+
+        """
+        # use an IW_ENCODING_TOKEN_MAX-cell array of NULLs
+        #   as space for ioctl to write encryption info
+        iwpoint = Iwpoint('\x00'*pythonwifi.flags.IW_ENCODING_TOKEN_MAX, key)
+        status, result = self.iwstruct.iw_get_ext(self.ifname,
+                                             pythonwifi.flags.SIOCGIWENCODE,
+                                             data=iwpoint.packed_data)
+        iwpoint.update(result)
+        return iwpoint
+
     def getEssid(self):
         """ Returns the current ESSID information.
 
