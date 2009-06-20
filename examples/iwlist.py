@@ -24,7 +24,7 @@ import types
 import pythonwifi.flags
 from pythonwifi.iwlibs import Wireless, Iwrange, getNICnames
 
-def print_scanning_results(wifi):
+def print_scanning_results(wifi, args=None):
     """ Print the access points detected nearby.
 
     """
@@ -65,7 +65,7 @@ def print_scanning_results(wifi):
             print
         index = index + 1
 
-def print_channels(wifi):
+def print_channels(wifi, args=None):
     """ Print all frequencies/channels available on the card.
 
     """
@@ -82,7 +82,7 @@ def print_channels(wifi):
     print "          Current Frequency=%s (Channel %d)\n" % \
                 (current_freq, channels.index(current_freq) + 1, )
 
-def print_bitrates(wifi):
+def print_bitrates(wifi, args=None):
     """ Print all bitrates available on the card.
 
     """
@@ -102,7 +102,7 @@ def print_bitrates(wifi):
             print "          %s" % rate.getBitrate()
     print "          Current Bit Rate:%s\n" % wifi.getBitrate()
 
-def print_encryption(wifi):
+def print_encryption(wifi, args=None):
     """ Print encryption keys on the card.
 
     """
@@ -123,7 +123,7 @@ def print_encryption(wifi):
     print "          Current Transmit Key: [%s]" % ("XXX", )
     print "\n"
 
-def format_pm_value(value):
+def format_pm_value(value, args=None):
     """ Return formatted PM value.
 
     """
@@ -136,7 +136,7 @@ def format_pm_value(value):
             fvalue = "%dus" % (value, )
     return fvalue
 
-def print_power(wifi):
+def print_power(wifi, args=None):
     """ Print power management info for the card.
 
     """
@@ -205,10 +205,10 @@ def print_power(wifi):
             print "Current mode:Repeat multicasts"
     print
 
-def print_retry(wifi):
+def print_retry(wifi, args=None):
     pass
 
-def print_aps(wifi):
+def print_aps(wifi, args=None):
     pass
 
 def usage():
