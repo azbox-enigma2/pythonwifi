@@ -1074,17 +1074,11 @@ class Iwfreq(object):
         self.m, self.e, self.index, self.flags = struct.unpack(self.fmt, data[:size])
 
     def getFrequency(self):
-        """ Returns Frequency (str) or channel (int) depending on driver
-
-        """
-        freq = self.frequency
-        if freq >= GIGA:
-            return "%0.3f GHz" % (freq/GIGA)
-        if freq >= MEGA:
-            return "%0.3f MHZ" % (freq/MEGA)
-        if freq >= KILO:
-            return "%0.3f kHz" % (freq/KILO)
-        return freq
+        """ Returns frequency or channel, depending on the driver. """
+        if self.e == 0:
+            return self.m
+        else:
+            return self.m*10**self.e
 
     def setFrequency(self, value):
         """ Sets mantissa and exponent from given frequency (or channel). """
