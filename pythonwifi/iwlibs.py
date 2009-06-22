@@ -1336,8 +1336,7 @@ class Iwrange(object):
         freq = result[96:224]
         i = self.num_frequency
         for x in range(0, len(freq), 4):
-            iwfreq = Iwfreq()
-            iwfreq._setFrequency(freq[x:x+4])
+            iwfreq = Iwfreq(freq[x:x+4])
             fq = iwfreq.getFrequency()
             if fq is not None:
                 self.frequencies.append(fq)
