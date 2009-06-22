@@ -247,7 +247,7 @@ class Wireless(object):
         return raw_frequency
 
     def getChannelInfo(self):
-        """ Returns the number of channels and available frequency for
+        """ Returns the number of channels and available frequencies for
            the device.
 
             >>> from iwlibs import Wireless
@@ -258,9 +258,10 @@ class Wireless(object):
 
         """
         iwrange = Iwrange(self.ifname)
-        if iwrange.errorflag:
-            return (iwrange.errorflag, iwrange.error)
-        return (iwrange.num_channels, iwrange.frequencies)
+        frequencies = []
+        for freq in iwrange.frequencies:
+            frequencies.append(self._formatFrequency(freq))
+        return (iwrange.num_channels, frequencies)
 
     def getEssid(self):
         """ Returns the current ESSID information.
