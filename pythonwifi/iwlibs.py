@@ -461,20 +461,8 @@ class Wireless(object):
             '2.417 GHz'
 
         """
-        freq = self.wireless_info.getFrequency()
-        if freq >= GIGA:
-            return "%0.3f GHz" % (freq/GIGA)
-        if freq >= MEGA:
-            return "%0.3f MHZ" % (freq/MEGA)
-        if freq >= KILO:
-            return "%0.3f kHz" % (freq/KILO)
-        # This is probably a channel number
-        try:
-            return self.getChannelInfo()[1][freq-1]
-        except IndexError:
-            # probably auto (i.e. -1 (a.k.a. 255))
-            pass
-        return freq
+        iwfreq = self.wireless_info.getFrequency()
+        return self._formatFrequency(iwfreq.getFrequency())
 
     def setFrequency(self, freq):
         """ Sets the frequency on the card.
