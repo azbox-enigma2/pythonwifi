@@ -1086,7 +1086,7 @@ class Iwfreq(object):
             return "%0.3f kHz" % (freq/KILO)
         return freq
 
-    def _setFrequency(self, vallist):
+    def setFrequency(self, value):
         """ Sets self.frequency by given list.
 
             Currently only used by Iwrange.
