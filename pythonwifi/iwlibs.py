@@ -32,7 +32,7 @@ import time
 import re
 
 import pythonwifi.flags
-from types import StringType, IntType
+from types import StringType, IntType, TupleType
 
 
 KILO = 10**3
