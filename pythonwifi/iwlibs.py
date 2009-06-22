@@ -1053,19 +1053,20 @@ class Iwparam(object):
             iwstruct.parse_data(self.fmt, data)
 
 class Iwfreq(object):
-    """ Class to hold iwfreq data.  Delegates to Iwstruct class. """
+    """ Class to hold iwfreq data. """
 
     def __init__(self, data=None):
         # (i) mantissa, (h) exponent, (b) list index, (b) flags
         self.fmt = "ihbb"
-        if data is not None:
-            self.frequency = self.parse(data)
-        else:
-            self.frequency = 0
-        self.iwstruct = Iwstruct()
-
-    def __getattr__(self, attr):
-        return getattr(self.iwstruct, attr)
+        self.m = 0
+        self.e = 0
+        self.index = 0
+        self.flags = 0
+        if data:
+            if isinstance(data, TupleType):
+                self.m, self.e, self.index, self.flags = data
+            else:
+                self.parse(data)
 
     def parse(self, data):
         """ Unpacks iw_freq. """
