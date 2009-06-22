@@ -730,8 +730,7 @@ class WirelessConfig(object):
         """
         status, result = self.iwstruct.iw_get_ext(self.ifname,
                                                   pythonwifi.flags.SIOCGIWFREQ)
-        iwfreq = Iwfreq(result)
-        return iwfreq.frequency
+        return Iwfreq(result)
 
     def getKey(self, key=0):
         """ Get an encryption key.
