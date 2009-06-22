@@ -1087,17 +1087,16 @@ class Iwfreq(object):
         return freq
 
     def setFrequency(self, value):
-        """ Sets self.frequency by given list.
-
-            Currently only used by Iwrange.
-
-        """
-        assert len(vallist) == 4
-        m, e, index, flags = vallist
-        if e == 0:
-            self.frequency = m
+        """ Sets mantissa and exponent from given frequency (or channel). """
+        if value % GIGA == 0:
+            self.e = 9
+        if value % MEGA == 0:
+            self.e = 6
+        if value % KILO == 0:
+            self.e = 3
         else:
-            self.frequency = float(m)*10**e
+            self.e = 0
+        self.m = value / 10**self.e
 
 
 class Iwstats(object):
