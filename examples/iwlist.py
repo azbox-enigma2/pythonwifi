@@ -70,13 +70,11 @@ def print_channels(wifi, args=None):
     """ Print all frequencies/channels available on the card.
 
     """
-    # XXX The channel information is bogus here, because it just
-    # numerates how many channels the card provides, but doesn't give
-    # any information about *which* channel *which* frequencies has
     try:
         (num_frequencies, channels) = wifi.getChannelInfo()
         current_freq = wifi.getFrequency()
     except IOError, (error_number, error_string):
+        # Channel/frequency info not available
         if (error_number == errno.EOPNOTSUPP) or \
            (error_number == errno.EINVAL) or \
            (error_number == errno.ENODEV):
@@ -84,13 +82,26 @@ def print_channels(wifi, args=None):
         else:
             report_error("channel", wifi.ifname, error_number, error_string)
     else:
+        # Channel/frequency info available
         print "%-8.16s  %02d channels in total; available frequencies :" % \
                     (wifi.ifname, num_frequencies)
         for channel in channels:
             print "          Channel %02d : %s" % \
                     (channels.index(channel)+1, channel)
-        print "          Current Frequency=%s (Channel %d)\n" % \
-                    (current_freq, channels.index(current_freq) + 1, )
+        # Do some low-level comparisons on frequency info
+        iwfreq = wifi.wireless_info.getFrequency()
+        if iwfreq.flags & pythonwifi.flags.IW_FREQ_FIXED:
+            fixed = "="
+        else:
+            fixed = ":"
+        if iwfreq.getFrequency() < pythonwifi.iwlibs.KILO:
+            return_type = "Channel"
+        else:
+            return_type = "Frequency"
+        # Output current channel/frequency
+        current_freq = wifi.getFrequency()
+        print "          Current %s%c%s (Channel %d)\n" % \
+                    (return_type, fixed, current_freq, channels.index(current_freq) + 1 )
 
 def print_bitrates(wifi, args=None):
     """ Print all bitrates available on the card.
