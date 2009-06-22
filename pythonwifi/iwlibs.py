@@ -223,6 +223,29 @@ class Wireless(object):
             cooked_rates.append(self._formatBitrate(rate))
         return (num_bitrates, cooked_rates)
 
+    def _formatFrequency(self, raw_frequency):
+        """ Returns formatted frequency.
+
+            'raw_frequency' -- long -- The unformatted frequency as a long
+                integer.
+
+        """
+        raw_frequency = float(raw_frequency)
+        if raw_frequency >= GIGA:
+            return "%0.3f GHz" % (raw_frequency/GIGA)
+        if raw_frequency >= MEGA:
+            return "%0.3f MHZ" % (raw_frequency/MEGA)
+        if raw_frequency >= KILO:
+            return "%0.3f kHz" % (raw_frequency/KILO)
+        # This is probably a channel number
+        raw_frequency = int(raw_frequency)
+        try:
+            return self.getChannelInfo()[1][raw_frequency-1]
+        except IndexError:
+            # probably auto (i.e. -1 (a.k.a. 255))
+            pass
+        return raw_frequency
+
     def getChannelInfo(self):
         """ Returns the number of channels and available frequency for
            the device.
