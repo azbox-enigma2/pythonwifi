@@ -1071,12 +1071,7 @@ class Iwfreq(object):
     def parse(self, data):
         """ Unpacks iw_freq. """
         size = struct.calcsize(self.fmt)
-        m, e, index, flags = struct.unpack(self.fmt, data[:size])
-        # XXX well, its not *the* frequency - we need a better name
-        if e == 0:
-            return m
-        else:
-            return float(m)*10**e
+        self.m, self.e, self.index, self.flags = struct.unpack(self.fmt, data[:size])
 
     def getFrequency(self):
         """ Returns Frequency (str) or channel (int) depending on driver
