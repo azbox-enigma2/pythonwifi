@@ -1,6 +1,14 @@
 Summer 2009:
     release v0.5.0 with increased, but still partial iwconfig.py and iwlist.py
 
+    v0.5 targets:
+    - all methods should have docstrings and doctests
+    - iwlist.py commands which need to work: scanning, frequency (channel), bitrate (rate), encryption (keys), power, txpower, retry, ap (accesspoints, peers)
+    - iwconfig.py commands which need to work:
+        - Reading: essid, mode, freq, channel, bit (rate), enc (key), power, nickname, ap, txpower, retry, rts, frag
+        - Writing: essid, mode, freq, channel, bit (rate), enc (key), power, nickname, ap, txpower, retry, commit
+
+
 Fall/Winter 2009:
     release with more features
 
