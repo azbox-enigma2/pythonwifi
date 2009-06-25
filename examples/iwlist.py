@@ -90,6 +90,7 @@ def print_channels(wifi, args=None):
                     (channels.index(channel)+1, channel)
         # Do some low-level comparisons on frequency info
         iwfreq = wifi.wireless_info.getFrequency()
+        # XXX - this is not the same flags value as iwlist.c
         if iwfreq.flags & pythonwifi.flags.IW_FREQ_FIXED:
             fixed = "="
         else:
