@@ -1443,8 +1443,8 @@ class Iwscan(object):
         aplist = []
 
         # Run through the stream, until broken
+            # If the stream doesn't have enough space left for a
         while 1:
-            # If we're the stream doesn't have enough space left for a
             # header, break
             if len(data) < pythonwifi.flags.IW_EV_LCP_LEN:
                 break;
@@ -1484,7 +1484,8 @@ class Iwscan(object):
 
 
 class Iwscanresult(object):
-    """ An object to contain all the events associated with a single scanned AP.
+    """ An object to contain all the events associated with a single
+        scanned AP.
 
     """
 
