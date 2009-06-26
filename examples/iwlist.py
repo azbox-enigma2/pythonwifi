@@ -41,6 +41,9 @@ def print_scanning_results(wifi, args=None):
     try:
         results = wifi.scan()
     except IOError, (error_number, error_string):
+        if error_number != errno.EPERM:
+            print "%-8.16s  Interface doesn't support scanning : %s\n" % \
+                (wifi.ifname, error_string)
     (num_channels, frequencies) = wifi.getChannelInfo()
     index = 1
     for ap in results:
