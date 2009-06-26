@@ -1365,15 +1365,7 @@ class Iwrange(object):
 class Iwscan(object):
     """ Class to handle AP scanning. """
 
-    def __init__(self, ifname):
-        self.ifname = ifname
-        self.range = Iwrange(ifname)
-        self.errorflag = 0
-        self.error = ""
-        self.stream = None
-        self.aplist = None
-
-    def scan(self, fullscan=True):
+    def __init__(self, ifname, fullscan=True):
         """ Completes a scan for available access points,
             and returns them in Iwscanresult format.
 
@@ -1381,35 +1373,21 @@ class Iwscan(object):
                      If True, a scan is conducted, and then the data is read
 
         """
-        # By default everything is fine, do not wait
-        result = 1
-        if fullscan:
-            self.setScan()
-            if self.errorflag > pythonwifi.flags.EPERM:
-                errormsg = "setScan failure %s %s" % (str(self.errorflag),
-                                                   str(self.error))
-                raise RuntimeError(errormsg)
-                return None
-            elif self.errorflag < pythonwifi.flags.EPERM:
-                # Permission was NOT denied, therefore we must WAIT to get results
-                result = 250
-        while (result > 0):
-            time.sleep(result/1000)
-            result = self.getScan()
-        if result < 0 or self.errorflag != 0:
-            raise RuntimeError, 'getScan failure ' + str(self.errorflag) + " " + str(self.error)
-        return self.aplist
+        self.ifname = ifname
+        self.range = Iwrange(ifname)
+        self.stream = None
+        self.aplist = None
+        self.index = -1
 
-    def setScan(self):
-        """ Triggers the scan, if we have permission. """
-        iwstruct = Iwstruct()
-        datastr = iwstruct.pack('Pii', 0, 0, 0)
-        status, result = iwstruct.iw_set_ext(self.ifname,
-                                             pythonwifi.flags.SIOCSIWSCAN, datastr)
-        if status > 0:
-            self.errorflag = status
-            self.error = result
-        return result
+        if fullscan:
+            # Triggers the scan
+            iwstruct = Iwstruct()
+            datastr = iwstruct.pack("Pii", 0, 0, 0)
+            status, result = iwstruct.iw_set_ext(self.ifname,
+                                                pythonwifi.flags.SIOCSIWSCAN,
+                                                datastr)
+            self.getScan()
+
 
     def getScan(self):
         """ Retrieves results, stored from the most recent scan.
