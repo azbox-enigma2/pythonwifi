@@ -98,7 +98,7 @@ def print_channels(wifi, args=None):
         print "%-8.16s  %02d channels in total; available frequencies :" % \
                     (wifi.ifname, num_frequencies)
         for channel in channels:
-            print "          Channel %02d : %s" % \
+            print "\t  Channel %02d : %s" % \
                     (channels.index(channel)+1, channel)
         # Do some low-level comparisons on frequency info
         iwfreq = wifi.wireless_info.getFrequency()
@@ -113,7 +113,7 @@ def print_channels(wifi, args=None):
             return_type = "Frequency"
         # Output current channel/frequency
         current_freq = wifi.getFrequency()
-        print "          Current %s%c%s (Channel %d)\n" % \
+        print "\t  Current %s%c%s (Channel %d)\n" % \
                     (return_type, fixed, current_freq, channels.index(current_freq) + 1 )
 
 def print_bitrates(wifi, args=None):
@@ -135,7 +135,7 @@ def print_bitrates(wifi, args=None):
             print "%-8.16s  %02d available bit-rates :" % \
                     (wifi.ifname, num_bitrates)
             for rate in bitrates:
-                print "          %s" % rate
+                print "\t  %s" % rate
         else:
             # wireless device, but no bit rate info available
             print "%-8.16s  unknown bit-rate information." % (wifi.ifname, )
@@ -150,7 +150,7 @@ def print_bitrates(wifi, args=None):
             fixed = "="
         else:
             fixed = ":"
-        print "          Current Bit Rate%c%s" % (fixed, wifi.getBitrate())
+        print "\t  Current Bit Rate%c%s" % (fixed, wifi.getBitrate())
     # broadcast bit rate
     # XXX add broadcast bit rate
     print
@@ -169,15 +169,15 @@ def print_encryption(wifi, args=None):
                 "bits"
     print "%-8.16s  %d key sizes : %s" % \
             (wifi.ifname, range_info.num_encoding_sizes, key_sizes)
-    print "          %d keys available :" % (len(keys), )
+    print "\t  %d keys available :" % (len(keys), )
     for key in keys:
-        print "                [%d]: %s" % (key[0], key[1])
-    print "          Current Transmit Key: [%s]" % \
+        print "\t\t[%d]: %s" % (key[0], key[1])
+    print "\t  Current Transmit Key: [%s]" % \
             (wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_INDEX, )
     if wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_RESTRICTED:
-        print "          Security mode:restricted"
+        print "\t  Security mode:restricted"
     if wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_OPEN:
-        print "          Security mode:open"
+        print "\t  Security mode:open"
     print "\n"
 
 def format_pm_value(value, args=None):
