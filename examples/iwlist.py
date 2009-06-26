@@ -44,36 +44,39 @@ def print_scanning_results(wifi, args=None):
         if error_number != errno.EPERM:
             print "%-8.16s  Interface doesn't support scanning : %s\n" % \
                 (wifi.ifname, error_string)
-    (num_channels, frequencies) = wifi.getChannelInfo()
-    index = 1
-    for ap in results:
-        print "          Cell %02d - Address: %s" % (index, ap.bssid)
-        print "                    ESSID:\"%s\"" % (ap.essid, )
-        print "                    Mode:%s" % (ap.mode, )
-        print "                    Frequency:%s %s (Channel: %d)" % \
-                            (ap.frequency.getFrequency()[:5], ap.frequency.getFrequency()[5:],
-                            frequencies.index(ap.frequency.getFrequency()) + 1)
-        print "                    Quality=%s/%s  Signal level=%s/%s  Noise level=%s/%s" % \
-                            (ap.quality.quality,
-                             wifi.getQualityMax().quality,
-                             ap.quality.getSignallevel(),
-                             "100",
-                             ap.quality.getNoiselevel(),
-                             "100")
-        #print "                    Encryption key:%s" % (ap.encode, )
-        if len(ap.rate) > 0:
-            print "                    Bit Rates:",
-            rate_lines = len(ap.rate) % 5
-            rate_remainder = len(ap.rate) - (rate_lines * 5)
-            line = 0
-            while line < rate_lines:
-                print "%s; %s; %s; %s; %s" % tuple(ap.rate[line * 5:(line * 5) + 5])
-                print "                              ",
-                line = line + 1
-            print "%s; "*(rate_remainder - 1) % tuple(ap.rate[line * 5:line * 5 + rate_remainder - 1]),
-            sys.stdout.write(ap.rate[line * 5 + rate_remainder - 1])
-            print
-        index = index + 1
+    else:
+        (num_channels, frequencies) = wifi.getChannelInfo()
+        index = 1
+        for ap in results:
+            print "\t  Cell %02d - Address: %s" % (index, ap.bssid)
+            print "\t\t    ESSID:\"%s\"" % (ap.essid, )
+            print "\t\t    Mode:%s" % (ap.mode, )
+            print "\t\t    Frequency:%s (Channel: %d)" % \
+                                (ap.frequency.getFrequency(),
+                                 frequencies.index(wifi._formatFrequency(ap.frequency.getFrequency())) + 1)
+            print "\t\t    Quality=%s/%s  Signal level=%s/%s  Noise level=%s/%s" % \
+                                (ap.quality.quality,
+                                wifi.getQualityMax().quality,
+                                ap.quality.getSignallevel(),
+                                "100",
+                                ap.quality.getNoiselevel(),
+                                "100")
+            #print "\t\t    Encryption key:%s" % (ap.encode, )
+            if len(ap.rate) > 0:
+                print "\t\t    Bit Rates:",
+                rate_lines = len(ap.rate) % 5
+                rate_remainder = len(ap.rate) - (rate_lines * 5)
+                line = 0
+                while line < rate_lines:
+                    print "%s; %s; %s; %s; %s" % \
+                        tuple(ap.rate[line * 5:(line * 5) + 5])
+                    print "\t\t              ",
+                    line = line + 1
+                print "%s; "*(rate_remainder - 1) % \
+                    tuple(ap.rate[line * 5:line * 5 + rate_remainder - 1]),
+                sys.stdout.write(repr(ap.rate[line * 5 + rate_remainder - 1]))
+                print
+            index = index + 1
 
 def print_channels(wifi, args=None):
     """ Print all frequencies/channels available on the card.
