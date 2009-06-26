@@ -1300,12 +1300,9 @@ class Iwrange(object):
         """
         iwstruct = Iwstruct()
         buff, s = iwstruct.pack_wrq(640)
-        i, result = iwstruct.iw_get_ext(self.ifname,
+        status, result = iwstruct.iw_get_ext(self.ifname,
                                         pythonwifi.flags.SIOCGIWRANGE,
                                         data=s)
-        if i > 0:
-            self.errorflag = i
-            self.error = result
         data = buff.tostring()
         self._parse(data)
 
