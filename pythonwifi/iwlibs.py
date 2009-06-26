@@ -1388,6 +1388,14 @@ class Iwscan(object):
                                                 datastr)
             self.getScan()
 
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.index = self.index + 1
+        if self.index > len(self.aplist) - 1:
+            raise StopIteration
+        return self.aplist[self.index]
 
     def getScan(self):
         """ Retrieves results, stored from the most recent scan.
