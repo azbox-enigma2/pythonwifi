@@ -101,6 +101,7 @@ ETH_ALEN = 6
 # constants responsible for scanning
 IW_SCAN_MAX_DATA = 4096
 
+# event sizes
 IW_EV_LCP_LEN = 4
 IW_EV_CHAR_LEN = IW_EV_LCP_LEN + IFNAMSIZE
 IW_EV_UINT_LEN = IW_EV_LCP_LEN + 4
