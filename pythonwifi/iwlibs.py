@@ -1443,8 +1443,8 @@ class Iwscan(object):
         aplist = []
 
         # Run through the stream, until broken
+        while (True):
             # If the stream doesn't have enough space left for a
-        while 1:
             # header, break
             if len(data) < pythonwifi.flags.IW_EV_LCP_LEN:
                 break;
