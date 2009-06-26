@@ -1391,39 +1391,43 @@ class Iwscan(object):
 
     def getScan(self):
         """ Retrieves results, stored from the most recent scan.
-            Returns 0 if successful, a delay if the data isn't ready yet
-            or -1 if something really nasty happened.
 
         """
         iwstruct = Iwstruct()
-        i = pythonwifi.flags.E2BIG
         bufflen = pythonwifi.flags.IW_SCAN_MAX_DATA
 
-        # Keep resizing the buffer until it's large enough to hold the scan
-        while (i == pythonwifi.flags.E2BIG):
+        # Make repeated requests for scan with various recovery schemes
+        while (True):
             buff, datastr = iwstruct.pack_wrq(bufflen)
-            i, result = iwstruct.iw_get_ext(self.ifname,
-                                            pythonwifi.flags.SIOCGIWSCAN,
-                                            data=datastr)
-            if i == pythonwifi.flags.E2BIG:
-                pbuff, newlen = iwstruct.unpack('Pi', datastr)
-                if bufflen < newlen:
-                    bufflen = newlen
+            try:
+                status, result = iwstruct.iw_get_ext(self.ifname,
+                                                pythonwifi.flags.SIOCGIWSCAN,
+                                                data=datastr)
+            except IOError, (error_number, error_string):
+                if error_number == errno.E2BIG:
+                    # Keep resizing the buffer until it's
+                    #   large enough to hold the scan
+                    pbuff, newlen = iwstruct.unpack('Pi', datastr)
+                    if bufflen < newlen:
+                        bufflen = newlen
+                    else:
+                        bufflen = bufflen * 2
+                elif error_number == errno.EAGAIN:
+                    # Permission was NOT denied,
+                    #   therefore we must WAIT to get results
+                    time.sleep(0.1)
                 else:
-                    bufflen = bufflen * 2
+                    raise
+            except:
+                raise
+            else:
+                break
 
-        if i == pythonwifi.flags.EAGAIN:
-            return 100
-        if i > 0:
-            self.errorflag = i
-            self.error = result
-            return -1
-
+        # unpack the buffer pointer and length
         pbuff, reslen = iwstruct.unpack('Pi', datastr)
         if reslen > 0:
             # Initialize the stream, and turn it into an enumerator
             self.aplist = self._parse(buff.tostring())
-            return 0
 
     def _parse(self, data):
         """ Parse the event stream, and return a list of Iwscanresult
