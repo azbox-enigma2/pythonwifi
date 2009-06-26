@@ -41,9 +41,6 @@ def print_scanning_results(wifi, args=None):
     try:
         results = wifi.scan()
     except IOError, (error_number, error_string):
-        print "%s" % (strerror, )
-        sys.exit(0)
-
     (num_channels, frequencies) = wifi.getChannelInfo()
     index = 1
     for ap in results:
