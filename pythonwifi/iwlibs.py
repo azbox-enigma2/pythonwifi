@@ -1532,8 +1532,12 @@ class Iwscanresult(object):
             # TODO, deal with multiple rates, or at least the highest rate
             freqsize = struct.calcsize("ihbb")
             while len(data) >= freqsize:
-                iwfreq = Iwfreq(data)
-                self.rate.append(iwfreq.getBitrate())
+                m, e, dummy, pad = struct.unpack("ihbb", data[:freqsize])
+                # XXX well, its not *the* frequency - we need a better name
+                if e == 0:
+                    self.rate.append(m)
+                else:
+                    self.rate.append(m*10**e)
                 data = data[freqsize:]
         elif cmd == pythonwifi.flags.IWEVQUAL:
             self.quality.parse(data)
