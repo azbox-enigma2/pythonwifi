@@ -29,6 +29,15 @@ def print_scanning_results(wifi, args=None):
     """ Print the access points detected nearby.
 
     """
+    # "Check if the interface could support scanning"
+    try:
+        iwrange = Iwrange(wifi.ifname)
+    except IOError, (error_number, error_string):
+        print "%-8.16s  Interface doesn't support scanning.\n" % \
+            (wifi.ifname)
+    # "Check for Active Scan (scan with specific essid)"
+    # "Check for last scan result (do not trigger scan)"
+    # "Initiate Scanning"
     try:
         results = wifi.scan()
     except IOError, (error_number, error_string):
