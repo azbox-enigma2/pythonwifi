@@ -670,9 +670,8 @@ class Wireless(object):
             iwstats.missed_beacon]
 
     def scan(self):
-        """ Returns Iwscanresult objects, after a successful scan."""
-        iwscan = Iwscan(self.ifname)
-        return iwscan.scan()
+        """ Returns Iwscanresult objects, after a successful scan. """
+        return Iwscan(self.ifname)
 
     def commit(self):
         """ Commit pending changes. """
