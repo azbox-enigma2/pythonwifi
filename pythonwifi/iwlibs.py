@@ -1210,14 +1210,14 @@ class Iwpoint(object):
         self.flags = flags
         self.buff = array.array('c', data)
         self.caddr_t, self.length = self.buff.buffer_info()
-        self.packed_data = \
-            struct.pack(self.fmt, self.caddr_t, self.length, self.flags)
+        self.packed_data = struct.pack(self.fmt, self.caddr_t,
+                                       self.length, self.flags)
 
     def update(self, packed_data):
         """ Updates the object attributes. """
         self.packed_data = packed_data
-        self.caddr_t, self.length, self.flags = \
-            struct.unpack(self.fmt, self.packed_data)
+        self.caddr_t, self.length, self.flags = struct.unpack(self.fmt,
+                                                              self.packed_data)
 
 
 class Iwrange(object):
@@ -1494,7 +1494,7 @@ class Iwscanresult(object):
         self.iwstruct = Iwstruct()
         self.range = iwrange
         self.bssid = "%02X:%02X:%02X:%02X:%02X:%02X" % (
-            struct.unpack('BBBBBB', data[2:8]))
+                        struct.unpack('BBBBBB', data[2:8]))
         self.essid = None
         self.mode = None
         self.rate = []
