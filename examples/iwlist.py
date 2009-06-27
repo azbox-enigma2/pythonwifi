@@ -64,8 +64,8 @@ def print_scanning_results(wifi, args=None):
             #print "\t\t    Encryption key:%s" % (ap.encode, )
             if len(ap.rate) > 0:
                 print "\t\t    Bit Rates:",
-                rate_lines = len(ap.rate) % 5
-                rate_remainder = len(ap.rate) - (rate_lines * 5)
+                rate_lines = len(ap.rate) / 5
+                rate_remainder = len(ap.rate) % 5
                 line = 0
                 while line < rate_lines:
                     print "%s; %s; %s; %s; %s" % \
