@@ -52,7 +52,7 @@ def print_scanning_results(wifi, args=None):
             print "\t\t    ESSID:\"%s\"" % (ap.essid, )
             print "\t\t    Mode:%s" % (ap.mode, )
             print "\t\t    Frequency:%s (Channel: %d)" % \
-                                (ap.frequency.getFrequency(),
+                                (wifi._formatFrequency(ap.frequency.getFrequency()),
                                  frequencies.index(wifi._formatFrequency(ap.frequency.getFrequency())) + 1)
             print "\t\t    Quality=%s/%s  Signal level=%s/%s  Noise level=%s/%s" % \
                                 (ap.quality.quality,
