@@ -1444,39 +1444,30 @@ class Iwscan(object):
         scanresult = None
         aplist = []
 
-        # Run through the stream, until broken
-        while (True):
-            # If the stream doesn't have enough space left for a
-            # header, break
-            if len(data) < pythonwifi.flags.IW_EV_LCP_PK_LEN:
-                break;
-
+        # Run through the stream until it is too short to contain a command
+        while (len(data) >= pythonwifi.flags.IW_EV_LCP_PK_LEN):
             # Unpack the header
             length, cmd = iwstruct.unpack('HH', data[:4])
-            # If the header says the following data is shorter than the
-            # header, then break
-            if length < pythonwifi.flags.IW_EV_LCP_LEN:
+            # If the event length is too short to contain valid data,
+            # then break, because we're probably at the end of the cell's data
+            if length < pythonwifi.flags.IW_EV_LCP_PK_LEN:
                 break;
-
             # Put the events into their respective result data
             if cmd == pythonwifi.flags.SIOCGIWAP:
-                if scanresult is not None:
+                if scanresult:
                     aplist.append(scanresult)
                 scanresult = Iwscanresult(
-                    data[pythonwifi.flags.IW_EV_LCP_LEN:length], self.range)
+                        data[pythonwifi.flags.IW_EV_LCP_LEN:length],
+                        self.range)
             elif scanresult is None:
-                raise RuntimeError, 'Attempting to add an event without AP data'
+                raise RuntimeError("Attempting to add an event without AP data.")
             else:
                 scanresult.addEvent(cmd,
                                     data[pythonwifi.flags.IW_EV_LCP_LEN:length])
             # We're finished with the previous event
             data = data[length:]
 
-        if scanresult is None:
-            raise RuntimeError(
-                "No scanresult. You probably don't have permissions to scan.")
-
-        # Don't forgset the final result
+        # Don't forget the final result
         if scanresult:
             if scanresult.bssid != "00:00:00:00:00:00":
                 aplist.append(scanresult)
