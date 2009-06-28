@@ -172,25 +172,28 @@ def print_encryption(wifi, args=None):
             # not a wireless device
             sys.stderr.write("%-8.16s  no encryption keys information.\n\n" % (
                                 wifi.ifname, ))
-    range_info = Iwrange(wifi.ifname)
-    key_sizes = ""
-    for index in range(range_info.num_encoding_sizes - 1):
-        key_sizes = key_sizes + repr(range_info.encoding_size[index] * 8) + ", "
-    key_sizes = key_sizes + \
-                repr(range_info.encoding_size[range_info.num_encoding_sizes - 1] * 8) + \
-                "bits"
-    print "%-8.16s  %d key sizes : %s" % \
-            (wifi.ifname, range_info.num_encoding_sizes, key_sizes)
-    print "          %d keys available :" % (len(keys), )
-    for key in keys:
-        print "\t\t[%d]: %s" % (key[0], key[1])
-    print "          Current Transmit Key: [%s]" % \
-            (wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_INDEX, )
-    if wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_RESTRICTED:
-        print "          Security mode:restricted"
-    if wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_OPEN:
-        print "          Security mode:open"
-    print "\n"
+    else:
+        range_info = Iwrange(wifi.ifname)
+        key_sizes = ""
+        for index in range(range_info.num_encoding_sizes - 1):
+            key_sizes = key_sizes + \
+                        repr(range_info.encoding_size[index] * 8) + \
+                        ", "
+        key_sizes = key_sizes + \
+                    repr(range_info.encoding_size[range_info.num_encoding_sizes - 1] * 8) + \
+                    "bits"
+        print "%-8.16s  %d key sizes : %s" % \
+                (wifi.ifname, range_info.num_encoding_sizes, key_sizes)
+        print "          %d keys available :" % (len(keys), )
+        for key in keys:
+            print "\t\t[%d]: %s" % (key[0], key[1])
+        print "          Current Transmit Key: [%s]" % \
+                (wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_INDEX, )
+        if wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_RESTRICTED:
+            print "          Security mode:restricted"
+        if wifi.wireless_info.getKey().flags & pythonwifi.flags.IW_ENCODE_OPEN:
+            print "          Security mode:open"
+        print "\n"
 
 def format_pm_value(value, args=None):
     """ Return formatted PM value.
