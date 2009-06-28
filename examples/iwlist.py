@@ -227,6 +227,13 @@ def print_power(wifi, args=None):
     """ Print power management info for the card.
 
     """
+    try:
+        (pm_capa, power_period, power_timeout, power_saving, power_params) = \
+            wifi.getPowermanagement()
+    except IOError, (error_number, error_string):
+        if (error_number == errno.ENODEV):
+            sys.stderr.write("%-8.16s  no power management information.\n\n" % (
+                            wifi.ifname, ))
     (pm_capa, power_period, power_timeout, power_saving, power_params) = \
         wifi.getPowermanagement()
     print "%-8.16s " % (wifi.ifname, ),
