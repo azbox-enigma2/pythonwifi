@@ -150,7 +150,7 @@ def print_bitrates(wifi, args=None):
             fixed = "="
         else:
             fixed = ":"
-        print "\t  Current Bit Rate%c%s" % (fixed, wifi.getBitrate())
+        print "          Current Bit Rate%c%s" % (fixed, wifi.getBitrate())
     # broadcast bit rate
     # XXX add broadcast bit rate
     print
