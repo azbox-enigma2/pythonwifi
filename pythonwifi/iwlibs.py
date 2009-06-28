@@ -1413,8 +1413,10 @@ class Iwscan(object):
                     #   large enough to hold the scan
                     pbuff, newlen = iwstruct.unpack('Pi', datastr)
                     if bufflen < newlen:
+                        # the driver told us how big to make the buffer
                         bufflen = newlen
                     else:
+                        # try doubling the buffer size
                         bufflen = bufflen * 2
                 elif error_number == errno.EAGAIN:
                     # Permission was NOT denied,
