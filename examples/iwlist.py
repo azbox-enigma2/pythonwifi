@@ -163,7 +163,15 @@ def print_encryption(wifi, args=None):
     """ Print encryption keys on the card.
 
     """
-    keys = wifi.getKeys()
+    try:
+        keys = wifi.getKeys()
+    except IOError, (error_number, error_string):
+        if (error_number == errno.EOPNOTSUPP) or \
+           (error_number == errno.EINVAL) or \
+           (error_number == errno.ENODEV):
+            # not a wireless device
+            sys.stderr.write("%-8.16s  no encryption keys information.\n\n" % (
+                                wifi.ifname, ))
     range_info = Iwrange(wifi.ifname)
     key_sizes = ""
     for index in range(range_info.num_encoding_sizes - 1):
