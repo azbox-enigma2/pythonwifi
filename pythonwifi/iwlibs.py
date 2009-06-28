@@ -1484,7 +1484,6 @@ class Iwscanresult(object):
 
     def __init__(self, data, iwrange):
         """ Initialize the scan result with the access point data. """
-        self.iwstruct = Iwstruct()
         self.range = iwrange
         self.bssid = "%02X:%02X:%02X:%02X:%02X:%02X" % (
                         struct.unpack('BBBBBB', data[2:8]))
@@ -1504,45 +1503,43 @@ class Iwscanresult(object):
             If the data is valid but unused, False is returned
 
         """
-        if cmd <= pythonwifi.flags.SIOCIWLAST:
-            if cmd < pythonwifi.flags.SIOCIWFIRST:
-                return None
-        elif cmd >= pythonwifi.flags.IWEVFIRST:
-            if cmd > pythonwifi.flags.IWEVLAST:
-                return None
+        if ((cmd in range(pythonwifi.flags.SIOCIWFIRST,
+                          pythonwifi.flags.SIOCIWLAST+1)) or
+            (cmd in range(pythonwifi.flags.IWEVFIRST,
+                          pythonwifi.flags.IWEVLAST+1))):
+            if cmd == pythonwifi.flags.SIOCGIWESSID:
+                self.essid = data[4:]
+            elif cmd == pythonwifi.flags.SIOCGIWMODE:
+                raw_mode = struct.unpack('I', data[:4])[0]
+                self.mode = pythonwifi.flags.modes[raw_mode]
+            elif cmd == pythonwifi.flags.SIOCGIWRATE:
+                # TODO, deal with multiple rates, or at least the highest rate
+                freqsize = struct.calcsize("ihbb")
+                while len(data) >= freqsize:
+                    m, e, dummy, pad = struct.unpack("ihbb", data[:freqsize])
+                    # XXX well, its not *the* frequency - we need a better name
+                    if e == 0:
+                        self.rate.append(m)
+                    else:
+                        self.rate.append(m*10**e)
+                    data = data[freqsize:]
+            elif cmd == pythonwifi.flags.IWEVQUAL:
+                self.quality.parse(data)
+            elif cmd == pythonwifi.flags.SIOCGIWFREQ:
+                self.frequency = Iwfreq(data)
+            elif cmd == pythonwifi.flags.SIOCGIWENCODE:
+                self.encode = data
+            elif cmd == pythonwifi.flags.IWEVCUSTOM:
+                self.custom.append(data[1:])
+            elif cmd == pythonwifi.flags.SIOCGIWNAME:
+                self.protocol = data[:len(data)-2]
+            else:
+                raise ValueError("Unknown IW event command received. This \
+                                  command cannot be used to add information \
+                                  to the WiFi cell's profile.")
         else:
-            return None
-
-        if cmd == pythonwifi.flags.SIOCGIWESSID:
-            self.essid = data[4:]
-        elif cmd == pythonwifi.flags.SIOCGIWMODE:
-            raw_mode = self.iwstruct.unpack('I', data[:4])[0]
-            self.mode = pythonwifi.flags.modes[raw_mode]
-        elif cmd == pythonwifi.flags.SIOCGIWRATE:
-            # TODO, deal with multiple rates, or at least the highest rate
-            freqsize = struct.calcsize("ihbb")
-            while len(data) >= freqsize:
-                m, e, dummy, pad = struct.unpack("ihbb", data[:freqsize])
-                # XXX well, its not *the* frequency - we need a better name
-                if e == 0:
-                    self.rate.append(m)
-                else:
-                    self.rate.append(m*10**e)
-                data = data[freqsize:]
-        elif cmd == pythonwifi.flags.IWEVQUAL:
-            self.quality.parse(data)
-        elif cmd == pythonwifi.flags.SIOCGIWFREQ:
-            self.frequency = Iwfreq(data)
-        elif cmd == pythonwifi.flags.SIOCGIWENCODE:
-            self.encode = data
-        elif cmd == pythonwifi.flags.IWEVCUSTOM:
-            self.custom.append(data[1:])
-        elif cmd == pythonwifi.flags.SIOCGIWNAME:
-            self.protocol = data[:len(data)-2]
-        else:
-            print "Cmd:", cmd
-            return False
-        return True
+            raise ValueError("Invalid IW event command received.  \
+                              This command is not allowed.")
 
     def display(self):
         print "ESSID:", self.essid
