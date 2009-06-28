@@ -69,12 +69,12 @@ def print_scanning_results(wifi, args=None):
                 line = 0
                 while line < rate_lines:
                     print "%s; %s; %s; %s; %s" % \
-                        tuple(ap.rate[line * 5:(line * 5) + 5])
+                        tuple(wifi._formatBitrate(x) for x in ap.rate[line * 5:(line * 5) + 5])
                     print "\t\t              ",
                     line = line + 1
                 print "%s; "*(rate_remainder - 1) % \
-                    tuple(ap.rate[line * 5:line * 5 + rate_remainder - 1]),
-                sys.stdout.write(repr(ap.rate[line * 5 + rate_remainder - 1]))
+                    tuple(wifi._formatBitrate(x) for x in ap.rate[line * 5:line * 5 + rate_remainder - 1]),
+                sys.stdout.write(wifi._formatBitrate(ap.rate[line * 5 + rate_remainder - 1]))
                 print
             index = index + 1
 
