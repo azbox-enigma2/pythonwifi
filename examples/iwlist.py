@@ -90,7 +90,8 @@ def print_channels(wifi, args=None):
         if (error_number == errno.EOPNOTSUPP) or \
            (error_number == errno.EINVAL) or \
            (error_number == errno.ENODEV):
-            print "%-8.16s  no frequency information.\n" % (wifi.ifname, )
+            sys.stderr.write("%-8.16s  no frequency information.\n\n" % (
+                                wifi.ifname, ))
         else:
             report_error("channel", wifi.ifname, error_number, error_string)
     else:
