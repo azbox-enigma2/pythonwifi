@@ -96,7 +96,6 @@ SIOCSIWPMKSA     = 0x8B36    # PMKSA cache operation
 
 SIOCIWFIRST = 0x8B00    # FIRST ioctl identifier
 SIOCIWLAST  = 0x8BFF    # LAST ioctl identifier
-SIO_NUM     = 53        # number of ioctls
 
 # Power management flags
 IW_POWER_ON = 0x0000           # No details ...
