@@ -161,9 +161,9 @@ def print_encryption(wifi, args=None):
     """
     keys = wifi.getKeys()
     range_info = Iwrange(wifi.ifname)
-
+    key_sizes = ""
     for index in range(range_info.num_encoding_sizes - 1):
-        key_sizes = repr(range_info.encoding_size[index] * 8) + ", "
+        key_sizes = key_sizes + repr(range_info.encoding_size[index] * 8) + ", "
     key_sizes = key_sizes + \
                 repr(range_info.encoding_size[range_info.num_encoding_sizes - 1] * 8) + \
                 "bits"
