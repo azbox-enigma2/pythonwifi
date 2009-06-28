@@ -33,8 +33,8 @@ def print_scanning_results(wifi, args=None):
     try:
         iwrange = Iwrange(wifi.ifname)
     except IOError, (error_number, error_string):
-        print "%-8.16s  Interface doesn't support scanning.\n" % \
-            (wifi.ifname)
+        sys.stderr.write("%-8.16s  Interface doesn't support scanning.\n\n" % (
+                            wifi.ifname))
     # "Check for Active Scan (scan with specific essid)"
     # "Check for last scan result (do not trigger scan)"
     # "Initiate Scanning"
