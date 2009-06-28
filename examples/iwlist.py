@@ -124,7 +124,9 @@ def print_bitrates(wifi, args=None):
     try:
         num_bitrates, bitrates = wifi.getBitrates()
     except IOError, (error_number, error_string):
-        if (error_number == errno.EOPNOTSUPP) or (error_number == errno.EINVAL):
+        if (error_number == errno.EOPNOTSUPP) or \
+           (error_number == errno.EINVAL) or \
+           (error_number == errno.ENODEV):
             # not a wireless device
             sys.stderr.write("%-8.16s  no bit-rate information.\n\n" % (
                                 wifi.ifname, ))
