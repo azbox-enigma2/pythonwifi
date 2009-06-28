@@ -234,70 +234,69 @@ def print_power(wifi, args=None):
         if (error_number == errno.ENODEV):
             sys.stderr.write("%-8.16s  no power management information.\n\n" % (
                             wifi.ifname, ))
-    (pm_capa, power_period, power_timeout, power_saving, power_params) = \
-        wifi.getPowermanagement()
-    print "%-8.16s " % (wifi.ifname, ),
-    if (pm_capa & pythonwifi.flags.IW_POWER_MODE):
-        print "Supported modes :"
-        if pm_capa & (pythonwifi.flags.IW_POWER_UNICAST_R |
-                    pythonwifi.flags.IW_POWER_MULTICAST_R):
-            print "\t\t\to Receive all packets (unicast & multicast)"
-            print "\t ",
-        if pm_capa & pythonwifi.flags.IW_POWER_UNICAST_R:
-            print "\t\to Receive Unicast only (discard multicast)"
-            print "\t ",
-        if pm_capa & pythonwifi.flags.IW_POWER_MULTICAST_R:
-            print "\t\to Receive Multicast only (discard unicast)"
-            print "\t ",
-        if pm_capa & pythonwifi.flags.IW_POWER_FORCE_S:
-            print "\t\to Force sending using Power Management"
-            print "\t ",
-        if pm_capa & pythonwifi.flags.IW_POWER_REPEATER:
-            print "\t\to Repeat multicast"
-            print "\t ",
-    if (power_period[0] & pythonwifi.flags.IW_POWER_PERIOD):
-        if (power_period[0] & pythonwifi.flags.IW_POWER_MIN):
-            print "Auto  period  ; ",
-        else:
-            print "Fixed period  ; ",
-        print "min period:%s\n\t\t\t  " % \
-                (format_pm_value(power_period[1]), ),
-        print "max period:%s\n\t " % (format_pm_value(power_period[2]), ),
-    if (power_timeout[0] & pythonwifi.flags.IW_POWER_TIMEOUT):
-        if (power_timeout[0] & pythonwifi.flags.IW_POWER_MIN):
-            print "Auto  timeout ; ",
-        else:
-            print "Fixed timeout ; ",
-        print "min period:%s\n\t\t\t  " % \
-                (format_pm_value(power_timeout[1]), ),
-        print "max period:%s\n\t " % (format_pm_value(power_timeout[2]), ),
-    if (power_saving[0] & pythonwifi.flags.IW_POWER_SAVING):
-        if (power_saving[0] & pythonwifi.flags.IW_POWER_MIN):
-            print "Auto  saving  ; ",
-        else:
-            print "Fixed saving  ; ",
-        print "min period:%s\n\t\t\t  " % \
-                (format_pm_value(power_saving[1]), ),
-        print "max period:%s\n\t " % (format_pm_value(power_saving[2]), ),
-    if power_params.disabled:
-        print "Current mode:off"
     else:
-        if (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
-                    pythonwifi.flags.IW_POWER_UNICAST_R):
-            print "Current mode:Unicast only received"
-        elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
-                    pythonwifi.flags.IW_POWER_MULTICAST_R):
-            print "Current mode:Multicast only received"
-        elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
-                    pythonwifi.flags.IW_POWER_ALL_R):
-            print "Current mode:All packets received"
-        elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
-                    pythonwifi.flags.IW_POWER_FORCE_S):
-            print "Current mode:Force sending"
-        elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
-                    pythonwifi.flags.IW_POWER_REPEATER):
-            print "Current mode:Repeat multicasts"
-    print
+        print "%-8.16s " % (wifi.ifname, ),
+        if (pm_capa & pythonwifi.flags.IW_POWER_MODE):
+            print "Supported modes :"
+            if pm_capa & (pythonwifi.flags.IW_POWER_UNICAST_R |
+                        pythonwifi.flags.IW_POWER_MULTICAST_R):
+                print "\t\t\to Receive all packets (unicast & multicast)"
+                print "\t ",
+            if pm_capa & pythonwifi.flags.IW_POWER_UNICAST_R:
+                print "\t\to Receive Unicast only (discard multicast)"
+                print "\t ",
+            if pm_capa & pythonwifi.flags.IW_POWER_MULTICAST_R:
+                print "\t\to Receive Multicast only (discard unicast)"
+                print "\t ",
+            if pm_capa & pythonwifi.flags.IW_POWER_FORCE_S:
+                print "\t\to Force sending using Power Management"
+                print "\t ",
+            if pm_capa & pythonwifi.flags.IW_POWER_REPEATER:
+                print "\t\to Repeat multicast"
+                print "\t ",
+        if (power_period[0] & pythonwifi.flags.IW_POWER_PERIOD):
+            if (power_period[0] & pythonwifi.flags.IW_POWER_MIN):
+                print "Auto  period  ; ",
+            else:
+                print "Fixed period  ; ",
+            print "min period:%s\n\t\t\t  " % \
+                    (format_pm_value(power_period[1]), ),
+            print "max period:%s\n\t " % (format_pm_value(power_period[2]), ),
+        if (power_timeout[0] & pythonwifi.flags.IW_POWER_TIMEOUT):
+            if (power_timeout[0] & pythonwifi.flags.IW_POWER_MIN):
+                print "Auto  timeout ; ",
+            else:
+                print "Fixed timeout ; ",
+            print "min period:%s\n\t\t\t  " % \
+                    (format_pm_value(power_timeout[1]), ),
+            print "max period:%s\n\t " % (format_pm_value(power_timeout[2]), ),
+        if (power_saving[0] & pythonwifi.flags.IW_POWER_SAVING):
+            if (power_saving[0] & pythonwifi.flags.IW_POWER_MIN):
+                print "Auto  saving  ; ",
+            else:
+                print "Fixed saving  ; ",
+            print "min period:%s\n\t\t\t  " % \
+                    (format_pm_value(power_saving[1]), ),
+            print "max period:%s\n\t " % (format_pm_value(power_saving[2]), ),
+        if power_params.disabled:
+            print "Current mode:off"
+        else:
+            if (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                        pythonwifi.flags.IW_POWER_UNICAST_R):
+                print "Current mode:Unicast only received"
+            elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                        pythonwifi.flags.IW_POWER_MULTICAST_R):
+                print "Current mode:Multicast only received"
+            elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                        pythonwifi.flags.IW_POWER_ALL_R):
+                print "Current mode:All packets received"
+            elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                        pythonwifi.flags.IW_POWER_FORCE_S):
+                print "Current mode:Force sending"
+            elif (power_params.flags & pythonwifi.flags.IW_POWER_MODE == \
+                        pythonwifi.flags.IW_POWER_REPEATER):
+                print "Current mode:Repeat multicasts"
+        print
 
 def print_retry(wifi, args=None):
     pass
