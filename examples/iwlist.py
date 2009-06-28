@@ -153,9 +153,9 @@ def print_bitrates(wifi, args=None):
         else:
             fixed = ":"
         print "          Current Bit Rate%c%s" % (fixed, wifi.getBitrate())
-    # broadcast bit rate
-    # XXX add broadcast bit rate
-    print
+        # broadcast bit rate
+        # XXX add broadcast bit rate
+        print
 
 def print_encryption(wifi, args=None):
     """ Print encryption keys on the card.
