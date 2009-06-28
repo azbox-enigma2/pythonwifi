@@ -114,8 +114,17 @@ IW_POWER_MIN         = 0x0001  # Value is a minimum
 IW_POWER_MAX         = 0x0002  # Value is a maximum
 IW_POWER_RELATIVE    = 0x0004  # Value is not in seconds/ms/us
 
-# Retry limits
-IW_RETRY_TYPE = 0xF000      # Type of parameter
+# Retry limits and lifetime flags available
+IW_RETRY_ON       = 0x0000  # No details...
+IW_RETRY_TYPE     = 0xF000  # Type of parameter
+IW_RETRY_LIMIT    = 0x1000  # Maximum number of retries
+IW_RETRY_LIFETIME = 0x2000  # Maximum duration of retries in us
+IW_RETRY_MODIFIER = 0x00FF  # Modify a parameter
+IW_RETRY_MIN      = 0x0001  # Value is a minimum
+IW_RETRY_MAX      = 0x0002  # Value is a maximum
+IW_RETRY_RELATIVE = 0x0004  # Value is not in seconds/ms/us
+IW_RETRY_SHORT    = 0x0010  # Value is for short packets
+IW_RETRY_LONG     = 0x0020  # Value is for long packets
 
 # encoding stuff
 IW_MAX_ENCODING_SIZES = 8
