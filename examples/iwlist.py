@@ -98,7 +98,7 @@ def print_channels(wifi, args=None):
         print "%-8.16s  %02d channels in total; available frequencies :" % \
                     (wifi.ifname, num_frequencies)
         for channel in channels:
-            print "\t  Channel %02d : %s" % \
+            print "          Channel %02d : %s" % \
                     (channels.index(channel)+1, channel)
         # Do some low-level comparisons on frequency info
         iwfreq = wifi.wireless_info.getFrequency()
@@ -113,7 +113,7 @@ def print_channels(wifi, args=None):
             return_type = "Frequency"
         # Output current channel/frequency
         current_freq = wifi.getFrequency()
-        print "\t  Current %s%c%s (Channel %d)\n" % \
+        print "          Current %s%c%s (Channel %d)\n" % \
                     (return_type, fixed, current_freq, channels.index(current_freq) + 1 )
 
 def print_bitrates(wifi, args=None):
