@@ -47,50 +47,57 @@ def print_scanning_results(wifi, args=None):
                     "%-8.16s  Interface doesn't support scanning : %s\n\n" %
                     (wifi.ifname, error_string))
         else:
-            (num_channels, frequencies) = wifi.getChannelInfo()
-            print "%-8.16s  Scan completed :" % (wifi.ifname, )
-            index = 1
-            for ap in results:
-                print "          Cell %02d - Address: %s" % (index, ap.bssid)
-                print "                    ESSID:\"%s\"" % (ap.essid, )
-                print "                    Mode:%s" % (ap.mode, )
-                print "                    Frequency:%s (Channel %d)" % \
-                    (wifi._formatFrequency(ap.frequency.getFrequency()),
-                    frequencies.index(wifi._formatFrequency(
-                        ap.frequency.getFrequency())) + 1)
-                print "                    Quality=%s/%s  Signal level=%s/%s  Noise level=%s/%s" % \
-                    (ap.quality.quality,
-                    wifi.getQualityMax().quality,
-                    ap.quality.getSignallevel(),
-                    "100",
-                    ap.quality.getNoiselevel(),
-                    "100")
-                #print "                    Encryption key:%s" % (ap.encode, )
-                if len(ap.rate) > 0:
-                    # calc how many full lines of bitrates
-                    rate_lines = len(ap.rate) / 5
-                    # calc how many bitrates on last line
-                    rate_remainder = len(ap.rate) % 5
-                    line = 0
-                    # first line should start with a label
-                    rate_line = "                    Bit Rates:"
-                    while line < rate_lines:
-                        # print full lines
+            if (len(results) == 0):
+                print "%-8.16s  No scan results" % (wifi.ifname, )
+            else:
+                (num_channels, frequencies) = wifi.getChannelInfo()
+                print "%-8.16s  Scan completed :" % (wifi.ifname, )
+                index = 1
+                for ap in results:
+                    print "          Cell %02d - Address: %s" % (index, ap.bssid)
+                    print "                    ESSID:\"%s\"" % (ap.essid, )
+                    print "                    Mode:%s" % (ap.mode, )
+                    print "                    Frequency:%s (Channel %d)" % \
+                        (wifi._formatFrequency(ap.frequency.getFrequency()),
+                        frequencies.index(wifi._formatFrequency(
+                            ap.frequency.getFrequency())) + 1)
+                    print "                    " + \
+                        "Quality=%s/%s  Signal level=%s/%s  Noise level=%s/%s" % \
+                        (ap.quality.quality,
+                        wifi.getQualityMax().quality,
+                        ap.quality.getSignallevel(),
+                        "100",
+                        ap.quality.getNoiselevel(),
+                        "100")
+                    #print "                    Encryption key:%s" % (ap.encode, )
+                    if len(ap.rate) > 0:
+                        # calc how many full lines of bitrates
+                        rate_lines = len(ap.rate) / 5
+                        # calc how many bitrates on last line
+                        rate_remainder = len(ap.rate) % 5
+                        line = 0
+                        # first line should start with a label
+                        rate_line = "                    Bit Rates:"
+                        while line < rate_lines:
+                            # print full lines
+                            if line > 0:
+                                # non-first lines should start *very* indented
+                                rate_line = "                              "
+                            rate_line = rate_line + "%s; %s; %s; %s; %s" % \
+                                tuple(wifi._formatBitrate(x) for x in
+                                    ap.rate[line * 5:(line * 5) + 5])
+                            line = line + 1
+                            print rate_line
                         if line > 0:
                             # non-first lines should start *very* indented
                             rate_line = "                              "
-                        rate_line = rate_line + "%s; %s; %s; %s; %s" % \
-                            tuple(wifi._formatBitrate(x) for x in ap.rate[line * 5:(line * 5) + 5])
-                        line = line + 1
-                        print rate_line
-                    if line > 0:
-                        # non-first lines should start *very* indented
-                        rate_line = "                              "
-                    # print non-full line
-                    print rate_line + "%s; "*(rate_remainder - 1) % \
-                        tuple(wifi._formatBitrate(x) for x in ap.rate[line * 5:line * 5 + rate_remainder - 1]) + \
-                        "%s" % (wifi._formatBitrate(ap.rate[line * 5 + rate_remainder - 1]))
-                index = index + 1
+                        # print non-full line
+                        print rate_line + "%s; "*(rate_remainder - 1) % \
+                            tuple(wifi._formatBitrate(x) for x in
+                                ap.rate[line * 5:line * 5 + rate_remainder - 1]) + \
+                            "%s" % (wifi._formatBitrate(
+                                    ap.rate[line * 5 + rate_remainder - 1]))
+                    index = index + 1
             print
 
 def print_channels(wifi, args=None):
