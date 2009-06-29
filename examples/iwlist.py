@@ -299,7 +299,61 @@ def print_power(wifi, args=None):
         print
 
 def print_retry(wifi, args=None):
-    pass
+    try:
+        range_info = Iwrange(wifi.ifname)
+    except IOError, (error_number, error_string):
+        if (error_number == errno.EOPNOTSUPP) or \
+           (error_number == errno.EINVAL) or \
+           (error_number == errno.ENODEV):
+            sys.stderr.write("%-8.16s  no retry limit/lifetime information.\n\n" % (
+                            wifi.ifname, ))
+    else:
+        ifname = "%-8.16s  "  % (wifi.ifname, )
+        if (range_info.retry_flags & pythonwifi.flags.IW_RETRY_LIMIT):
+            if (range_info.retry_flags & pythonwifi.flags.IW_RETRY_MIN):
+                limit = "Auto  limit    ;  min limit:%d" % (
+                    range_info.min_retry, )
+            else:
+                limit = "Fixed limit    ;  min limit:%d" % (
+                    range_info.min_retry, )
+            print ifname + limit
+            ifname = None
+            print "                            max limit:%d" % (
+                range_info.max_retry, )
+        if (range_info.r_time_flags & pythonwifi.flags.IW_RETRY_LIFETIME):
+            if (range_info.r_time_flags & pythonwifi.flags.IW_RETRY_MIN):
+                lifetime = "Auto  lifetime ;  min lifetime:%d" % (
+                    range_info.min_r_time, )
+            else:
+                lifetime = "Fixed lifetime ;  min lifetime:%d" % (
+                    range_info.min_r_time, )
+            if ifname:
+                print ifname + lifetime
+                ifname = None
+            else:
+                print "          " + lifetime
+            print "                            max lifetime:%d" % (
+                range_info.max_r_time, )
+        iwparam = wifi.wireless_info.getRetry()
+        if iwparam.disabled:
+            print "          Current mode:off"
+        else:
+            print "          Current mode:on"
+            if (iwparam.flags & pythonwifi.flags.IW_RETRY_TYPE):
+                if (iwparam.flags & pythonwifi.flags.IW_RETRY_LIFETIME):
+                    mode_type = "lifetime"
+                else:
+                    mode_type = "limit"
+                mode = "                 "
+                if (iwparam.flags & pythonwifi.flags.IW_RETRY_MIN):
+                    mode = mode + " min %s:%d" % (mode_type, iwparam.value)
+                if (iwparam.flags & pythonwifi.flags.IW_RETRY_MAX):
+                    mode = mode + " max %s:%d" % (mode_type, iwparam.value)
+                if (iwparam.flags & pythonwifi.flags.IW_RETRY_SHORT):
+                    mode = mode + " short %s:%d" % (mode_type, iwparam.value)
+                if (iwparam.flags & pythonwifi.flags.IW_RETRY_LONG):
+                    mode = mode + " long %s:%d" % (mode_type, iwparam.value)
+                print mode
 
 def print_aps(wifi, args=None):
     pass
