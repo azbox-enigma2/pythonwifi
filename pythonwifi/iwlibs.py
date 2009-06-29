@@ -1387,6 +1387,9 @@ class Iwscan(object):
     def __iter__(self):
         return self
 
+    def __len__(self):
+        return len(self.aplist)
+
     def next(self):
         self.index = self.index + 1
         if self.index > len(self.aplist) - 1:
