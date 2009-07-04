@@ -61,12 +61,30 @@ def print_scanning_results(wifi, args=None):
                         (wifi._formatFrequency(ap.frequency.getFrequency()),
                         frequencies.index(wifi._formatFrequency(
                             ap.frequency.getFrequency())) + 1)
+                    if (ap.quality.updated & \
+                                pythonwifi.flags.IW_QUAL_QUAL_UPDATED):
+                        quality_updated = "="
+                    else:
+                        quality_updated = ":"
+                    if (ap.quality.updated & \
+                                pythonwifi.flags.IW_QUAL_LEVEL_UPDATED):
+                        signal_updated = "="
+                    else:
+                        signal_updated = ":"
+                    if (ap.quality.updated & \
+                                pythonwifi.flags.IW_QUAL_NOISE_UPDATED):
+                        noise_updated = "="
+                    else:
+                        noise_updated = ":"
                     print "                    " + \
-                        "Quality=%s/%s  Signal level=%s/%s  Noise level=%s/%s" % \
-                        (ap.quality.quality,
+                        "Quality%c%s/%s  Signal level%c%s/%s  Noise level%c%s/%s" % \
+                        (quality_updated,
+                        ap.quality.quality,
                         wifi.getQualityMax().quality,
+                        signal_updated,
                         ap.quality.getSignallevel(),
                         "100",
+                        noise_updated,
                         ap.quality.getNoiselevel(),
                         "100")
                     # This code on encryption keys is very fragile
