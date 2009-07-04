@@ -33,10 +33,6 @@ IW_MAX_FREQUENCIES = 32
 IW_MAX_BITRATES = 32
 IW_MAX_TXPOWER = 8
 
-# Frequency flags
-IW_FREQ_AUTO = 0x00       # Let the driver decide
-IW_FREQ_FIXED = 0x01      # Force a specific value
-
 SIOCGIFCONF   = 0x8912    # ifconf struct
 
 # ioctl calls for the Linux/i386 kernel
@@ -126,6 +122,10 @@ IW_RETRY_MAX      = 0x0002  # Value is a maximum
 IW_RETRY_RELATIVE = 0x0004  # Value is not in seconds/ms/us
 IW_RETRY_SHORT    = 0x0010  # Value is for short packets
 IW_RETRY_LONG     = 0x0020  # Value is for long packets
+
+# Frequency flags
+IW_FREQ_AUTO = 0x00       # Let the driver decide
+IW_FREQ_FIXED = 0x01      # Force a specific value
 
 # encoding stuff
 IW_MAX_ENCODING_SIZES = 8
