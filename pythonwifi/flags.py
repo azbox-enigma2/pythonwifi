@@ -24,7 +24,8 @@ modes = ['Auto',
          'Master',
          'Repeat',
          'Second',
-         'Monitor']
+         'Monitor',
+         'Unknown/bug']
 
 IFNAMSIZE = 16
 IW_ESSID_MAX_SIZE = 32
