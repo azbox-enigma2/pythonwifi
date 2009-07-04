@@ -123,6 +123,18 @@ IW_RETRY_RELATIVE = 0x0004  # Value is not in seconds/ms/us
 IW_RETRY_SHORT    = 0x0010  # Value is for short packets
 IW_RETRY_LONG     = 0x0020  # Value is for long packets
 
+# Statistics flags (bitmask in updated)
+IW_QUAL_QUAL_UPDATED  = 0x01   # Value was updated since last read
+IW_QUAL_LEVEL_UPDATED = 0x02
+IW_QUAL_NOISE_UPDATED = 0x04
+IW_QUAL_ALL_UPDATED   = 0x07
+IW_QUAL_DBM           = 0x08   # Level + Noise are dBm
+IW_QUAL_QUAL_INVALID  = 0x10   # Driver doesn't provide value
+IW_QUAL_LEVEL_INVALID = 0x20
+IW_QUAL_NOISE_INVALID = 0x40
+IW_QUAL_RCPI          = 0x80   # Level + Noise are 802.11k RCPI
+IW_QUAL_ALL_INVALID   = 0x70
+
 # Frequency flags
 IW_FREQ_AUTO = 0x00       # Let the driver decide
 IW_FREQ_FIXED = 0x01      # Force a specific value
