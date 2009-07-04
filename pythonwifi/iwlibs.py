@@ -1530,7 +1530,13 @@ class Iwscanresult(object):
             elif cmd == pythonwifi.flags.SIOCGIWFREQ:
                 self.frequency = Iwfreq(data)
             elif cmd == pythonwifi.flags.SIOCGIWENCODE:
-                self.encode = data
+                data = struct.unpack("B"*len(data), data)
+                self.encode = Iwpoint("")
+                self.encode.update(struct.pack('PHH',
+                    (int(data[0])<<16)+int(data[1]), data[2]<<8, data[3]<<8))
+                if (self.encode.caddr_t is None):
+                    self.encode.flags = \
+                        self.encode.flags | pythonwifi.flags.IW_ENCODE_NOKEY
             elif cmd == pythonwifi.flags.IWEVCUSTOM:
                 self.custom.append(data[1:])
             elif cmd == pythonwifi.flags.SIOCGIWNAME:
