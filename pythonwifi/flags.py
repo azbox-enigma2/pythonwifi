@@ -127,16 +127,22 @@ IW_RETRY_LONG     = 0x0020  # Value is for long packets
 IW_FREQ_AUTO = 0x00       # Let the driver decide
 IW_FREQ_FIXED = 0x01      # Force a specific value
 
-# encoding stuff
+# Maximum number of size of encoding token available
 IW_MAX_ENCODING_SIZES = 8
+
+# Maximum size of the encoding token in bytes
 IW_ENCODING_TOKEN_MAX = 64       # 512 bits (for now)
-IW_ENCODE_ENABLED     = 0x0000   # Encoding enabled
+
+# Flags for encoding (along with the token)
 IW_ENCODE_INDEX       = 0x00FF   # Token index (if needed)
-IW_ENCODE_TEMP        = 0x0400   # Temporary key
-IW_ENCODE_NOKEY       = 0x0800   # key is write only, not present
-IW_ENCODE_OPEN        = 0x2000   # Accept non-encoded packets
+IW_ENCODE_FLAGS       = 0xFF00   # Flags defined below
+IW_ENCODE_MODE        = 0xF000   # Modes defined below
+IW_ENCODE_DISABLED    = 0x8000   # Encoding disabled
+IW_ENCODE_ENABLED     = 0x0000   # Encoding enabled
 IW_ENCODE_RESTRICTED  = 0x4000   # Refuse non-encoded packets
-IW_ENCODE_DISABLED    = 0x8000   # encoding is disabled
+IW_ENCODE_OPEN        = 0x2000   # Accept non-encoded packets
+IW_ENCODE_NOKEY       = 0x0800   # Key is write only, so not present
+IW_ENCODE_TEMP        = 0x0400   # Temporary key
 
 # MAC address length
 ETH_ALEN = 6
