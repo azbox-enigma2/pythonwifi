@@ -12,7 +12,8 @@ announcements and developer discussion are available at
 https://developer.berlios.de/mail/?group_id=7134
 
 Check the ./docs/feature_matrix_*.txt files for a detailed list of what is
-implemented.
+implemented.  This may not work with 64-bit Linux kernels, I would appreciate
+reports of success or failure on such systems.
 
 
 Example Applications
