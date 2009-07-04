@@ -1517,11 +1517,9 @@ class Iwscanresult(object):
                 raw_mode = struct.unpack('I', data[:4])[0]
                 self.mode = pythonwifi.flags.modes[raw_mode]
             elif cmd == pythonwifi.flags.SIOCGIWRATE:
-                # TODO, deal with multiple rates, or at least the highest rate
                 freqsize = struct.calcsize("ihbb")
                 while len(data) >= freqsize:
                     m, e, dummy, pad = struct.unpack("ihbb", data[:freqsize])
-                    # XXX well, its not *the* frequency - we need a better name
                     if e == 0:
                         self.rate.append(m)
                     else:
