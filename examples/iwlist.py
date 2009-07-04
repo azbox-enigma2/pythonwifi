@@ -69,7 +69,14 @@ def print_scanning_results(wifi, args=None):
                         "100",
                         ap.quality.getNoiselevel(),
                         "100")
-                    #print "                    Encryption key:%s" % (ap.encode, )
+                    # This code on encryption keys is very fragile
+                    if (ap.encode.flags & pythonwifi.flags.IW_ENCODE_DISABLED):
+                        key_status = "off"
+                    else:
+                        if (ap.encode.flags & pythonwifi.flags.IW_ENCODE_NOKEY):
+                            if (ap.encode.length <= 0):
+                                key_status = "on"
+                    print "                    Encryption key:%s" % (key_status, )
                     if len(ap.rate) > 0:
                         # calc how many full lines of bitrates
                         rate_lines = len(ap.rate) / 5
