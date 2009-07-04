@@ -1461,13 +1461,13 @@ class Iwscan(object):
                 if scanresult:
                     aplist.append(scanresult)
                 scanresult = Iwscanresult(
-                        data[pythonwifi.flags.IW_EV_LCP_LEN:length],
+                        data[pythonwifi.flags.IW_EV_LCP_PK_LEN:length],
                         self.range)
             elif scanresult is None:
                 raise RuntimeError("Attempting to add an event without AP data.")
             else:
                 scanresult.addEvent(cmd,
-                                    data[pythonwifi.flags.IW_EV_LCP_LEN:length])
+                        data[pythonwifi.flags.IW_EV_LCP_PK_LEN:length])
             # We're finished with the previous event
             data = data[length:]
 
