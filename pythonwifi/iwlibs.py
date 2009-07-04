@@ -1514,7 +1514,7 @@ class Iwscanresult(object):
             if cmd == pythonwifi.flags.SIOCGIWESSID:
                 self.essid = data[4:]
             elif cmd == pythonwifi.flags.SIOCGIWMODE:
-                raw_mode = struct.unpack('I', data[:4])[0]
+                raw_mode = struct.unpack('I', data)[0]
                 self.mode = pythonwifi.flags.modes[raw_mode]
             elif cmd == pythonwifi.flags.SIOCGIWRATE:
                 freqsize = struct.calcsize("ihbb")
