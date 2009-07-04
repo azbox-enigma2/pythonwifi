@@ -1450,7 +1450,8 @@ class Iwscan(object):
         # Run through the stream until it is too short to contain a command
         while (len(data) >= pythonwifi.flags.IW_EV_LCP_PK_LEN):
             # Unpack the header
-            length, cmd = iwstruct.unpack('HH', data[:4])
+            length, cmd = iwstruct.unpack('HH',
+                              data[:pythonwifi.flags.IW_EV_LCP_PK_LEN])
             # If the event length is too short to contain valid data,
             # then break, because we're probably at the end of the cell's data
             if length < pythonwifi.flags.IW_EV_LCP_PK_LEN:
