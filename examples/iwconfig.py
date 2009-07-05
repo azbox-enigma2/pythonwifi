@@ -132,6 +132,11 @@ def getEncryption(wifi):
         mode = ""
     return "%s%s%s" % (key, index, mode)
 
+def getPowerManagement(wifi):
+    """ Return formatted string with Power Management info. """
+    pm = wifi.getPowermanagement()
+    return "Power Management:%s" % (pm[0], )
+
 def iwconfig(interface):
     """ Get wireless information from the device driver. """
     if interface not in getWNICnames():
@@ -181,8 +186,10 @@ def iwconfig(interface):
         line = line + getEncryption(wifi)
         print line
 
-        pm = wifi.getPowermanagement()
-        print """\t  Power Management:%s""" % (pm[0], )
+        # Power Management line
+        line = "          "
+        line = line + getPowerManagement(wifi)
+        print line
 
         stat, qual, discard, missed_beacon = wifi.getStatistics()
         print """\t  Link Quality:%s/100  Signal level:%sdBm  Noise level:%sdBm""" % \
