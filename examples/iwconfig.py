@@ -62,7 +62,9 @@ def getSensitivity(wifi):
             fixed = "="
         else:
             fixed = ":"
-        return "Sensitivity%c%d/65535" % (fixed, wifi.getSensitivity())
+        iwrange = Iwrange(wifi.ifname)
+        return "Sensitivity%c%d/%d  " % (
+            fixed, wifi.getSensitivity(), iwrange.sensitivity)
 
 def getRetrylimit(wifi):
     """ Return formatted string with Retry info. """
