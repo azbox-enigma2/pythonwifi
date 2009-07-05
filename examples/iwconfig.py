@@ -88,10 +88,10 @@ def getRTS(wifi):
             fixed = ":"
         return "RTS thr%c%d B   " % (fixed, wifi.getRTS())
 
-def getFragmentation(wifi, wifi_details):
+def getFragmentation(wifi):
     """ Return formatted string with Fragmentation info. """
     try:
-        frag = wifi_details.getFragmentation()
+        frag = wifi.wireless_info.getFragmentation()
     except IOError, (errno, strerror):
         return None
     else:
@@ -163,8 +163,8 @@ def iwconfig(interface):
         rts = getRTS(wifi)
             print retry,
         if rts:
+        fragment = getFragmentation(wifi)
             print rts,
-        fragment = getFragmentation(wifi, wifi_details)
         if fragment:
             print fragment,
         print
