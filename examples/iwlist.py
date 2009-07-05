@@ -330,6 +330,12 @@ def print_power(wifi, args=None):
                 print "Current mode:Repeat multicasts"
         print
 
+def print_txpower(wifi, args=None):
+    """ Print transmit power info for the card.
+
+    """
+    pass
+
 def print_retry(wifi, args=None):
     try:
         range_info = Iwrange(wifi.ifname)
@@ -490,7 +496,7 @@ def get_matching_command(option):
                    "en"  : ("encryption", print_encryption),
                    "k"   : ("keys", print_encryption),
                    "po"  : ("power", print_power),
-                   "t"   : ("txpower", print_power),
+                   "t"   : ("txpower", print_txpower),
                    "re"  : ("retry", print_retry),
                    "ap"  : ("ap", print_aps),
                    "ac"  : ("accesspoints", print_aps),
