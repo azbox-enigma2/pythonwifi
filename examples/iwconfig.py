@@ -144,17 +144,17 @@ def iwconfig(interface):
             wifi.getFrequency(), wifi.getAPaddr())
 
         # Bit Rate, TXPower, and Sensitivity line
+        line = "          "
         bitrate = getBitrate(wifi)
-        print "\t ",
         if bitrate:
+            line = line + bitrate
         txpower = getTXPower(wifi)
-            print bitrate,
         if txpower:
+            line = line + txpower
         sensitivity = getSensitivity(wifi)
-            print txpower,
         if sensitivity:
-            print sensitivity,
-        print
+            line = line + sensitivity
+        print line
 
         # Retry, RTS, and Fragmentation line
         retry = getRetrylimit(wifi)
