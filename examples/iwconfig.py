@@ -192,8 +192,13 @@ def iwconfig(interface):
         print line
 
         stat, qual, discard, missed_beacon = wifi.getStatistics()
-        print """\t  Link Quality:%s/100  Signal level:%sdBm  Noise level:%sdBm""" % \
-            (qual.quality, qual.signallevel, qual.noiselevel)
+
+        # Link Quality, Signal Level and Noise Level line
+        line = "          "
+        line = line + "Link Quality:%s/100  " % (qual.quality, )
+        line = line + "Signal level:%sdBm  " % (qual.signallevel, )
+        line = line + "Noise level:%sdBm" % (qual.noiselevel, )
+        print line
         print """\t  Rx invalid nwid:%s  Rx invalid crypt:%s  Rx invalid frag:%s""" % \
             (discard['nwid'], discard['code'], discard['fragment'],)
         print """\t  Tx excessive retries:%s  Invalid misc:%s   Missed beacon: %s""" % \
