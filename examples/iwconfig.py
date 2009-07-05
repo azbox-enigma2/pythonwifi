@@ -187,32 +187,6 @@ def iwconfig(interface):
 
     print
 
-def main():
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "hv", ["help", "version"])
-    except getopt.GetoptError, err:
-        # print help information and exit:
-        print str(err) # will print something like "option -a not recognized"
-        usage()
-        sys.exit(2)
-
-    for opt, arg in opts:
-        if opt in ("-h", "--help"):
-            usage()
-            sys.exit(0)
-        if opt in ("-v", "--version"):
-            version_info()
-            sys.exit(0)
-
-    if len(args) == 0:
-        # no params given to iwconfig.py
-        for interface in getNICnames():
-            iwconfig(interface)
-    if len(args) == 1:
-        # one param given to iwconfig.py, it should be a network device
-        if sys.argv[1] in getNICnames():
-            iwconfig(sys.argv[1])
-
 def usage():
     print """Usage: iwconfig.py [interface]
                    interface essid {NNN|any|on|off}
@@ -238,6 +212,32 @@ def usage():
 
 def version_info():
     pass
+
+def main():
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hv", ["help", "version"])
+    except getopt.GetoptError, err:
+        # print help information and exit:
+        print str(err) # will print something like "option -a not recognized"
+        usage()
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            usage()
+            sys.exit(0)
+        if opt in ("-v", "--version"):
+            version_info()
+            sys.exit(0)
+
+    if len(args) == 0:
+        # no params given to iwconfig.py
+        for interface in getNICnames():
+            iwconfig(interface)
+    if len(args) == 1:
+        # one param given to iwconfig.py, it should be a network device
+        if sys.argv[1] in getNICnames():
+            iwconfig(sys.argv[1])
 
 
 if __name__ == "__main__":
