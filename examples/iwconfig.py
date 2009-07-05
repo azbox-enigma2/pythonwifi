@@ -73,10 +73,10 @@ def getRetrylimit(wifi):
     else:
         return "Retry limit:%s   " % (wifi.getRetrylimit(), )
 
-def getRTS(wifi, wifi_details):
+def getRTS(wifi):
     """ Return formatted string with RTS info. """
     try:
-        rts = wifi_details.getRTS()
+        rts = wifi.wireless_info.getRTS()
     except IOError, (errno, strerror):
         return None
     else:
@@ -160,8 +160,8 @@ def iwconfig(interface):
         retry = getRetrylimit(wifi)
         print "\t ",
         if retry:
+        rts = getRTS(wifi)
             print retry,
-        rts = getRTS(wifi, wifi_details)
         if rts:
             print rts,
         fragment = getFragmentation(wifi, wifi_details)
