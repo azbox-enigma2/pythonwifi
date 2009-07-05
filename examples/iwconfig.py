@@ -51,10 +51,10 @@ def getTXPower(wifi):
             fixed = ":"
         return "Tx-Power%c%s   " % (fixed, wifi.getTXPower())
 
-def getSensitivity(wifi, wifi_details):
+def getSensitivity(wifi):
     """ Return formatted string with Sensitivity info. """
     try:
-        sensitivity = wifi_details.getSensitivity()
+        sensitivity = wifi.wireless_info.getSensitivity()
     except IOError, (errno, strerror):
         return None
     else:
@@ -150,8 +150,8 @@ def iwconfig(interface):
         txpower = getTXPower(wifi)
             print bitrate,
         if txpower:
+        sensitivity = getSensitivity(wifi)
             print txpower,
-        sensitivity = getSensitivity(wifi, wifi_details)
         if sensitivity:
             print sensitivity,
         print
