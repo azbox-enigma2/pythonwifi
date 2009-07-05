@@ -103,15 +103,15 @@ def getFragmentation(wifi):
             fixed = ":"
         return "Fragment thr%c%d B   " % (fixed, wifi.getFragmentation())
 
-def getEncryption(wifi, wifi_details):
+def getEncryption(wifi):
     """ Return formatted string with Encryption info.
 
-    As noted in iwconfig.c: we display only the "current" key, use iwlist
-    to list all keys.
+        As noted in iwconfig.c: we display only the "current" key, use iwlist
+        to list all keys.
 
     """
     #try:
-    enc = wifi_details.getEncryption()
+    enc = wifi.wireless_info.getEncryption()
     #except IOError, (errno, strerror):
         #print errno, strerror
         #return None
