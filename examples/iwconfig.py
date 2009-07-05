@@ -206,8 +206,13 @@ def iwconfig(interface):
         line = line + "Rx invalid crypt:%s  " % (discard['code'], )
         line = line + "Rx invalid frag:%s" % (discard['fragment'], )
         print line
-        print """\t  Tx excessive retries:%s  Invalid misc:%s   Missed beacon: %s""" % \
-            (discard['retries'], discard['misc'], missed_beacon)
+
+        # Tx line
+        line = "          "
+        line = line + "Tx excessive retries:%s  " % (discard['retries'], )
+        line = line + "Invalid misc:%s   " % (discard['misc'], )
+        line = line + "Missed beacon:%s" % (missed_beacon, )
+        print line
 
     print
 
