@@ -133,12 +133,11 @@ def getEncryption(wifi, wifi_details):
     return "%s%s%s" % (key, index, mode)
 
 def iwconfig(interface):
-    """ get wireless information from the device driver """
+    """ Get wireless information from the device driver. """
     if interface not in getWNICnames():
         print "%-8.16s  no wireless extensions." % (interface, )
     else:
         wifi = Wireless(interface)
-        wifi_details = WirelessInfo(interface)
         print """%-8.16s  %s  ESSID:"%s" """ % (interface,
             wifi.getWirelessName(), wifi.getEssid())
         print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
