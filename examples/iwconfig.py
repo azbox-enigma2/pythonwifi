@@ -73,7 +73,19 @@ def getRetrylimit(wifi):
     except IOError, (errno, strerror):
         return None
     else:
-        return "Retry limit:%s   " % (wifi.getRetrylimit(), )
+        modifier = ""
+        if (retry.flags & pythonwifi.flags.IW_RETRY_MIN):
+            modifier = " min"
+        elif (retry.flags & pythonwifi.flags.IW_RETRY_MAX):
+            modifier = " max"
+        elif (retry.flags & pythonwifi.flags.IW_RETRY_SHORT):
+            modifier = " short"
+        elif (retry.flags & pythonwifi.flags.IW_RETRY_LONG):
+            modifier = "  long"
+        type = " limit"
+        if (retry.flags & pythonwifi.flags.IW_RETRY_LIFETIME):
+            type = " lifetime"
+        return "Retry%s%s:%s   " % (modifier, type, wifi.getRetrylimit())
 
 def getRTS(wifi):
     """ Return formatted string with RTS info. """
