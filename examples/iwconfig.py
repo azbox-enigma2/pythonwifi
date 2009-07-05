@@ -188,6 +188,7 @@ def iwconfig(interface):
     print
 
 def usage():
+    """ Print info about using iwconfig.py. """
     print """Usage: iwconfig.py [interface]
                    interface essid {NNN|any|on|off}
                    interface mode {managed|ad-hoc|master|...}
