@@ -157,17 +157,17 @@ def iwconfig(interface):
         print line
 
         # Retry, RTS, and Fragmentation line
+        line = "          "
         retry = getRetrylimit(wifi)
-        print "\t ",
         if retry:
+            line = line + retry
         rts = getRTS(wifi)
-            print retry,
         if rts:
+            line = line + rts
         fragment = getFragmentation(wifi)
-            print rts,
         if fragment:
-            print fragment,
-        print
+            line = line + fragment
+        print line
 
         print "\t ",
         print getEncryption(wifi, wifi_details),
