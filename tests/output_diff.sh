@@ -51,8 +51,12 @@ else
     NIC=$2
 fi
 
-# rename var for readability below
-SUBCOMMAND=$3
+# if user passes hyphen for 3rd param, use no subcommand in command call
+if [ "$3" == "-" ]; then
+    SUBCOMMAND=""
+else
+    SUBCOMMAND=$3
+fi
 
 # create some temporary files to hold each programs output
 TMPFILE1=`mktemp -t diff-1-XXXXXX`
