@@ -199,8 +199,13 @@ def iwconfig(interface):
         line = line + "Signal level:%sdBm  " % (qual.signallevel, )
         line = line + "Noise level:%sdBm" % (qual.noiselevel, )
         print line
-        print """\t  Rx invalid nwid:%s  Rx invalid crypt:%s  Rx invalid frag:%s""" % \
-            (discard['nwid'], discard['code'], discard['fragment'],)
+
+        # Rx line
+        line = "          "
+        line = line + "Rx invalid nwid:%s  " % (discard['nwid'], )
+        line = line + "Rx invalid crypt:%s  " % (discard['code'], )
+        line = line + "Rx invalid frag:%s" % (discard['fragment'], )
+        print line
         print """\t  Tx excessive retries:%s  Invalid misc:%s   Missed beacon: %s""" % \
             (discard['retries'], discard['misc'], missed_beacon)
 
