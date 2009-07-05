@@ -25,10 +25,10 @@ import types
 import pythonwifi.flags
 from pythonwifi.iwlibs import Wireless, WirelessInfo, getNICnames, getWNICnames
 
-def getBitrate(wifi, wifi_details):
+def getBitrate(wifi):
     """ Return formatted string with Bit Rate info. """
     try:
-        bitrate = wifi_details.getBitrate()
+        bitrate = wifi.wireless_info.getBitrate()
     except IOError, (errno, strerror):
         return None
     else:
@@ -144,8 +144,8 @@ def iwconfig(interface):
             wifi.getFrequency(), wifi.getAPaddr())
 
         # Bit Rate, TXPower, and Sensitivity line
+        bitrate = getBitrate(wifi)
         print "\t ",
-        bitrate = getBitrate(wifi, wifi_details)
         if bitrate:
             print bitrate,
         txpower = getTXPower(wifi, wifi_details)
