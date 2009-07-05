@@ -123,6 +123,15 @@ IW_RETRY_RELATIVE = 0x0004  # Value is not in seconds/ms/us
 IW_RETRY_SHORT    = 0x0010  # Value is for short packets
 IW_RETRY_LONG     = 0x0020  # Value is for long packets
 
+# Modes of operation
+IW_MODE_AUTO    = 0   # Let the driver decides
+IW_MODE_ADHOC   = 1   # Single cell network
+IW_MODE_INFRA   = 2   # Multi cell network, roaming, ...
+IW_MODE_MASTER  = 3   # Synchronisation master or Access Point
+IW_MODE_REPEAT  = 4   # Wireless Repeater (forwarder)
+IW_MODE_SECOND  = 5   # Secondary master/repeater (backup)
+IW_MODE_MONITOR = 6   # Passive monitor (listen only)
+
 # Statistics flags (bitmask in updated)
 IW_QUAL_QUAL_UPDATED  = 0x01   # Value was updated since last read
 IW_QUAL_LEVEL_UPDATED = 0x02
