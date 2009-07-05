@@ -176,9 +176,10 @@ def iwconfig(interface):
             line = line + fragment
         print line
 
-        print "\t ",
-        print getEncryption(wifi, wifi_details),
-        print
+        # Encryption line
+        line = "          "
+        line = line + getEncryption(wifi)
+        print line
 
         pm = wifi.getPowermanagement()
         print """\t  Power Management:%s""" % (pm[0], )
