@@ -140,8 +140,15 @@ def iwconfig(interface):
         wifi = Wireless(interface)
         print """%-8.16s  %s  ESSID:"%s" """ % (interface,
             wifi.getWirelessName(), wifi.getEssid())
-        print """\t  Mode:%s  Frequency:%s  Access Point:%s""" % (wifi.getMode(),
-            wifi.getFrequency(), wifi.getAPaddr())
+        if (wifi.wireless_info.getMode() == pythonwifi.flags.IW_MODE_ADHOC):
+            ap_type = "Cell"
+        else:
+            ap_type = "Access Point"
+        ap_addr = wifi.getAPaddr()
+        if (ap_addr == "00:00:00:00:00:00"):
+            ap_addr = "Not-Associated"
+        print """          Mode:%s  Frequency:%s  %s: %s""" % (
+            wifi.getMode(), wifi.getFrequency(), ap_type, ap_addr)
 
         # Bit Rate, TXPower, and Sensitivity line
         line = "          "
