@@ -64,14 +64,14 @@ def getSensitivity(wifi):
             fixed = ":"
         return "Sensitivity%c%d/65535" % (fixed, wifi.getSensitivity())
 
-def getRetrylimit(wifi, wifi_details):
+def getRetrylimit(wifi):
     """ Return formatted string with Retry info. """
     try:
-        retry = wifi_details.getRetry()
+        retry = wifi.wireless_info.getRetry()
     except IOError, (errno, strerror):
         return None
     else:
-        return "Retry limit:%s  " % (wifi.getRetrylimit(), )
+        return "Retry limit:%s   " % (wifi.getRetrylimit(), )
 
 def getRTS(wifi, wifi_details):
     """ Return formatted string with RTS info. """
@@ -157,8 +157,8 @@ def iwconfig(interface):
         print
 
         # Retry, RTS, and Fragmentation line
+        retry = getRetrylimit(wifi)
         print "\t ",
-        retry = getRetrylimit(wifi, wifi_details)
         if retry:
             print retry,
         rts = getRTS(wifi, wifi_details)
