@@ -212,6 +212,10 @@ def usage():
           Check man pages for more details."""
 
 def version_info():
+    """ Print version info for iwconfig.py, Wireless Extensions compatibility,
+        and Wireless Extensions version in the kernel.
+
+    """
     pass
 
 def main():
