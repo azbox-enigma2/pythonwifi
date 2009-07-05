@@ -23,7 +23,7 @@ import sys
 import types
 
 import pythonwifi.flags
-from pythonwifi.iwlibs import Wireless, WirelessInfo, getNICnames, getWNICnames
+from pythonwifi.iwlibs import Wireless, WirelessInfo, Iwrange, getNICnames, getWNICnames
 
 def getBitrate(wifi):
     """ Return formatted string with Bit Rate info. """
