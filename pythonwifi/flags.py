@@ -94,6 +94,11 @@ SIOCSIWPMKSA     = 0x8B36    # PMKSA cache operation
 SIOCIWFIRST = 0x8B00    # FIRST ioctl identifier
 SIOCIWLAST  = 0x8BFF    # LAST ioctl identifier
 
+# Wireless events
+IWEVFIRST             = 0x8C00    # FIRST event identifier
+IWEVQUAL              = 0x8C01    # Quality statistics from scan
+IWEVCUSTOM            = 0x8C02    # Custom Ascii string from Driver
+IWEVLAST              = 0x8C0A    # LAST event identifier
 # Power management flags
 IW_POWER_ON          = 0x0000  # No details ...
 IW_POWER_TYPE        = 0xF000  # Type of parameter
@@ -192,7 +197,3 @@ IWHT_POINT = 8
 IWHT_PARAM = 9
 IWHT_QUAL = 10
 
-IWEVFIRST     = 0x8C00    # FIRST event identifier
-IWEVQUAL      = 0x8C01    # Quality statistics from scan
-IWEVCUSTOM    = 0x8C02    # Custom Ascii string from Driver
-IWEVLAST      = 0x8C0A    # LAST event identifier
