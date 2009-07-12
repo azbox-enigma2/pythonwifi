@@ -96,9 +96,18 @@ SIOCIWLAST  = 0x8BFF    # LAST ioctl identifier
 
 # Wireless events
 IWEVFIRST             = 0x8C00    # FIRST event identifier
+IWEVTXDROP            = 0x8C00    # Packet dropped to excessive retry
 IWEVQUAL              = 0x8C01    # Quality statistics from scan
 IWEVCUSTOM            = 0x8C02    # Custom Ascii string from Driver
+IWEVREGISTERED        = 0x8C03    # Discovered a new node (AP mode)
+IWEVEXPIRED           = 0x8C04    # Expired a node (AP mode)
+IWEVGENIE             = 0x8C05    # Generic IE (WPA, RSN, WMM, ..)
+IWEVMICHAELMICFAILURE = 0x8C06    # Michael MIC failure
+IWEVASSOCREQIE        = 0x8C07    # IEs used in (Re)Association Request.
+IWEVASSOCRESPIE       = 0x8C08    # IEs used in (Re)Association Response.
+IWEVPMKIDCAND         = 0x8C09    # PMKID candidate for RSN pre-authentication
 IWEVLAST              = 0x8C0A    # LAST event identifier
+
 # Power management flags
 IW_POWER_ON          = 0x0000  # No details ...
 IW_POWER_TYPE        = 0xF000  # Type of parameter
