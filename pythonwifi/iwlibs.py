@@ -1511,7 +1511,9 @@ class Iwscanresult(object):
                           pythonwifi.flags.SIOCIWLAST+1)) or
             (cmd in range(pythonwifi.flags.IWEVFIRST,
                           pythonwifi.flags.IWEVLAST+1))):
-            if cmd == pythonwifi.flags.SIOCGIWFREQ:
+            if cmd == pythonwifi.flags.SIOCGIWNWID:
+                pass
+            elif cmd == pythonwifi.flags.SIOCGIWFREQ:
                 self.frequency = Iwfreq(data)
             elif cmd == pythonwifi.flags.SIOCGIWMODE:
                 raw_mode = struct.unpack('I', data)[0]
@@ -1537,8 +1539,12 @@ class Iwscanresult(object):
                     else:
                         self.rate.append(m*10**e)
                     data = data[freqsize:]
+            elif cmd == pythonwifi.flags.SIOCGIWMODUL:
+                pass
             elif cmd == pythonwifi.flags.IWEVQUAL:
                 self.quality.parse(data)
+            elif cmd == pythonwifi.flags.IWEVGENIE:
+                pass
             elif cmd == pythonwifi.flags.IWEVCUSTOM:
                 self.custom.append(data[1:])
             else:
