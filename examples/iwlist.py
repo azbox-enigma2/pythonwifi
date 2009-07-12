@@ -96,32 +96,33 @@ def print_scanning_results(wifi, args=None):
                                 key_status = "on"
                     print "                    Encryption key:%s" % (key_status, )
                     if len(ap.rate) > 0:
-                        # calc how many full lines of bitrates
-                        rate_lines = len(ap.rate) / 5
-                        # calc how many bitrates on last line
-                        rate_remainder = len(ap.rate) % 5
-                        line = 0
-                        # first line should start with a label
-                        rate_line = "                    Bit Rates:"
-                        while line < rate_lines:
-                            # print full lines
+                        for rate_list in ap.rate:
+                            # calc how many full lines of bitrates
+                            rate_lines = len(rate_list) / 5
+                            # calc how many bitrates on last line
+                            rate_remainder = len(rate_list) % 5
+                            line = 0
+                            # first line should start with a label
+                            rate_line = "                    Bit Rates:"
+                            while line < rate_lines:
+                                # print full lines
+                                if line > 0:
+                                    # non-first lines should start *very* indented
+                                    rate_line = "                              "
+                                rate_line = rate_line + "%s; %s; %s; %s; %s" % \
+                                    tuple(wifi._formatBitrate(x) for x in
+                                        rate_list[line * 5:(line * 5) + 5])
+                                line = line + 1
+                                print rate_line
                             if line > 0:
                                 # non-first lines should start *very* indented
                                 rate_line = "                              "
-                            rate_line = rate_line + "%s; %s; %s; %s; %s" % \
+                            # print non-full line
+                            print rate_line + "%s; "*(rate_remainder - 1) % \
                                 tuple(wifi._formatBitrate(x) for x in
-                                    ap.rate[line * 5:(line * 5) + 5])
-                            line = line + 1
-                            print rate_line
-                        if line > 0:
-                            # non-first lines should start *very* indented
-                            rate_line = "                              "
-                        # print non-full line
-                        print rate_line + "%s; "*(rate_remainder - 1) % \
-                            tuple(wifi._formatBitrate(x) for x in
-                                ap.rate[line * 5:line * 5 + rate_remainder - 1]) + \
-                            "%s" % (wifi._formatBitrate(
-                                    ap.rate[line * 5 + rate_remainder - 1]))
+                                    rate_list[line * 5:line * 5 + rate_remainder - 1]) + \
+                                "%s" % (wifi._formatBitrate(
+                                        rate_list[line * 5 + rate_remainder - 1]))
                     index = index + 1
             print
 
