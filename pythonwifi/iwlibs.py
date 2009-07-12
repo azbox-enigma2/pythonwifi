@@ -1511,11 +1511,23 @@ class Iwscanresult(object):
                           pythonwifi.flags.SIOCIWLAST+1)) or
             (cmd in range(pythonwifi.flags.IWEVFIRST,
                           pythonwifi.flags.IWEVLAST+1))):
-            if cmd == pythonwifi.flags.SIOCGIWESSID:
-                self.essid = data[4:]
+            if cmd == pythonwifi.flags.SIOCGIWFREQ:
+                self.frequency = Iwfreq(data)
             elif cmd == pythonwifi.flags.SIOCGIWMODE:
                 raw_mode = struct.unpack('I', data)[0]
                 self.mode = pythonwifi.flags.modes[raw_mode]
+            elif cmd == pythonwifi.flags.SIOCGIWNAME:
+                self.protocol = data[:len(data)-2]
+            elif cmd == pythonwifi.flags.SIOCGIWESSID:
+                self.essid = data[4:]
+            elif cmd == pythonwifi.flags.SIOCGIWENCODE:
+                data = struct.unpack("B"*len(data), data)
+                self.encode = Iwpoint("")
+                self.encode.update(struct.pack('PHH',
+                    (int(data[0])<<16)+int(data[1]), data[2]<<8, data[3]<<8))
+                if (self.encode.caddr_t is None):
+                    self.encode.flags = \
+                        self.encode.flags | pythonwifi.flags.IW_ENCODE_NOKEY
             elif cmd == pythonwifi.flags.SIOCGIWRATE:
                 freqsize = struct.calcsize("ihbb")
                 while len(data) >= freqsize:
@@ -1527,24 +1539,12 @@ class Iwscanresult(object):
                     data = data[freqsize:]
             elif cmd == pythonwifi.flags.IWEVQUAL:
                 self.quality.parse(data)
-            elif cmd == pythonwifi.flags.SIOCGIWFREQ:
-                self.frequency = Iwfreq(data)
-            elif cmd == pythonwifi.flags.SIOCGIWENCODE:
-                data = struct.unpack("B"*len(data), data)
-                self.encode = Iwpoint("")
-                self.encode.update(struct.pack('PHH',
-                    (int(data[0])<<16)+int(data[1]), data[2]<<8, data[3]<<8))
-                if (self.encode.caddr_t is None):
-                    self.encode.flags = \
-                        self.encode.flags | pythonwifi.flags.IW_ENCODE_NOKEY
             elif cmd == pythonwifi.flags.IWEVCUSTOM:
                 self.custom.append(data[1:])
-            elif cmd == pythonwifi.flags.SIOCGIWNAME:
-                self.protocol = data[:len(data)-2]
             else:
-                raise ValueError("Unknown IW event command received. This \
-                                  command cannot be used to add information \
-                                  to the WiFi cell's profile.")
+                raise ValueError("Unknown IW event command received. This " + \
+                                 "command cannot be used to add information " + \
+                                 "to the WiFi cell's profile.")
         else:
             raise ValueError("Invalid IW event command received.  \
                               This command is not allowed.")
