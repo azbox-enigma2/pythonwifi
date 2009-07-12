@@ -1532,13 +1532,15 @@ class Iwscanresult(object):
                         self.encode.flags | pythonwifi.flags.IW_ENCODE_NOKEY
             elif cmd == pythonwifi.flags.SIOCGIWRATE:
                 freqsize = struct.calcsize("ihbb")
+                rates = []
                 while len(data) >= freqsize:
                     m, e, dummy, pad = struct.unpack("ihbb", data[:freqsize])
                     if e == 0:
-                        self.rate.append(m)
+                        rates.append(m)
                     else:
-                        self.rate.append(m*10**e)
+                        rates.append(m*10**e)
                     data = data[freqsize:]
+                self.rate.append(rates)
             elif cmd == pythonwifi.flags.SIOCGIWMODUL:
                 pass
             elif cmd == pythonwifi.flags.IWEVQUAL:
