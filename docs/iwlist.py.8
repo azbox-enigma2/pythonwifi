@@ -1,0 +1,136 @@
+.\" Author: Sean Robinson <seankrobinson@gmail.com>
+.\" iwconfig.py.8
+.\"
+.TH IWLIST.py 8 "05 August 2009" "Python WiFi" "Linux Programmer's Manual"
+.\"
+.\" NAME part
+.\"
+.SH NAME
+iwlist.py \- Get more detailed wireless information from a wireless interface via Python
+.\"
+.\" SYNOPSIS part
+.\"
+.SH SYNOPSIS
+.BI "iwlist [" interface "] scanning"
+.br
+.BI "iwlist [" interface "] frequency"
+.br
+.BI "iwlist [" interface "] rate"
+.br
+.BI "iwlist [" interface "] keys"
+.br
+.BI "iwlist [" interface "] power"
+.br
+.BI "iwlist [" interface "] txpower"
+.br
+.BI "iwlist [" interface "] retry"
+.br
+.BI "iwlist [" interface "] event"
+.br
+.BI "iwlist [" interface "] auth"
+.br
+.BI "iwlist [" interface "] wpakeys"
+.br
+.BI "iwlist [" interface "] genie"
+.br
+.BI "iwlist [" interface "] modulation"
+.br
+.BI "iwlist --help"
+.br
+.BI "iwlist --version"
+.\"
+.\" DESCRIPTION part
+.\"
+.SH DESCRIPTION
+.B iwlist.py
+is a drop-in replacement for
+.IR iwlist (8),
+but uses the pythonwifi module to implement its functionality in pure Python.
+See the
+.IR iwlist (8)
+man page for more detail about what
+.B iwlist.py
+can do.
+.PP
+The compatitibilty of specific operations
+.B iwlist.py
+has with
+.IR iwlist (8)
+are listed below.
+.\"
+.\" COMPATIBILITY part
+.\"
+.SH COMPATIBILITY
+.TP
+.BR scanning
+
+.TP
+.BR frequency
+
+.TP
+.BR rate
+
+.TP
+.BR keys
+
+.TP
+.BR power
+
+.TP
+.BR txpower
+
+.TP
+.BR retry
+
+.TP
+.BR event
+.PP
+  Does not work.
+
+.TP
+.BR auth
+.PP
+  Does not work.
+
+.TP
+.BR wpakeys
+.PP
+  Does not work.
+
+.TP
+.BR genie
+.PP
+  Does not work.
+
+.TP
+.BR modulation
+.PP
+  Does not work.
+
+.\"
+.\" AUTHOR part
+.\"
+.SH AUTHOR
+Sean Robinson \- seankrobinson@gmail.com
+.\"
+.\" COPYRIGHT part
+.\"
+.SH COPYRIGHT
+Portions Copyright 1996-2004 Jean Tourrilhes
+.br
+Copyright 2004-2008 Roman Joost
+.br
+Copyright 2009 Sean Robinson
+.\"
+.\" FILES part
+.\"
+.SH FILES
+.I /proc/net/dev,
+.I /proc/net/wireless
+.\"
+.\" SEE ALSO part
+.\"
+.SH SEE ALSO
+.BR ifconfig (8),
+.BR iwlist (8),
+.BR iwconfig.py (8),
