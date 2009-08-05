@@ -12,9 +12,6 @@ wireless network card's capabilities using the Linux Wireless Extensions.""",
 
     # metadata for upload to PyPI
     author_email = "roman@bromeco.de",
-    long_description = open('README').read() +
-        '\n\n' +
-        open('NEWS').read(),
     license = "LGPL",
     keywords = "wifi wireless wlan iwconfig iwtools",
     url = "https://developer.berlios.de/projects/pythonwifi/",
