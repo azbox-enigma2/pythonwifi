@@ -11,6 +11,7 @@ setup(
     maintainer_email = "pythonwifi-dev@lists.berlios.de",
     description = """Python WiFi is a Python module that provides read and write access to a 
 wireless network card's capabilities using the Linux Wireless Extensions.""",
+    url = "http://pythonwifi.wikispot.org/",
     packages = ['pythonwifi'],
 
     data_files=[('', ['README', 'INSTALL']),
@@ -30,11 +31,10 @@ wireless network card's capabilities using the Linux Wireless Extensions.""",
                 ('man/man8', ['docs/iwconfig.py.8', 'docs/iwlist.py.8']),
                ],
 
-    # metadata for upload to PyPI
-    license = "LGPL",
-    keywords = "wifi wireless wlan iwconfig iwtools",
-    url = "https://developer.berlios.de/projects/pythonwifi/",
-    download_url = "https://developer.berlios.de/projects/pythonwifi/", 
+    platforms = "Linux",
+    license = "LGPL for module; GPL for example apps",
+    keywords = "wifi wireless wlan iwconfig iwlist iwtools",
+    download_url = "https://developer.berlios.de/project/filelist.php?group_id=7134",
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Environment :: Other Environment',
