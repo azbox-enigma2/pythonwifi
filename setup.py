@@ -6,14 +6,12 @@ setup(
     name = "python-wifi",
     version = "0.3.1",
     author = "Róman Joost",
+    description = """Python WiFi is a Python module that provides read and write access to a 
+wireless network card's capabilities using the Linux Wireless Extensions.""",
     packages = ['pythonwifi'],
 
     # metadata for upload to PyPI
     author_email = "roman@bromeco.de",
-    description = """\
-Python-Wifi is a Python library that provides access to information
-about a W-Lan card's capabilities, like the wireless extensions
-written in C.""",
     long_description = open('README').read() +
         '\n\n' +
         open('NEWS').read(),
