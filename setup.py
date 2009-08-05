@@ -13,6 +13,23 @@ setup(
 wireless network card's capabilities using the Linux Wireless Extensions.""",
     packages = ['pythonwifi'],
 
+    data_files=[('', ['README', 'INSTALL']),
+                ('examples', ['examples/iwlist.py', 'examples/iwconfig.py']),
+                ('docs', ['docs/AUTHORS', 'docs/BUGS', 'docs/LICENSE.GPL',
+                          'docs/LICENSE.LGPL', 'docs/NEWS', 'docs/ROADMAP',
+                          'docs/TODO', 'docs/VERSION', 'docs/Changelog',
+                          'docs/DEVEL.txt',
+                          'docs/feature_matrix_iwconfig.py.txt',
+                          'docs/feature_matrix_iwlist.py.txt',
+                          'docs/feature_matrix_wireless_extensions.txt']),
+                ('docs/logos', ['docs/logos/pythonwifi-logo.svg',
+                                'docs/logos/pythonwifi-logo-16x16.png',
+                                'docs/logos/pythonwifi-logo-64x64.png',
+                                'docs/logos/pythonwifi-logo-text.png',
+                                'docs/logos/pythonwifi-logo.karbon']),
+                ('man/man8', ['docs/iwconfig.py.8', 'docs/iwlist.py.8']),
+               ],
+
     # metadata for upload to PyPI
     license = "LGPL",
     keywords = "wifi wireless wlan iwconfig iwtools",
