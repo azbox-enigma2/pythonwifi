@@ -1,14 +1,14 @@
-# -*- coding: latin1 -*-
+# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
 
 setup(
     name = "python-wifi",
     version = "0.3.1",
+    author = "Róman Joost",
     packages = ['pythonwifi'],
 
     # metadata for upload to PyPI
-    author = "Roman Joost",
     author_email = "roman@bromeco.de",
     description = """\
 Python-Wifi is a Python library that provides access to information
