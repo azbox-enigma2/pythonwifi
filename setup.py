@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup, find_packages
-
+from distutils.core import setup
+from ez_setup import use_setuptools
+use_setuptools()
 
 setup(
     name = "python-wifi",
