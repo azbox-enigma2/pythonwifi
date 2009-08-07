@@ -489,7 +489,7 @@ class Wireless(object):
                 m = int(math.floor(freq_num / math.pow(10, e - 6))) * 100
                 e = e - 8
             else:
-                m = int(math.floor(freq_num))
+                m = int(freq_num)
                 e = 0
             iwreq = iwstruct.pack(format, m, e, 0, pythonwifi.flags.IW_FREQ_FIXED)
         status, result = iwstruct.iw_set_ext(self.ifname,
