@@ -231,6 +231,15 @@ def iwconfig(interface):
 
     print
 
+def setEssid(wifi, essid):
+    """ Set the ESSID on the NIC. """
+    try:
+        wifi.setEssid(essid)
+    except OverflowError, (errno, strerror):
+        print "setEssid - oveflowerror:", errno, strerror
+    except:
+        print "setEssid - unknown:", errno, strerror
+
 def usage():
     """ Print info about using iwconfig.py. """
     print """Usage: iwconfig.py [interface]
