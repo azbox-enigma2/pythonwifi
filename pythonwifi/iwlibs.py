@@ -491,7 +491,7 @@ class Wireless(object):
             if unit == "G": freq_num = freq_num * GIGA
             if unit == "M": freq_num = freq_num * MEGA
             if unit == "k": freq_num = freq_num * KILO
-            e = math.floor(math.log10(freq_num))
+            e = int(math.floor(math.log10(freq_num)))
             if e > 8:
                 m = int(math.floor(freq_num / math.pow(10, e - 6))) * 100
                 e = e - 8
