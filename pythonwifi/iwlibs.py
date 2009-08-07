@@ -471,9 +471,10 @@ class Wireless(object):
            translated from iwconfig.c
 
         """
+        format = "lhBB"
         iwstruct = Iwstruct()
         if freq == "auto":
-            iwreq = iwstruct.pack("ihBB", -1, 0, 0, pythonwifi.flags.IW_FREQ_AUTO)
+            iwreq = iwstruct.pack(format, -1, 0, 0, pythonwifi.flags.IW_FREQ_AUTO)
         else:
             if freq == "fixed":
                 freq = self.getFrequency()
@@ -490,7 +491,7 @@ class Wireless(object):
             else:
                 m = int(math.floor(freq_num))
                 e = 0
-            iwreq = iwstruct.pack("ihBB", m, e, 0, pythonwifi.flags.IW_FREQ_FIXED)
+            iwreq = iwstruct.pack(format, m, e, 0, pythonwifi.flags.IW_FREQ_FIXED)
         status, result = iwstruct.iw_set_ext(self.ifname,
                                                pythonwifi.flags.SIOCSIWFREQ,
                                                iwreq)
