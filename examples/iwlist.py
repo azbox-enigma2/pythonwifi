@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# Copyright 2004, 2005 Roman Joost <roman@bromeco.de> - Rotterdam, Netherlands
+# -*- coding: utf-8 -*-
+# Copyright 2004, 2005 Róman Joost <roman@bromeco.de> - Rotterdam, Netherlands
 # Copyright 2009 by Sean Robinson <seankrobinson@gmail.com>
 #
 # This file is part of Python WiFi
