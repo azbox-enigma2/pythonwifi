@@ -318,10 +318,25 @@ def main():
                     # no params given to iwconfig.py
                     for interface in getNICnames():
                         iwconfig(interface)
-                if len(args) == 1:
+                elif len(args) == 1:
                     # one param given to iwconfig.py, it should be a network device
                     if sys.argv[1] in getNICnames():
                         iwconfig(sys.argv[1])
+                else:
+                    # more than one param, must be a command
+                    # if program name and more than one argument are given
+                    if len(sys.argv) > 2:
+                        # Get the interface and command from command line
+                        ifname, option = sys.argv[1:]
+                        # look for matching command
+                        set_command = get_matching_command(option)
+                        # if the second argument is a command
+                        if set_command is not None:
+                            wifi = Wireless(ifname)
+                            set_command(wifi, sys.argv[3:])
+                        else:
+                            print "iwconfig.py: unknown command `%s' " \
+                                "(check 'iwconfig.py --help')." % (option, )
 
 
 if __name__ == "__main__":
