@@ -480,11 +480,17 @@ class Wireless(object):
                 freq = self.getFrequency()
             freq_pattern = re.compile("([\d\.]+)\s?([GMk])\w?", re.I|re.M|re.S)
             freq_match = freq_pattern.search(freq)
+            if freq_match is None:
+                # match failed, try to just find a number (no units)
+                freq_pattern = re.compile("([\d\.]+)", re.I|re.M|re.S)
+                freq_match = freq_pattern.search(freq)
+                freq_num, unit = (freq_match.groups()[0], "")
+            else:
+                freq_num, unit = freq_match.groups()
             freq_num = float(freq_num)
             if unit == "G": freq_num = freq_num * GIGA
             if unit == "M": freq_num = freq_num * MEGA
             if unit == "k": freq_num = freq_num * KILO
-            freq_num, unit = freq_match.groups()
             e = math.floor(math.log10(freq_num))
             if e > 8:
                 m = int(math.floor(freq_num / math.pow(10, e - 6))) * 100
