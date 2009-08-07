@@ -240,9 +240,9 @@ def setEssid(wifi, essid):
                 (pythonwifi.flags.SIOCSIWESSID, )
         print "    argument too big (max %d)" % \
                 (pythonwifi.flags.IW_ESSID_MAX_SIZE, )
-    except Exception, (errno, strerror):
+    except Exception, detail:
         # Unexpected errors
-        print errno, strerror
+        print detail
 
 def usage():
     """ Print info about using iwconfig.py. """
