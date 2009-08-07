@@ -244,6 +244,22 @@ def setEssid(wifi, essid):
         # Unexpected errors
         print detail
 
+def setMode(wifi, mode):
+    """ Set the mode on the NIC. """
+    try:
+        wifi.setMode(mode)
+    except ValueError, detail:
+        print "Error for wireless request \"Set Mode\" (%X) :" % \
+                (pythonwifi.flags.SIOCSIWMODE, )
+        print "    invalid argument \"%s\"." % (mode, )
+    except IOError, (error_num, error_str):
+        print "Error for wireless request \"Set Mode\" (%X) :" % \
+                (pythonwifi.flags.SIOCSIWMODE, )
+        print "    SET failed on device %s ; %s." % (wifi.ifname, error_str)
+    except Exception, detail:
+        # Unexpected errors
+        print type(detail), detail
+
 def usage():
     """ Print info about using iwconfig.py. """
     print """Usage: iwconfig.py [interface]
