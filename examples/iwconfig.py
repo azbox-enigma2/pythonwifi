@@ -236,9 +236,13 @@ def setEssid(wifi, essid):
     try:
         wifi.setEssid(essid)
     except OverflowError, (errno, strerror):
-        print "setEssid - oveflowerror:", errno, strerror
-    except:
-        print "setEssid - unknown:", errno, strerror
+        print "Error for wireless request \"Set ESSID\" (%X) :" % \
+                (pythonwifi.flags.SIOCSIWESSID, )
+        print "    argument too big (max %d)" % \
+                (pythonwifi.flags.IW_ESSID_MAX_SIZE, )
+    except Exception, (errno, strerror):
+        # Unexpected errors
+        print errno, strerror
 
 def usage():
     """ Print info about using iwconfig.py. """
