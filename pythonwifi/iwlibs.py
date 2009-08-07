@@ -510,13 +510,12 @@ class Wireless(object):
         """ Sets the operation mode.
 
         """
+        this_modes = [x.lower() for x in pythonwifi.flags.modes]
+        mode = mode.lower()
         try:
-            this_modes = [x.lower() for x in pythonwifi.flags.modes]
-            mode = mode.lower()
             wifimode = this_modes.index(mode)
-        except ValueError:
-            raise ValueError("Invalid operation mode!")
-
+        except ValueError, detail:
+            raise ValueError("Invalid mode")
         datastr = self.iwstruct.pack('I', wifimode)
         status, result = self.iwstruct.iw_set_ext(self.ifname,
                                              pythonwifi.flags.SIOCSIWMODE,
