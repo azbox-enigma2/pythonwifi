@@ -262,6 +262,43 @@ def version_info():
     """
     pass
 
+def get_matching_command(option):
+    """ Return a function for the command.
+
+        'option' -- string -- command to match
+
+        Return None if no match found.
+
+    """
+    # build dictionary of commands and functions
+    iwcommands = { "essid"      : ("essid",      setEssid),
+                   "mode"       : ("mode",       setMode),
+                   "freq"       : ("freq",       setFreq),
+                   "channel"    : ("channel",    setChannel),
+                   "bit"        : ("bit",        setBit),
+                   "rate"       : ("rate",       setRate),
+                   "enc"        : ("enc",        setEnc),
+                   "key"        : ("key",        setKey),
+                   "power"      : ("power",      setPower),
+                   "nickname"   : ("nickname",   setNickname),
+                   "nwid"       : ("nwid",       setNwid),
+                   "ap"         : ("ap",         setAP),
+                   "txpower"    : ("txpower",    setTxpower),
+                   "sens"       : ("sens",       setSens),
+                   "retry"      : ("retry",      setRetry),
+                   "rts"        : ("rts",        setRts),
+                   "frag"       : ("frag",       setFrag),
+                   "modulation" : ("modulation", setModulation),
+                   "commit"     : ("commit",     setCommit),
+                 }
+
+    function = None
+    for command in iwcommands.keys():
+        if option.startswith(command):
+            if iwcommands[command][0].startswith(option):
+                function = iwcommands[command][1]
+    return function
+
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hv", ["help", "version"])
