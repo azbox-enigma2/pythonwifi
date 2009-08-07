@@ -342,7 +342,7 @@ def main():
                         # if the second argument is a command
                         if set_command is not None:
                             wifi = Wireless(ifname)
-                            set_command(wifi, sys.argv[3:])
+                            set_command(wifi, sys.argv[3])
                         else:
                             print "iwconfig.py: unknown command `%s' " \
                                 "(check 'iwconfig.py --help')." % (option, )
