@@ -336,7 +336,7 @@ def main():
                     # if program name and more than one argument are given
                     if len(sys.argv) > 2:
                         # Get the interface and command from command line
-                        ifname, option = sys.argv[1:]
+                        ifname, option = sys.argv[1:3]
                         # look for matching command
                         set_command = get_matching_command(option)
                         # if the second argument is a command
