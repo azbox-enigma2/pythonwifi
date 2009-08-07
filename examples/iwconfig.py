@@ -260,6 +260,14 @@ def setMode(wifi, mode):
         # Unexpected errors
         print type(detail), detail
 
+def setFreq(wifi, freq):
+    """ Set the frequency on the NIC. """
+    try:
+        wifi.setFrequency(freq)
+    except Exception, detail:
+        # Unexpected errors
+        print type(detail), detail
+
 def usage():
     """ Print info about using iwconfig.py. """
     print """Usage: iwconfig.py [interface]
