@@ -268,6 +268,14 @@ def setFreq(wifi, freq):
         # Unexpected errors
         print type(detail), detail
 
+def setKey(wifi, key):
+    """ Set a WEP key on the NIC. """
+    try:
+        wifi.setKey(key)
+    except Exception, detail:
+        # Unexpected errors
+        print type(detail), detail
+
 def usage():
     """ Print info about using iwconfig.py. """
     print """Usage: iwconfig.py [interface]
