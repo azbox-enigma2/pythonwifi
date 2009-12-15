@@ -62,9 +62,14 @@ fi
 TMPFILE1=`mktemp -t diff-1-XXXXXX`
 TMPFILE2=`mktemp -t diff-2-XXXXXX`
 
+# remove the first three command line parameters
+shift
+shift
+shift
+
 # run commands and redirect output to temporary files
-$IWCOMMAND $NIC $SUBCOMMAND > $TMPFILE1 2>&1
-$PYCOMMAND $NIC $SUBCOMMAND > $TMPFILE2 2>&1
+$IWCOMMAND $NIC $SUBCOMMAND $@ > $TMPFILE1 2>&1
+$PYCOMMAND $NIC $SUBCOMMAND $@ > $TMPFILE2 2>&1
 
 # call meld to compare files
 meld -L $IWCOMMAND $TMPFILE1 -L $PYCOMMAND $TMPFILE2
