@@ -390,7 +390,7 @@ class Wireless(object):
             key = key + "%.2X" % raw_key[i]
         return key
 
-    def setKey(self, key, index=0):
+    def setKey(self, key, index=1):
         """ Set an encryption key.
 
             As a normal user, you will get an 'Operation not permitted'
