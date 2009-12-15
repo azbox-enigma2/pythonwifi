@@ -5,7 +5,7 @@ use_setuptools()
 
 setup(
     name = "python-wifi",
-    version = "0.3.1",
+    version = "0.5.0",
     author = "Róman Joost",
     author_email = "roman@bromeco.de",
     maintainer = "Sean Robinson",
