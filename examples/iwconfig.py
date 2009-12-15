@@ -276,6 +276,14 @@ def setKey(wifi, key):
         # Unexpected errors
         print type(detail), detail
 
+def setAP(wifi, ap):
+    """ Set the AP with which to associate. """
+    try:
+        wifi.setAPaddr(ap)
+    except Exception, detail:
+        # Unexpected errors
+        print type(detail), detail
+
 def usage():
     """ Print info about using iwconfig.py. """
     print """Usage: iwconfig.py [interface]
