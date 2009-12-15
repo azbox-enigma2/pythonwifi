@@ -166,6 +166,8 @@ class Wireless(object):
         """ Sets the access point MAC address.
 
             translated from iwconfig.c
+            
+            FIXME: This needs to check address type before acting.
 
         """
         addr = addr.upper()
@@ -174,7 +176,9 @@ class Wireless(object):
         elif addr == "OFF":
             mac_addr = '\x00'*pythonwifi.flags.ETH_ALEN
         else:
-            if ":" not in addr: return (errno.ENOSYS, os.strerror(errno.ENOSYS))
+            if ":" not in addr:
+                # not a hardware address
+                raise IOError(errno.ENOSYS, os.strerror(errno.ENOSYS))
             mac_addr = "%c%c%c%c%c%c" % tuple(map(hex2int, addr.split(':')))
 
         iwreq = self.iwstruct.pack("H14s", 1, mac_addr)
