@@ -1,7 +1,7 @@
 .\" Author: Sean Robinson <seankrobinson@gmail.com>
-.\" iwconfig.py.8
+.\" iwlist.py.8
 .\"
-.TH IWLIST.py 8 "05 August 2009" "Python WiFi" "Linux Programmer's Manual"
+.TH IWLIST.py 8 "16 December 2009" "Python WiFi" "Linux Programmer's Manual"
 .\"
 .\" NAME part
 .\"
@@ -11,33 +11,47 @@ iwlist.py \- Get more detailed wireless information from a wireless interface vi
 .\" SYNOPSIS part
 .\"
 .SH SYNOPSIS
-.BI "iwlist [" interface "] scanning"
+.BI "iwlist.py [" interface ]
 .br
-.BI "iwlist [" interface "] frequency"
+.BI "iwlist.py [" interface ]
+scanning
 .br
-.BI "iwlist [" interface "] rate"
+.BI "iwlist.py [" interface ]
+frequency
 .br
-.BI "iwlist [" interface "] keys"
+.BI "iwlist.py [" interface ]
+rate
 .br
-.BI "iwlist [" interface "] power"
+.BI "iwlist.py [" interface ]
+keys
 .br
-.BI "iwlist [" interface "] txpower"
+.BI "iwlist.py [" interface ]
+power
 .br
-.BI "iwlist [" interface "] retry"
+.BI "iwlist.py [" interface ]
+txpower
 .br
-.BI "iwlist [" interface "] event"
+.BI "iwlist.py [" interface ]
+retry
 .br
-.BI "iwlist [" interface "] auth"
+.BI "iwlist.py [" interface ]
+event
 .br
-.BI "iwlist [" interface "] wpakeys"
+.BI "iwlist.py [" interface ]
+auth
 .br
-.BI "iwlist [" interface "] genie"
+.BI "iwlist.py [" interface ]
+wpakeys
 .br
-.BI "iwlist [" interface "] modulation"
+.BI "iwlist.py [" interface ]
+genie
 .br
-.BI "iwlist --help"
+.BI "iwlist.py [" interface ]
+modulation
 .br
-.BI "iwlist --version"
+.BI "iwlist.py --help"
+.br
+.BI "iwlist.py --version"
 .\"
 .\" DESCRIPTION part
 .\"
@@ -62,50 +76,68 @@ are listed below.
 .\"
 .SH COMPATIBILITY
 .TP
-.BR scan[ning]
+.BR scanning
+
+Essentially the same as
+.IR iwlist (8),
+but with a possible different line order in the results and probably less 
+information per AP.
 
 .TP
-.BR freq[uency]/channel
+.BR frequency
+
+Not working, but it should be.
 
 .TP
-.BR rate/bit[rate]
+.BR rate
+
+Probably as unreliable as
+.IR iwlist (8).
 
 .TP
-.BR keys/enc[ryption]
+.BR keys
+
+Very close to the same output.
 
 .TP
 .BR power
 
+Close, but not well tested.
+
 .TP
 .BR txpower
+
+Not working.
 
 .TP
 .BR retry
 
+Very close to the same output.
+
 .TP
 .BR event
-.PP
-  Does not work.
+
+Not working.
 
 .TP
 .BR auth
-.PP
-  Does not work.
+
+Not working.
 
 .TP
-.BR wpa[keys]
-.PP
-  Does not work.
+.BR wpakeys
+
+Not working.
 
 .TP
 .BR genie
-.PP
-  Does not work.
+
+Not working.
 
 .TP
-.BR modu[lation]
-.PP
-  Does not work.
+.BR modulation
+
+Not working.
 
 .\"
 .\" AUTHOR part
@@ -118,13 +150,14 @@ Sean Robinson \- seankrobinson@gmail.com
 .SH COPYRIGHT
 Portions Copyright 1996-2006 Jean Tourrilhes
 .br
-Copyright 2004-2008 Roman Joost
+Copyright 2004-2005 Roman Joost
 .br
 Copyright 2009 Sean Robinson
 .\"
 .\" FILES part
 .\"
 .SH FILES
+.I /proc/net/dev,
 .I /proc/net/wireless
 .\"
 .\" SEE ALSO part
