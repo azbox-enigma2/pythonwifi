@@ -4,6 +4,8 @@
 
 SHELL = /bin/sh
 
+package 	= python-wifi
+
 VERSION = $(shell cat $(srcdir)/docs/VERSION)
 
 TOPDIR := $(CURDIR)
