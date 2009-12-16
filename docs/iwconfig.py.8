@@ -1,7 +1,7 @@
 .\" Author: Sean Robinson <seankrobinson@gmail.com>
 .\" iwconfig.py.8
 .\"
-.TH IWCONFIG.py 8 "05 August 2009" "Python WiFi" "Linux Programmer's Manual"
+.TH IWCONFIG.py 8 "16 December 2009" "Python WiFi" "Linux Programmer's Manual"
 .\"
 .\" NAME part
 .\"
@@ -30,8 +30,8 @@ iwconfig.py \- configure a wireless network interface via Python
 .\" DESCRIPTION part
 .\"
 .SH DESCRIPTION
-.B Iwconfig.py
-is a drop-in replacement for
+.B iwconfig.py
+intends to be a drop-in replacement for
 .IR iwconfig (8),
 but uses the pythonwifi module to implement its functionality in pure Python.
 See the
@@ -39,6 +39,8 @@ See the
 man page for more detail about what
 .B iwconfig.py
 can do.
+.PP
+But, at this time, this program does not work well (if at all).
 .PP
 The compatitibilty of specific operations
 .B iwconfig.py
@@ -51,69 +53,68 @@ are listed below.
 .SH COMPATIBILITY
 .TP
 .BR essid
+Not working.
 
 .TP
 .BR nwid
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR nick [name]
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR mode
+Not working.
 
 .TP
 .BR freq / channel
+Not working.
 
 .TP
 .BR ap
+Not working.
 
 .TP
 .BR rate / bit [rate]
+Not working.
 
 .TP
 .BR txpower
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR sens
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR retry
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR rts [_threshold]
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR frag [mentation_threshold]
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR key / enc [ryption]
+Not working.
 
 .TP
 .BR power
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR modu [lation]
-.PP
-  Does not work.
+Not working.
 
 .TP
 .BR commit
+Not working.
+
 .\"
 .\" AUTHOR part
 .\"
@@ -125,7 +126,7 @@ Sean Robinson \- seankrobinson@gmail.com
 .SH COPYRIGHT
 Portions Copyright 1996-2006 Jean Tourrilhes
 .br
-Copyright 2004-2008 Roman Joost
+Copyright 2004-2005 Roman Joost
 .br
 Copyright 2009 Sean Robinson
 .\"
@@ -138,6 +139,5 @@ Copyright 2009 Sean Robinson
 .\" SEE ALSO part
 .\"
 .SH SEE ALSO
-.BR ifconfig (8),
 .BR iwconfig (8),
 .BR iwlist.py (8),
