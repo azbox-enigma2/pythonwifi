@@ -26,7 +26,7 @@ module to duplicate the functionality of those programs as closely as possible.
 Files and Directories
 ---------------------
 ./docs/ - supporting documentation
-./docs/api/ - documentation of the pythonwifi API
+./docs/api/ - documentation of the pythonwifi API (not yet there)
 ./docs/logos/ - the Python WiFi logo in various formats
 ./examples/ - sample uses of pythonwifi module
 ./pythonwifi/ - the module source code
