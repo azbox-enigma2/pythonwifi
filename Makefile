@@ -6,7 +6,11 @@ SHELL = /bin/sh
 
 package 	= python-wifi
 
+srcdir = .
+
 VERSION = $(shell cat $(srcdir)/docs/VERSION)
+
+BRANCH = "master"
 
 TOPDIR := $(CURDIR)
 
