@@ -19,6 +19,7 @@ TOPDIR := $(CURDIR)
 all:	
 
 egg:	
+	python setup.py bdist_egg
 
 tarball:	
 
