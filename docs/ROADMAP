@@ -1,4 +1,4 @@
-Summer 2009:
+Winter 2009:
     release v0.5.0 with increased, but still partial iwconfig.py and iwlist.py
 
     v0.5 targets:
@@ -9,9 +9,9 @@ Summer 2009:
         - Writing: essid, mode, freq, channel, bit (rate), enc (key), power, nickname, ap, txpower, retry, commit
 
 
-Fall/Winter 2009:
+Spring 2010:
     release with more features
 
-Spring 2010:
+Summer 2010:
     release v1.0.0 with 98%+ feature match to Linux Wireless Extensions v22
 
