@@ -149,8 +149,37 @@ def getEncryption(wifi):
 
 def getPowerManagement(wifi):
     """ Return formatted string with Power Management info. """
-    pm = wifi.getPowermanagement()
-    return "Power Management:%s" % (pm[0], )
+    power = wifi.wireless_info.getPower()
+    status = ""
+    if (power.disabled):
+        status = ":off"
+    else:
+        if (power.flags & IW_POWER_TYPE):
+            if (power.flags & pythonwifi.flags.IW_POWER_MIN):
+                status = status + " min"
+            if (power.flags & pythonwifi.flags.IW_POWER_MAX):
+                status = status + " max"
+            if (power.flags & pythonwifi.flags.IW_POWER_TIMEOUT):
+                status = status + " timeout:"
+            else:
+                if (power.flags & pythonwifi.flags.IW_POWER_SAVING):
+                    status = status + " saving:"
+                else:
+                    status = status + " period:"
+        pm_mode_mask = power.flags & pythonwifi.flags.IW_POWER_MODE
+        if (pm_mode_mask == pythonwifi.flags.IW_POWER_UNICAST_R):
+            status = status + "mode:Receive Unicast only received"
+        elif (pm_mode_mask == pythonwifi.flags.IW_POWER_MULTICAST_R):
+            status = status + "mode:Receive Multicast only received"
+        elif (pm_mode_mask == pythonwifi.flags.IW_POWER_ALL_R):
+            status = status + "mode:All packets received"
+        elif (pm_mode_mask == pythonwifi.flags.IW_POWER_FORCE_S):
+            status = status + "mode:Force sending"
+        elif (pm_mode_mask == pythonwifi.flags.IW_POWER_REPEATER):
+            status = status + "mode:Repeat multicasts"
+        if (power.flags & pythonwifi.flags.IW_POWER_ON):
+            status = status + ":on"
+    return "Power Management%s" % (status, )
 
 def iwconfig(interface):
     """ Get wireless information from the device driver. """
