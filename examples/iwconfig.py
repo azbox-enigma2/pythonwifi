@@ -206,28 +206,30 @@ def iwconfig(interface):
         line = line + getPowerManagement(wifi)
         print line
 
-        stat, qual, discard, missed_beacon = wifi.getStatistics()
-
-        # Link Quality, Signal Level and Noise Level line
-        line = "          "
-        line = line + "Link Quality:%s/100  " % (qual.quality, )
-        line = line + "Signal level:%sdBm  " % (qual.signallevel, )
-        line = line + "Noise level:%sdBm" % (qual.noiselevel, )
-        print line
-
-        # Rx line
-        line = "          "
-        line = line + "Rx invalid nwid:%s  " % (discard['nwid'], )
-        line = line + "Rx invalid crypt:%s  " % (discard['code'], )
-        line = line + "Rx invalid frag:%s" % (discard['fragment'], )
-        print line
-
-        # Tx line
-        line = "          "
-        line = line + "Tx excessive retries:%s  " % (discard['retries'], )
-        line = line + "Invalid misc:%s   " % (discard['misc'], )
-        line = line + "Missed beacon:%s" % (missed_beacon, )
-        print line
+        try:
+            stat, qual, discard, missed_beacon = wifi.getStatistics()
+        except IOError, (error_number, error_string):
+            # Some drivers do not return statistics info if not associated
+            pass
+        else:
+            # Link Quality, Signal Level and Noise Level line
+            line = "          "
+            line = line + "Link Quality:%s/100  " % (qual.quality, )
+            line = line + "Signal level:%sdBm  " % (qual.signallevel, )
+            line = line + "Noise level:%sdBm" % (qual.noiselevel, )
+            print line
+            # Rx line
+            line = "          "
+            line = line + "Rx invalid nwid:%s  " % (discard['nwid'], )
+            line = line + "Rx invalid crypt:%s  " % (discard['code'], )
+            line = line + "Rx invalid frag:%s" % (discard['fragment'], )
+            print line
+            # Tx line
+            line = "          "
+            line = line + "Tx excessive retries:%s  " % (discard['retries'], )
+            line = line + "Invalid misc:%s   " % (discard['misc'], )
+            line = line + "Missed beacon:%s" % (missed_beacon, )
+            print line
 
     print
 
