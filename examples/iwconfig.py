@@ -167,8 +167,17 @@ def iwconfig(interface):
         ap_addr = wifi.getAPaddr()
         if (ap_addr == "00:00:00:00:00:00"):
             ap_addr = "Not-Associated"
-        print """          Mode:%s  Frequency:%s  %s: %s""" % (
-            wifi.getMode(), wifi.getFrequency(), ap_type, ap_addr)
+
+        # Mode, Frequency, and Access Point
+        line = "          "
+        line = line + "Mode:" + wifi.getMode()
+        try:
+            line = line + "  Frequency:" + wifi.getFrequency()
+        except IOError, (error_number, error_string):
+            # Some drivers do not return frequency info if not associated
+            pass
+        line = line + "  " + ap_type + ": " + ap_addr
+        print line
 
         # Bit Rate, TXPower, and Sensitivity line
         line = "          "
