@@ -1017,8 +1017,8 @@ class Iwstruct(object):
         if data is not None:
             ifreq.extend(data)
         else:
-            buff = 32 # - pythonwifi.flags.IFNAMSIZE
-            ifreq.extend('\0'*buff)
+            # extend to 32 bytes for ioctl payload
+            ifreq.extend('\0'*16)
 
         result = self._fcntl(request, ifreq)
         return (result, ifreq[pythonwifi.flags.IFNAMSIZE:])
