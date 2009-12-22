@@ -187,8 +187,20 @@ def iwconfig(interface):
         print "%-8.16s  no wireless extensions." % (interface, )
     else:
         wifi = Wireless(interface)
-        print """%-8.16s  %s  ESSID:"%s" """ % (interface,
-            wifi.getWirelessName(), wifi.getEssid())
+        line = """%-8.16s  %s  """ % (interface, wifi.getWirelessName())
+        if (wifi.getEssid()):
+            line = line + """ESSID:"%s"  \n          """ % (wifi.getEssid(), )
+        else:
+            line = line + "ESSID:off/any  \n          "
+
+        # Mode, Frequency, and Access Point
+        line = line + "Mode:" + wifi.getMode()
+        try:
+            line = line + "  Frequency:" + wifi.getFrequency()
+        except IOError, (error_number, error_string):
+            # Some drivers do not return frequency info if not associated
+            pass
+
         if (wifi.wireless_info.getMode() == pythonwifi.flags.IW_MODE_ADHOC):
             ap_type = "Cell"
         else:
@@ -196,16 +208,7 @@ def iwconfig(interface):
         ap_addr = wifi.getAPaddr()
         if (ap_addr == "00:00:00:00:00:00"):
             ap_addr = "Not-Associated"
-
-        # Mode, Frequency, and Access Point
-        line = "          "
-        line = line + "Mode:" + wifi.getMode()
-        try:
-            line = line + "  Frequency:" + wifi.getFrequency()
-        except IOError, (error_number, error_string):
-            # Some drivers do not return frequency info if not associated
-            pass
-        line = line + "  " + ap_type + ": " + ap_addr
+        line = line + "  " + ap_type + ": " + ap_addr + "   "
         print line
 
         # Bit Rate, TXPower, and Sensitivity line
