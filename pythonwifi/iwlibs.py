@@ -707,7 +707,6 @@ class WirelessConfig(object):
         self.iwstruct = Iwstruct()
         #self.nwid = Iwparam
         self.freq_flags = 0
-        self.essid_on = 0
 
     def getWirelessName(self):
         """ Returns the wireless name.
