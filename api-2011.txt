@@ -198,6 +198,22 @@ class Wireless(object):
         """
         pass
 
+====WirelessConfig Class====
+
+The WirelessConfig class is a subclass of Wireless that aims to contain more
+of the information and commands available under each protocol.  Because each
+protocol provides a slightly different set of information and commands, the
+methods in WirelessConfig are not guaranteed to be the same in number,
+content, nor function.
+
+=====WirelessConfig Common Methods=====
+
+The methods listed here are those which will be in both packages'
+WirelessConfig.  Package-specific methods are given after this section and
+are in addition to the API detailed here.
+
+{{{
+class WirelessConfig(Wireless):
     def get_ssid():
         """ Return the currently connected SSID.  Returns None if no
             connection is in place.
@@ -352,15 +368,6 @@ class Wireless(object):
         """
         pass
 }}}
-
-
-====WirelessConfig Class====
-
-The WirelessConfig class is a subclass of Wireless that aims to contain more
-of the information and commands available under each protocol.  Because each
-protocol provides a slightly different set of information and commands, the
-methods in WirelessConfig are not guaranteed to be the same in number,
-content, nor function.
 
 =====nl80211 WirelessConfig=====
 
