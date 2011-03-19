@@ -175,28 +175,29 @@ class Wireless(object):
         """
         return ss_list
 
-    def connect(ssid, bssid=None, frequency=None, channel=None):
-        """ Connect with specified SSID.
-
-            ssid - string - the SSID with which to connect
-
-            bssid - string - specific BSSID in SSID with which to connect;
-                             this string is six colon-separated octets
-                             (e.g. 00:01:02:AA:BC:EF)
-
-            frequency - integer - use this frequency (freq in MHz)
-
-            channel - integer - use this channel; will look up the associated
-                                frequency and use that for connection
-
-            If frequency and channel are both given, an exception is raised.
+    def connect(service_set):
+        """ Connect with the specified service set.
         """
         pass
 
     def disconnect():
-        """ Disconnect from currently connected SSID.
+        """ Disconnect from currently connected service set.
         """
         pass
+
+    def get_connection():
+        """ Returns the ServiceSet used for the current connection.  Returns
+            None if no connection is in place.
+        """
+        return service_set
+
+    def is_connected():
+        """ Returns state of connection.  Returns True if a connection is in
+            place and False if no connection is in place.
+        """
+        return connection_state
+}}}
+
 
 ====WirelessConfig Class====
 
