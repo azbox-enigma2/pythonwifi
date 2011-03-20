@@ -1,10 +1,10 @@
 =RFC: New API to Unify WEXT (iwlibs) and nl80211 Interfaces in pythonwifi=
 
 Started: 20110317
-Rev. 20110318-01
+Rev. 20110319-01
 
 This document attempts to outline a new API for pythonwifi going forward
-from v0.5.  Everything in this Request For Commentis open for discussion
+from v0.5.  Everything in this Request For Comment is open for discussion
 and change.  The API described here a starting point for such a discussion.
 That argument will take place on pythonwifi-devel@berlios.de. If you would
 like to comment on this API, please subscribe and become involved.
@@ -44,11 +44,14 @@ modules.  One goal of this reorganizaion is that the module used may be
 swapped out for the other module without requiring much, if any, other
 changes to the user's source code.
 
+  A second goal is to make pythonwifi compatible with Python 2 and Python 3
+in the same source.
+
 
 ==Terminology==
 
 This document tries to follow the Python community conventions, as I
-understand it, for terminology relating to software libraries.  The overall
+understand them, for terminology relating to software libraries.  The overall
 group of files is a distribution, the distribution under consideration is
 named pythonwifi.  A package is a subgroup of files within a distribution.
 The root package is the top of the hierarchy and is the base of the
@@ -56,8 +59,7 @@ distribution.  The pythonwifi distribution will contain two packages
 below the root package: nl80211 and wext.
 
 A module is an individual file in the distribution.  This file may be within
-a package or above the packages in the hierarchy but is still located within
-the distribution.
+the root package or any subpackages in the hierarchy.
 
 Where pseudo-code is used to illustrate the proposed API, an informal data
 type is used to hint at the values to be passed into and returned from the
@@ -69,6 +71,9 @@ controlling the wireless hardware via requests to the driver from userspace.
 So the developers in question are requesting service from the wireless
 driver.  This term is used to more clearly distinguish the pythonwifi target
 audience from driver developers.
+
+A service set is the service provided by an access point or ad-hoc mesh.
+This is advertised to clients via the SSID.
 
 
 ==New API==
@@ -94,13 +99,13 @@ Although, only one module should be required at one time.
 
 ===Module Layout===
 
-The main package in each module will be __init__.py so that importing the
-module will provide access to the primary class(es) to be used by wireless
-client developers.  The package containing the most common constants used by
-each protocol will be named flags.py.  The package containing common
+The main module in each package will be __init__.py so that importing the
+package will provide access to the primary class(es) to be used by wireless
+client developers.  The module containing the most common constants used by
+each protocol will be named flags.py.  The module containing common
 utilities required for the protocol, but not necessarily needed by wireless
-client developers, will be named base.py.  Each module may have additional
-packages which provide additional protocol support.
+client developers, will be named base.py.  Each package may have additional
+modules which provide additional protocol support.
 
         pythonwifi/(nl80211|wext)/__init__.py
         pythonwifi/(nl80211|wext)/flags.py
@@ -121,15 +126,14 @@ put into a class if it makes sense.
     def get_phy_names()  XXX
     def get_wiphy_names()  XXX
     def if_nametoindex(string)
-
 }}}
 
 ===Package Classes===
 
 The primary classes of interest to pythonwifi users will be named Wireless
-and Station.  These class names will be the same in the nl80211 and WEXT
-modules.  Secondary classes for less common operations will be in the same
-package.
+and ServiceSet.  These class names will be the same in the nl80211 and WEXT
+packages.  Secondary classes for less common operations (i.e. WirelessConfig)
+will be in the same module.
 
 
 ====Wireless Class====
@@ -171,7 +175,7 @@ class Wireless(object):
             channel - integer - scan only on this channel; will look up the
                                 associated frequency and use that for the scan
 
-            If frequency and channel are both given, an exception is raised.
+            If frequency and channel are both given, a warning is raised.
         """
         return ss_list
 
@@ -207,6 +211,12 @@ protocol provides a slightly different set of information and commands, the
 methods in WirelessConfig are not guaranteed to be the same in number,
 content, nor function.
 
+Many of the methods herein are for reading or assigning various options
+on the wireless network device.  These methods are not necessary for only
+connecting to an access point, but are given for those wireless client
+developers that may want to accomplish other tasks with their clients.
+
+
 =====WirelessConfig Common Methods=====
 
 The methods listed here are those which will be in both packages'
@@ -216,25 +226,24 @@ are in addition to the API detailed here.
 {{{
 class WirelessConfig(Wireless):
     def get_ssid():
-        """ Return the currently connected SSID.  Returns None if no
-            connection is in place.
+        """ Return the SSID currently assigned to the device.  Returns None
+            if no SSID has been assigned to the wireless device.
         """
         return string
 
     def set_ssid(ssid):
-        """ Set the SSID to ssid.
+        """ Set the device's SSID to ssid.
 
-            ssid - string - the desired SSID
+            ssid - string - desired SSID or "off"
 
-            Raises an exception if interface is connected, as changing the
-            SSID while connected would break the connection.
+            Changing the SSID while connected may break the connection.
         """
         pass
 
     def get_bssid():
-        """ Return the currently connected BSSID as a string of six
-            colon-separated octets (e.g. 00:01:02:AA:BC:EF).  Returns None
-            if no connection is in place.
+        """ Return the BSSID currently assigned to the device as a string
+            of six colon-separated octets (e.g. 00:01:02:AA:BC:EF).  Returns
+            None if no SSID has been assigned to the wireless device.
         """
         return string
 
@@ -248,8 +257,8 @@ class WirelessConfig(Wireless):
         pass
 
     def get_frequency():
-        """ Return the current frequency in MHz (e.g. 2462).  Returns None
-            if no connection is in place.
+        """ Return the frequency (in MHz, e.g. 2462) current assigned to the
+            device.
         """
         return frequency
 
@@ -263,8 +272,7 @@ class WirelessConfig(Wireless):
         pass
 
     def get_channel():
-        """ Return the current channel.  Returns None if no connection is
-            in place.
+        """ Return the channel current assigned to the device.
         """
         return channel
 
@@ -327,7 +335,8 @@ class WirelessConfig(Wireless):
         return key
 
     def add_key(index, key):
-        """ Set an encryption key on the device.
+        """ Set an encryption key on the device.  May overwrite a key already
+            in that index position.
 
             index - integer - The position in which to place the key, see
               get_key() for more information.
@@ -355,6 +364,98 @@ class WirelessConfig(Wireless):
                 What format for the key?
         """
         pass
+}}}
+
+=====nl80211 WirelessConfig=====
+
+{{{
+class WirelessConfig(Wireless):
+    def authenticate(ssid=string, bssid=hex_string, frequency=float,
+                        channel=integer, auth_type=XXX, ie=XXX):
+        """
+        """
+        pass
+
+    def deauthenticate():
+        """
+        """
+        pass
+
+    def associate(ssid=string, bssid=hex_string, frequency=float,
+                        channel=integer, auth_type=XXX, ie=XXX)
+        """
+        """
+        pass
+
+    def disassociate()
+        """
+        """
+        pass
+
+    def get_mesh_path():
+        """
+        """
+        return XXX
+
+    def set_mesh_path(XXX)
+        """
+        """
+        pass
+
+    def get_mesh_config():
+        """
+        """
+        return XXX
+
+    def set_mesh_config(XXX)
+        """
+        """
+        pass
+
+    def mesh_join(XXX)
+        """
+        """
+        pass
+
+    def mesh_leave()
+        """
+        """
+        pass
+
+    def get_reg_domain()
+        """
+        """
+        return XXX
+
+    def set_reg_domain(XXX)
+        """
+        """
+        pass
+
+    def get_bitrates()
+        """
+        """
+        return XXX
+
+    def set_bitrates(XXX)
+        """
+        """
+        pass
+
+    def set_tx_bitrate_mask(XXX)
+        """
+        """
+        pass
+
+    def get_tx_power()
+        """
+        """
+        return XXX
+
+    def set_tx_power(XXX)
+        """
+        """
+        pass
 
     def get_power_save():
         """ Returns the current state of power save; True for power save on
@@ -365,39 +466,10 @@ class WirelessConfig(Wireless):
     def set_power_save(power_save):
         """ Set the power save state for the device.
 
-            See WirelessConfig for power options specific to each protocol.
+            See protocol-specific WirelessConfig for power options
+            specific to each protocol.
         """
         pass
-}}}
-
-=====nl80211 WirelessConfig=====
-
-{{{
-class WirelessConfig(Wireless):
-    def authenticate(ssid=string, bssid=hex_string, frequency=float,
-                        channel=integer, auth_type=XXX, ie=XXX)
-    def deauthenticate()
-    def associate(ssid=string, bssid=hex_string, frequency=float,
-                        channel=integer, auth_type=XXX, ie=XXX)
-    def disassociate()
-    def get_mesh_path():
-        return XXX
-    def set_mesh_path(XXX)
-    def get_mesh_config():
-        return XXX
-    def set_mesh_config(XXX)
-    def mesh_join(XXX)
-    def mesh_leave()
-    def get_reg_domain()
-        return XXX
-    def set_reg_domain(XXX)
-    def get_bitrates()
-        return XXX
-    def set_bitrates(XXX)
-    def set_tx_bitrate_mask(XXX)
-    def get_tx_power()
-        return XXX
-    def set_tx_power(XXX)
 }}}
 
 =====wext WirelessConfig=====
@@ -405,15 +477,40 @@ class WirelessConfig(Wireless):
 {{{
 class WirelessConfig(Wireless):
     def get_bitrates()
+        """
+        """
         return XXX
+
     def set_bitrates(XXX)
+        """
+        """
+        pass
+
     def get_tx_power()
+        """
+        """
         return XXX
+
     def set_tx_power(XXX)
+        """
+        """
+        pass
+
     def get_power_management()
+        """
+        """
         return XXX
+
     def set_power_management(XXX)
+        """
+        """
+        pass
+
     def commit()
+        """
+        """
+        pass
+
 }}}
 
 
