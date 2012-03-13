@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from distutils.core import setup
-from ez_setup import use_setuptools
-use_setuptools()
 
 setup(
     name = "python-wifi",
@@ -10,7 +8,7 @@ setup(
     author_email = "roman@bromeco.de",
     maintainer = "Sean Robinson",
     maintainer_email = "pythonwifi-dev@lists.berlios.de",
-    description = """Python WiFi is a Python module that provides read and write access to a 
+    description = """Python WiFi is a Python module that provides read and write access to a
 wireless network card's capabilities using the Linux Wireless Extensions.""",
     url = "http://pythonwifi.wikispot.org/",
     packages = ['pythonwifi'],
