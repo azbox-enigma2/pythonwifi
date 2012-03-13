@@ -20,7 +20,7 @@ Sean Robinson <seankrobinson@gmail.com>
 
 ==History==
 
-pythonwifi in its current state is a pure Python distribution, developed
+pythonwifi, in its current state, is a pure Python distribution, developed
 under Python 2, for controlling wireless network device configuration in
 Linux systems using the WEXT ioctls.  The WEXT interface is the long-time
 access method for configuration and control of wireless devices in the Linux
@@ -31,7 +31,7 @@ are encouraging.
 pymnl is a newly written pure Python distribution to aid communicating with
 the Netlink system (which underlies the nl80211 protocol).  pymnl does not
 know about nl80211, but it can be used as a foundation by pythonwifi to
-add nl80211 access along with WEXT access.
+add nl80211 access, along with the current WEXT access.
 
 
 ==Future==
@@ -44,7 +44,7 @@ modules.  One goal of this reorganizaion is that the module used may be
 swapped out for the other module without requiring much, if any, other
 changes to the user's source code.
 
-  A second goal is to make pythonwifi compatible with Python 2 and Python 3
+A second goal is to make pythonwifi compatible with Python 2 and Python 3
 in the same source.
 
 
@@ -72,29 +72,30 @@ So the developers in question are requesting service from the wireless
 driver.  This term is used to more clearly distinguish the pythonwifi target
 audience from driver developers.
 
-A service set is the service provided by an access point or ad-hoc mesh.
-This is advertised to clients via the SSID.
+For the definitions of technical term as they are used in this document,
+see the glossary at the end of this document.
 
 
 ==New API==
 
 ===Distribution Layout===
 
-The new module will be named pythonwifi.nl80211. The existing pythonwifi
-module will be moved down to pythonwifi.wext.  That is, the current file
+The new package will be named pythonwifi.nl80211. The existing pythonwifi
+package will be moved down to pythonwifi.wext.  That is, the current file
 hierarchy will be changed from
 
         pythonwifi/__init__.py
 to
+        pythonwifi/__init__.py
         pythonwifi/nl80211/__init__.py
         pythonwifi/wext/__init__.py
 
-This means the module(s) would be imported with:
+This means the package(s) would be imported with:
 
         import pythonwifi.nl80211
         import pythonwifi.wext
 
-Although, only one module should be required at one time.
+Although, only one package should be required at one time.
 
 
 ===Module Layout===
@@ -162,7 +163,7 @@ class Wireless(object):
         pass
 
     def scan(trigger=True, ssid=None, frequency=None, channel=None):
-        """ Returns a list of ServiceSet objects.  These objects are built
+        """ Return a list of ServiceSet objects.  These objects are built
             from the SSID information found in the local environment.
 
             trigger - boolean - True = ask wireless system to perform a new scan;
@@ -175,7 +176,8 @@ class Wireless(object):
             channel - integer - scan only on this channel; will look up the
                                 associated frequency and use that for the scan
 
-            If frequency and channel are both given, a warning is raised.
+            If frequency and channel are both given, a warning is given and
+            channel is ignored.
         """
         return ss_list
 
@@ -190,13 +192,13 @@ class Wireless(object):
         pass
 
     def get_connection():
-        """ Returns the ServiceSet used for the current connection.  Returns
+        """ Return the ServiceSet used for the current connection.  Return
             None if no connection is in place.
         """
         return service_set
 
     def is_connected():
-        """ Returns state of connection.  Returns True if a connection is in
+        """ Return state of connection.  Return True if a connection is in
             place and False if no connection is in place.
         """
         return connection_state
@@ -313,13 +315,13 @@ class WirelessConfig(Wireless):
         pass
 
     def get_available_keys():
-        """ Returns a list of the encryption keys in the device.  Returns
+        """ Return a list of the encryption keys in the device.  Return
             an empty list if no keys are present in the device.
         """
         return key_list
 
     def get_key(index=0):
-        """ Returns an encryption key from the device.  Returns None if no
+        """ Return an encryption key from the device.  Return None if no
             key is present in the device.
 
             index - integer - Up to four keys (0-3) can be stored on the
@@ -366,29 +368,71 @@ class WirelessConfig(Wireless):
         pass
 }}}
 
+
 =====nl80211 WirelessConfig=====
 
 {{{
 class WirelessConfig(Wireless):
-    def authenticate(ssid=string, bssid=hex_string, frequency=float,
-                        channel=integer, auth_type=XXX, ie=XXX):
-        """
+    def authenticate(ssid, bssid, frequency=None,
+                        channel=None, auth_type=XXX, ie=XXX):
+        """ Request the device Authenticate to the given BSS.
+
+            ssid - string - a byte string from 1 to 32 bytes long which is
+                the name of the BSS
+
+            bssid - string - colon-separated string of six octets
+                (e.g. '00:01:02:FC:A0:23')
+
+            frequency - integer - the radio frequency to use (in MHz)
+
+            channel - integer - look up the frequency for this channel and
+                use that frequency for authentication.
+
+            auth_type - XXX
+
+            ie - XXX
+
+            If frequency and channel are both given, a warning is given and
+            channel is ignored.
+
+            NOTE: It may be better to just hand this off to wpa_supplicant,
+            where it is likely already done correctly.
         """
         pass
 
     def deauthenticate():
-        """
+        """ Request the device Deauthenticate from the BSS to which it is
+            currently authenticated.
         """
         pass
 
     def associate(ssid=string, bssid=hex_string, frequency=float,
                         channel=integer, auth_type=XXX, ie=XXX)
-        """
+        """ Request the device Associate with the given BSS.
+
+            ssid - string - a byte string from 1 to 32 bytes long which is
+                the name of the BSS
+
+            bssid - string - colon-separated string of six octets
+                (e.g. '00:01:02:FC:A0:23')
+
+            frequency - integer - the radio frequency to use (in MHz)
+
+            channel - integer - look up the frequency for this channel and
+                use that frequency for authentication.
+
+            auth_type - XXX
+
+            ie - XXX
+
+            If frequency and channel are both given, a warning is given and
+            channel is ignored.
         """
         pass
 
-    def disassociate()
-        """
+    def disassociate():
+        """ Request the device Disassociate from the BSS to which it is
+            currently associated.
         """
         pass
 
@@ -447,18 +491,23 @@ class WirelessConfig(Wireless):
         """
         pass
 
-    def get_tx_power()
+    def get_tx_power():
+        """ Return the transmit power (in mBm).
         """
-        """
-        return XXX
+        return power
 
-    def set_tx_power(XXX)
+    def limit_tx_power(limit)
+        """ Limit the transmit power by limit mBm.
         """
+        pass
+
+    def set_tx_power(power)
+        """ Fix the transmit power at power mBm.
         """
         pass
 
     def get_power_save():
-        """ Returns the current state of power save; True for power save on
+        """ Return the current state of power save; True for power save on
             and False for power save off.
         """
         return power_save
@@ -466,48 +515,56 @@ class WirelessConfig(Wireless):
     def set_power_save(power_save):
         """ Set the power save state for the device.
 
-            See protocol-specific WirelessConfig for power options
-            specific to each protocol.
+            power_save - boolean - True to turn on power save and False to
+                turn it off.
         """
         pass
 }}}
+
 
 =====wext WirelessConfig=====
 
 {{{
 class WirelessConfig(Wireless):
-    def get_bitrates()
+    def get_bitrate(self):
+        """ Return the current bit rate (in kibibytes per second) on the
+            device.
         """
-        """
-        return XXX
+        return bitrate
 
-    def set_bitrates(XXX)
+    def get_bitrates(self):
+        """ Return a list of the bit rates (in kibibytes per second)
+            supported on the device.
         """
+        return [bitrate]
+
+    def get_tx_power(self):
+        """ Return the transmit power (in dBm).
+        """
+        return tx_power
+
+    def set_tx_power(power)
+        """ Set the transmit power (in dBm).
+
+            power - float - the transmit power in dBm
         """
         pass
 
-    def get_tx_power()
-        """
-        """
-        return XXX
-
-    def set_tx_power(XXX)
-        """
-        """
-        pass
-
-    def get_power_management()
-        """
+    def get_power_management(self):
+        """ Return the power management settings.
         """
         return XXX
 
     def set_power_management(XXX)
-        """
+        """ Set the power management options.
         """
         pass
 
-    def commit()
-        """
+    def commit(self):
+        """ Commit pending changes to the device.
+
+            Not all wireless cards require this step, however it is included
+            for those that do need it.
         """
         pass
 
@@ -524,18 +581,33 @@ The attributes included in the ServiceSet class should be all those returned
 by the underlying protocol plus any meta-data likely to be helpful to
 wireless client developers.  The amount of information in a ServiceSet depends
 on the amount of detail asked.  That is, a scan will return some information
-about an SSID which will be placed in a ServiceSet object, but querying that
-SSID may place more information in the ServiceSet object.
+about a service set which will be placed in a ServiceSet object, but querying
+the SSID may place more information in the ServiceSet object.
 
 ServiceSet will be a subclass of the Python dict built-in class.  The nl80211
 and wext packages will each implement a custom constructor to make object
 creation from the underlying system's data easier.  wext's ServiceSet will
-accept an Iwscanresult, while nl80211's ServiceSet will accept the dict
-returned by a pymnl AttrParser subclass.
+accept an Iwscanresult, while nl80211's ServiceSet will accept a pymnl
+MessageList.  Each package will also implement a binary() method to return
+a representation of the object which can be used with wext or nl80211.
 
 {{{
 class ServiceSet(dict):
-    def __init__(self, data_str)
+    @classmethod
+    def from_data_str(cls, data_str):
+        """ Create a new ServiceSet object from the binary data string
+            returned from a scan.
+        """
+        self = cls()
+        for (key, value_) in data_str:
+            self[key] = value_
+        return self
+
+    def binary(self):
+        """ Return a binary representation of the ServiceSet which can be
+            used by the Python WiFi backend (i.e. wext or ml80211).
+        """
+        return data_str
 }}}
 
 Because ServiceSet is a subclass of dict, attribute access is dict access, e.g.
@@ -554,8 +626,32 @@ Because ServiceSet is a subclass of dict, attribute access is dict access, e.g.
 }}}
 
 
+== Glossary ==
 
+'Basic Service Set' (BSS) is two or more stations coordinating their
+communications, upon which a network can be formed.  This group of stations
+uses a BSSID to identify their common effort.
 
+'Basic Service Set IDentifier' (BSSID) is a 48-bit number used to uniquely
+identify a BSS.  This value is usually the hardware address of the radio
+in the device supervising the BSS and is often represented as a string of
+six colon-separated octets.
+
+'Extended Service Set' (ESS) is a geographically distributed collection of
+multiple BSS that are linked together and presented to stations as a
+single BSS.
+
+'Service Set' (SS) is a non-standard term used in pythonwifi generically
+referring to a BSS or ESS.  This is advertised to clients via the SSID.
+
+'Service Set IDentifier' (SSID) is the (generally) human-readable string by
+which a service set can be identified.  It is included in a BSS and may be
+repeatedly used in the several BSS composing an ESS.  The SSID is from
+one (1) to thirty-two (32) octets in length.
+
+'Station' is a radio-containing device which is designed to communicate
+wirelessly with other stations.  Specifically, this wireless communication
+is of the format detailed by the IEEE 802.11 standards.
 
 
 
