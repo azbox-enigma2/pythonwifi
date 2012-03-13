@@ -5,8 +5,8 @@ Rev. 20110319-01
 
 This document attempts to outline a new API for pythonwifi going forward
 from v0.5.  Everything in this Request For Comment is open for discussion
-and change.  The API described here a starting point for such a discussion.
-That argument will take place on pythonwifi-devel@berlios.de. If you would
+and change.  The API described here is a starting point for such a discussion.
+That argument will take place on pythonwifi-devel@berlios.de.  If you would
 like to comment on this API, please subscribe and become involved.
 
 
@@ -72,7 +72,7 @@ So the developers in question are requesting service from the wireless
 driver.  This term is used to more clearly distinguish the pythonwifi target
 audience from driver developers.
 
-For the definitions of technical term as they are used in this document,
+For the definitions of technical terms as they are used in this document,
 see the glossary at the end of this document.
 
 
@@ -158,6 +158,7 @@ class Wireless(object):
     """
     def __init__(ifname=None):
         """ Create a Wireless object.
+
             ifname - string - name of wireless interface to use (e.g. wlan0)
         """
         pass
@@ -274,7 +275,7 @@ class WirelessConfig(Wireless):
         pass
 
     def get_channel():
-        """ Return the channel current assigned to the device.
+        """ Return the channel currently assigned to the device.
         """
         return channel
 
@@ -329,7 +330,7 @@ class WirelessConfig(Wireless):
               index 0), but other keys can be selected by choosing a
               different index.
 
-            Raises an exception if 0 <= index <= 3.
+            Raises an exception if not 0 <= index <= 3.
 
             XXX - more detail required
                 What format for the key?
@@ -345,7 +346,7 @@ class WirelessConfig(Wireless):
 
             key - the encryption key to add
 
-            Raises an exception if 0 <= index <= 3.
+            Raises an exception if not 0 <= index <= 3.
 
             XXX - more detail required
                 What format for the key?
@@ -360,7 +361,7 @@ class WirelessConfig(Wireless):
 
             key - (optional) the encryption key to add
 
-            Raises an exception if 0 <= index <= 3.
+            Raises an exception if not 0 <= index <= 3.
 
             XXX - more detail required
                 What format for the key?
@@ -372,7 +373,7 @@ class WirelessConfig(Wireless):
 =====nl80211 WirelessConfig=====
 
 {{{
-class WirelessConfig(Wireless):
+class WirelessConfig(pythonwifi.base.WirelessConfig):
     def authenticate(ssid, bssid, frequency=None,
                         channel=None, auth_type=XXX, ie=XXX):
         """ Request the device Authenticate to the given BSS.
@@ -605,7 +606,7 @@ class ServiceSet(dict):
 
     def binary(self):
         """ Return a binary representation of the ServiceSet which can be
-            used by the Python WiFi backend (i.e. wext or ml80211).
+            used by the Python WiFi backend (i.e. wext or nl80211).
         """
         return data_str
 }}}
