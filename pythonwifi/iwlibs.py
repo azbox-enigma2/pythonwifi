@@ -1527,7 +1527,7 @@ class Iwscanresult(object):
             elif cmd == pythonwifi.flags.SIOCGIWFREQ:
                 self.frequency = Iwfreq(data)
             elif cmd == pythonwifi.flags.SIOCGIWMODE:
-                raw_mode = struct.unpack('I', data)[0]
+                raw_mode = struct.unpack('I', data[:4])[0]
                 self.mode = pythonwifi.flags.modes[raw_mode]
             elif cmd == pythonwifi.flags.SIOCGIWNAME:
                 self.protocol = data[:len(data)-2]
