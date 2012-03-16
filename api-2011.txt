@@ -274,6 +274,14 @@ class WirelessConfig(Wireless):
         """
         pass
 
+    def get_channel_info():
+        """ Return a list of tuples with channel number and frequency pairs.
+
+            NOTE: This method returns a different value that the obsolete
+            Wireless.getChannelInfo().
+        """
+        return channel_info
+
     def get_channel():
         """ Return the channel currently assigned to the device.
         """
