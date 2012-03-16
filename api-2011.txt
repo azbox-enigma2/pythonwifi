@@ -535,6 +535,17 @@ class WirelessConfig(pythonwifi.base.WirelessConfig):
 
 {{{
 class WirelessConfig(pythonwifi.base.WirelessConfig):
+    def get_ap_addr():
+        """ Return the MAC address of the WAP to which the device is
+            connected.
+        """
+        return addr
+
+    def set_ap_addr(addr):
+        """ Set the MAC address of the WAP to which the device will connect.
+        """
+        pass
+
     def get_bitrate(self):
         """ Return the current bit rate (in kibibytes per second) on the
             device.
