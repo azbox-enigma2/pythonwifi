@@ -159,10 +159,14 @@ class Wireless(object):
         attempted on a non-existant or unconfigured
         (i.e. ifconfig wlan0 down) device.
     """
-    def __init__(ifname=None):
+    def __init__(ifname=None, protocol="nl80211"):
         """ Create a Wireless object.
 
             ifname - string - name of wireless interface to use (e.g. wlan0)
+
+            protocol - string - Which backend to use for wireless operations.
+                                Valid values are "nl80211" (default) and "wext",
+                                any other string will raise an exception.
         """
         pass
 
