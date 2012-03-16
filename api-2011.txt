@@ -1,7 +1,7 @@
 =RFC: New API to Unify WEXT (iwlibs) and nl80211 Interfaces in pythonwifi=
 
 Started: 20110317
-Rev. 20110319-01
+Rev. 20120316-01
 
 This document attempts to outline a new API for pythonwifi going forward
 from v0.5.  Everything in this Request For Comment is open for discussion
@@ -212,7 +212,7 @@ The WirelessConfig class is a subclass of Wireless that aims to contain more
 of the information and commands available under each protocol.  Because each
 protocol provides a slightly different set of information and commands, the
 methods in WirelessConfig are not guaranteed to be the same in number,
-content, nor function.
+content, or function.
 
 Many of the methods herein are for reading or assigning various options
 on the wireless network device.  These methods are not necessary for only
@@ -534,7 +534,7 @@ class WirelessConfig(pythonwifi.base.WirelessConfig):
 =====wext WirelessConfig=====
 
 {{{
-class WirelessConfig(Wireless):
+class WirelessConfig(pythonwifi.base.WirelessConfig):
     def get_bitrate(self):
         """ Return the current bit rate (in kibibytes per second) on the
             device.
