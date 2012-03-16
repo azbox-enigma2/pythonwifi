@@ -127,6 +127,9 @@ put into a class if it makes sense.
     def get_phy_names()  XXX
     def get_wiphy_names()  XXX
     def if_nametoindex(string)
+    def mw2dbm(mwatt):
+        """ Convert mW to dBm (float). """
+        pass
 }}}
 
 ===Package Classes===
